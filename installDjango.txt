@@ -1,0 +1,31 @@
+Django installation guide
+
+if you running Windows:
+1. Make sure you have python and pip installed. if not, go https://www.python.org/downloads/
+install python, remember to add it to PATH, then open your Command Prompt, enter py get-pip.py
+
+2.After you have pip installed, reopen your Command Prompt(if you cannot find it, just type cmd in the search bar of your pc (windows 10 and above))
+type "pip install sklearn --user" to overcome the system issue comes with Windows
+
+3.After you have sklearn installed, type "pip install Django==3.2" and enter
+
+4.To verify your installation, go cmd, enter python, if you can see >>> from your cmd, means you are now using python, this is also a good test to see if you are really installed python
+
+5.Now type in "import django" then enter, and type in "print(django.get_version())"
+
+6.If the response is 3.2, congratulations, you now having django 3.2 running on your Windows PC.
+
+
+
+
+
+
+
+
+if you running MacOS:
+
+idk, i'm too lazy to try installation on MacOS, so I only provide general processes
+
+1.Install python on your Mac, Mac comes with Python 2.* version, which is not what we want, go get Python 3.10
+2.Once you have python installed, use your "terminal" and input py get-pip.py
+3.After you have pip installed, type "pip install Django==3.2" in the "terminal"
