@@ -44,7 +44,7 @@ FLUSH PRIVILEGES;
 CREATE TABLE User (
 	userId INT UNSIGNED AUTO_INCREMENT,
 	account VARCHAR(50) NOT NULL UNIQUE,
-	password VARCHAR(20) NOT NULL,
+	password VARCHAR(80) NOT NULL,
 	type VARCHAR(20),
 	CONSTRAINT Chk_userType CHECK(type IN ('superadmin', 'admin', 'player', 'coach')),
 	PRIMARY KEY (userId)
