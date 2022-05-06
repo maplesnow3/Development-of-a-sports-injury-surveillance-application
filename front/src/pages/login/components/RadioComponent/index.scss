@@ -1,0 +1,34 @@
+.radio-component{
+  margin-bottom: 10px;
+  .title{
+    font-size: 12px;
+  }
+  .radio-style{
+    --icon-size: 18px;
+    --font-size: 14px;
+    --gap: 6px
+  }
+  .input-style{
+    display: inline-block;
+    width: 35px;
+    height: 25px;
+    border: 1px solid #bbbbbb;
+    outline: none;
+    margin:  0 10px;
+  }
+  .textarea-type{
+    border: 1px solid #ccc;
+  }
+  textarea::-webkit-input-placeholder {
+    font-size: 12px;
+  }
+  .input-wrapper{
+    position: relative;
+    .unit{
+      position: absolute;
+      bottom: 18px;
+      left: 80px;
+    }
+  }
+  
+}

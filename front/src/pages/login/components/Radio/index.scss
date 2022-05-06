@@ -1,0 +1,36 @@
+.radio-component{
+  margin-bottom: 10px;
+  .title{
+    font-size: 14px;
+  }
+  .card-style{
+    width: 88%;
+    box-shadow: 0px 1px 6px;
+  }
+  .radio-style{
+    --icon-size: 18px;
+    --font-size: 14px;
+    --gap: 6px
+  }
+  .input-style{
+    display: inline-block;
+    width: 30px;
+    height: 25px;
+    border: 1px solid #bbbbbb;
+    outline: none;
+  }
+  .textarea-type{
+    border: 1px solid #ccc;
+    width: 100px;
+  }
+  textarea::-webkit-input-placeholder {
+    font-size: 12px;
+  }
+  .adm-form-item.adm-form-item-horizontal.adm-list-item{
+    --align-items: unset; 
+    --prefix-width: unset;
+  }
+  .adm-form-item-label{
+    font-size: 12px;
+  }
+}

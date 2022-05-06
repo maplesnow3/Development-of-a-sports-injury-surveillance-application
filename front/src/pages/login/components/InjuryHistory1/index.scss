@@ -1,0 +1,26 @@
+.injury-history1{
+  width: 100%;
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  background-color: #1DB860;
+  .wrapper{
+    background-color: #fff;
+    padding: 20px;
+    .injury-history1-title{
+      width: 98%;
+      font-size: 16px;
+      text-align: left;
+      word-break: break-word;
+    }
+    .textarea{
+      width: 100%;
+      height: 100px;
+      border: 1px solid #ccc;
+      outline: none;
+      margin-top: 20px;
+      resize: none;
+    }
+  }
+   
+}

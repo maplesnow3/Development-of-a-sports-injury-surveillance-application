@@ -1,0 +1,15 @@
+.medical-history{
+  width: 100%;
+    height: 100vh;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    background-color: #1DB860;
+    .wrapper{
+      // width: 100%;
+      background-color: #fff;
+      padding: 20px;
+      p{
+        text-align: left;
+      }
+  }
+}
