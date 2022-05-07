@@ -18,11 +18,16 @@ const useRecordDates = () => {
 		const res = await fetch("/sample_record_dates.json");
 		const resFetched = await res.json();
 
+		let readSucceed = false;
 		if (resFetched.status !== "success") {
-			alert("Failed to get record date list - please try later");
 			setRecordDates([]);
 		} else {
+			readSucceed = true;
 			setRecordDates(resFetched.report_date_list);
+		}
+
+		if (!readSucceed) {
+			alert("Failed to get record date list - please try later");
 		}
 	};
 
