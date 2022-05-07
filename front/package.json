@@ -9,6 +9,7 @@
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
     "@testing-library/user-event": "^13.5.0",
+    "antd": "^4.20.2",
     "antd-mobile": "^5.0.0-rc.20",
     "babel-jest": "^27.4.2",
     "babel-loader": "^8.2.3",
@@ -34,6 +35,7 @@
     "jest-watch-typeahead": "^1.0.0",
     "jsqr": "^1.4.0",
     "mini-css-extract-plugin": "^2.4.5",
+    "moment": "^2.29.3",
     "postcss": "^8.4.4",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-loader": "^6.2.1",
@@ -149,5 +151,6 @@
     "postcss-px2rem": "^0.3.0",
     "react-router-dom": "^6.2.1",
     "typescript": "^4.5.4"
-  }
+  },
+  "proxy": "http://localhost:9000/"
 }

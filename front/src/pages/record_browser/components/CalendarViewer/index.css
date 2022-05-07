@@ -1,0 +1,69 @@
+@import '~antd/dist/antd.css';
+
+.title-div,
+.range-div,
+.calendar-div,
+.nav-div {
+  width: 300px;
+  margin: 0 auto;
+  padding-top: 20px;
+}
+
+
+.title-div {
+  display: flex;
+  align-items: center;
+}
+.title-div > * { margin: 30px; }
+.title--icon svg { transform:scale(2); }
+
+
+.range-div .ant-picker-range {
+  width: calc(100% - 90px);
+  margin-right: 10px;
+}
+.range-div button.ant-btn { width: 80px; }
+
+/* Show only one month for dropdown */
+/* TODO: workaround for avoiding using !important */
+.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-next-btn,
+.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-super-next-btn {
+  visibility: visible !important;
+}
+.ant-picker-panels > .ant-picker-panel:not(.ant-picker-panel:first-child) {
+  display: none !important;
+}
+.ant-picker-panel-container, .ant-picker-footer {
+  width: 280px !important;
+}
+.ant-picker-footer-extra > div {
+  flex-wrap: wrap !important;
+}
+
+
+.calendar-div .ant-picker-calendar .ant-picker-calendar-mode-switch {
+  display: none;
+}
+/* Un-highlight today since it is meanless*/
+.calendar-div .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+  color: unset;
+  background: unset;
+}
+
+.nav-div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.nav--icon {
+  margin: 10px;
+}
+.nav--icon svg { transform:scale(2); }
+
+
+
+
+
+
+
+

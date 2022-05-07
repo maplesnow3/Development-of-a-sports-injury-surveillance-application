@@ -7,6 +7,7 @@ import InjuryHistory from '../pages/login/components/InjuryHistory';
 import InjuryHistory1 from '../pages/login/components/InjuryHistory1';
 import ConcussionHistory from '../pages/login/components/ConcussionHistory';
 import Home from '../pages/home';
+import CalendarViewer from '../pages/record_browser/components/CalendarViewer';
 const router:any = [
   {path:'/login',name:'login',element:Login},
   {path:'/registry',name:'registry',element:Registry},
@@ -17,6 +18,7 @@ const router:any = [
   {path:'/registry/injury1',name:'registry',element:InjuryHistory1},
   {path:'/registry/complete',name:'registry',element:ConcussionHistory},
   {path:'/home',name:'home',element:Home},
+  {path:'/record_browser/calendar',name:'record_browser',element:CalendarViewer},
 ]
 
 export default router;
