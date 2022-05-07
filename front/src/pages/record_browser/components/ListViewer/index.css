@@ -1,0 +1,9 @@
+@import '~antd/dist/antd.css';
+
+.title-div,
+.record-table-div,
+.nav-div {
+  width: 300px;
+  margin: 0 auto;
+  padding-top: 20px;
+}

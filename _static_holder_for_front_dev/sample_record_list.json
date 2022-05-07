@@ -1,0 +1,13 @@
+{
+	"status": "success",
+	"report_date_list": [
+		{
+			"report_id": 123456789,
+			"date": "yyyy-mm-dd hh:mm:ss"
+		},
+		{
+			"report_id": 111,
+			"date": "2022-02-03 13:23:05"
+		}
+	]
+}

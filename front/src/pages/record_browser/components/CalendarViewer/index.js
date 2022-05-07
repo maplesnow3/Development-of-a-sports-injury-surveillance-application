@@ -41,7 +41,6 @@ const useRecordDates = () => {
 
 
 const CalendarViewer = () => {
-	// casual date specified for testing the calendar function
 	const datesWithRecord = useRecordDates();
 
 	// Storage for selected date range
@@ -74,7 +73,7 @@ const CalendarViewer = () => {
 						} else {
 							// TODO (Place reserved for do the search)
 							console.log(dateRangeSelected);
-							alert("search triggered");
+							window.location.href = "/record_browser/list"
 						}
 					} }
 				>Show</Button>
@@ -90,12 +89,13 @@ const CalendarViewer = () => {
 						return !(datesWithRecord.indexOf(checkedDate.format("YYYY-MM-DD")) > -1);
 					} }
 
-					// TODO (Place reserved for reading reports in the day)
 					onSelect={ (dateSelected) => {
 						// Only react to valid dates
 						if (datesWithRecord.indexOf(dateSelected.format("YYYY-MM-DD")) > -1) {
+							// TODO (Place reserved for reading reports in the day)
 							console.log(dateSelected);
-							alert("selected " + dateSelected.format("YYYY-MM-DD"));
+							//alert("selected " + dateSelected.format("YYYY-MM-DD"));
+							window.location.href = "/record_browser/list"
 						}
 					} }
 				/>
@@ -111,6 +111,7 @@ const CalendarViewer = () => {
 					<a href="javascript:history.back();"><LeftOutline /></a>
 				</div>
 			</div>
+
 		</div>
 	)
 };
