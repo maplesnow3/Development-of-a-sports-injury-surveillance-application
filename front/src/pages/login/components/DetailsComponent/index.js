@@ -11,10 +11,10 @@ const DetailsComponent = ()=>{
   const [pickerVisible, setPickerVisible] = useState(false);
   const formArray = [
           {type:'input',name:'surname',label:'Surname',rules:[{required:true,message:'Please Enter your Surname'}],placeholder:'Please Enter your Surname'},
-          {type:'input',name:'givenName',label:'Surname',rules:[{required:true,message:'Please Enter your Given Name'}],placeholder:'Please Enter your Given Name'},
-          {type:'datepicker',name:'birthday',label:'birthday',rules:[{required:true,message:'Please Enter your Date of Birth'}],placeholder:'Please Enter your Date of Birth'},
-          {type:'radio',name:'ethicBackground',label:'ethicBackground',rules:[{required:true,message:'Please choose your ethic background'}],placeholder:'Please choose your ethic background'},
-          {type:'input',name:'phone',label:'phone',rules:[{required:true,message:'Please Enter your phone number'}],placeholder:'Please Enter your phone number'},
+          {type:'input',name:'givenName',label:'Given Name',rules:[{required:true,message:'Please Enter your Given Name'}],placeholder:'Please Enter your Given Name'},
+          {type:'datepicker',name:'birthday',label:'Birthday',rules:[{required:true,message:'Please Enter your Date of Birth'}],placeholder:'Please Enter your Date of Birth'},
+          {type:'radio',name:'ethicBackground',label:'EthicBackground',rules:[{required:true,message:'Please choose your ethic background'}],placeholder:'Please choose your ethic background'},
+          {type:'input',name:'phone',label:'Phone',rules:[{required:true,message:'Please Enter your phone number'}],placeholder:'Please Enter your phone number'},
           {type:'input',name:'address',label:'Address',rules:[{required:true,message:'Please Enter your Address'}],placeholder:'Please Enter your Address'},
           {type:'input',name:'country',label:'Country',rules:[{required:true,message:'Please Enter your country of Birth'}],placeholder:'Please Enter your country of Birth'},
         ]

@@ -23,7 +23,7 @@ const CreateAccount = ()=>{
         }>
         <Form.Item
           name='email'
-          label='email'
+          label='Email'
           rules={[
             { required: true,message:'please enter your email' },
             { type: 'string', min: 6,message:'contains at least 6 characters' },
@@ -34,7 +34,7 @@ const CreateAccount = ()=>{
         </Form.Item>
         <Form.Item
           name='password'
-          label='password'
+          label='Password'
           rules={[
             { required: true,message:'please enter your password' },
             { min: 6,message:'contains at least 6 characters' },
@@ -44,7 +44,7 @@ const CreateAccount = ()=>{
         </Form.Item>
         <Form.Item
           name='rePassword'
-          label='rePassword'
+          label='RePassword'
           rules={[
             { required: true,message:'Please Re-enter your password' },
             { min: 6,message:'contains at least 6 characters' },

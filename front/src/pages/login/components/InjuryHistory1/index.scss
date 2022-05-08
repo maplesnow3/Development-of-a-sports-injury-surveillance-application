@@ -12,6 +12,7 @@
       font-size: 16px;
       text-align: left;
       word-break: break-word;
+      position: relative;
     }
     .textarea{
       width: 100%;
@@ -22,5 +23,28 @@
       resize: none;
     }
   }
-   
+   .textarea-input{
+     display: inline-block;
+     border: 1px solid #ccc;
+     outline: none;
+     width: 50px;
+   }
+   .input-wrapper{
+     position: relative;
+     input{
+       display: inline-block;
+       height: 30px;
+       position: absolute;
+       right: 70px;
+       bottom: 50px;
+     }
+   }
+   .form-input-wrapper{
+     position: relative;
+   }
+   .unit{
+     position:absolute;
+     right: 0;
+     bottom: 50px;
+   }
 }
