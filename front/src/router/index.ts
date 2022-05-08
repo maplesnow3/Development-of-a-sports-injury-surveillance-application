@@ -10,7 +10,8 @@ import Home from '../pages/home';
 import CalendarViewer from '../pages/record_browser/components/CalendarViewer';
 import ListViewer from '../pages/record_browser/components/ListViewer';
 import RecordViewer from '../pages/record_browser/components/RecordViewer';
-
+import Home from '../pages/home/home'
+import Personinfo from '../pages/personinfo/personinfo'
 const router:any = [
   {path:'/login',name:'login',element:Login},
   {path:'/registry',name:'registry',element:Registry},
@@ -24,6 +25,8 @@ const router:any = [
   {path:'/record_browser/calendar',name:'record_browser',element:CalendarViewer},
   {path:'/record_browser/list',name:'record_browser',element:ListViewer},
   {path:'/record_browser/view_record',name:'record_browser',element:RecordViewer},
+  
+  {path:'/personinfo',name:'personal_info',element:Personinfo}
 ]
 
 export default router;
