@@ -15,7 +15,7 @@ const useRecordDates = () => {
 	const [recordDates, setRecordDates] = useState([]);
 	const getRecordDates = async () => {
 		// TODO: use proper API for getting date list
-		const res = await fetch("/sample_record_dates.json");
+		const res = await fetch("/sample_record_list.json");
 		const resFetched = await res.json();
 
 		let readSucceed = false;
@@ -23,7 +23,18 @@ const useRecordDates = () => {
 			setRecordDates([]);
 		} else {
 			readSucceed = true;
-			setRecordDates(resFetched.report_date_list);
+
+			let dates = resFetched.report_date_list.
+				map((item) => {
+					return item.date.replace(
+						/ [0-9]{2}:[0-9]{2}:[0-9]{2}$/,
+						""
+					);
+				}).filter((item, i, arr) => {
+					return arr.indexOf(item) === i;
+				});
+
+			setRecordDates(dates);
 		}
 
 		if (!readSucceed) {
@@ -73,7 +84,7 @@ const CalendarViewer = () => {
 						} else {
 							// TODO (Place reserved for do the search)
 							console.log(dateRangeSelected);
-							window.location.href = "/record_browser/list"
+							window.location.href = `/record_browser/list?uid=1&date_from=${dateRangeSelected[0].format("YYYY-MM-DD")}&date_to=${dateRangeSelected[1].format("YYYY-MM-DD")}`
 						}
 					} }
 				>Show</Button>
@@ -91,11 +102,12 @@ const CalendarViewer = () => {
 
 					onSelect={ (dateSelected) => {
 						// Only react to valid dates
-						if (datesWithRecord.indexOf(dateSelected.format("YYYY-MM-DD")) > -1) {
+						let dateString = dateSelected.format("YYYY-MM-DD");
+						if (datesWithRecord.indexOf(dateString) > -1) {
 							// TODO (Place reserved for reading reports in the day)
-							console.log(dateSelected);
+							console.log(dateString);
 							//alert("selected " + dateSelected.format("YYYY-MM-DD"));
-							window.location.href = "/record_browser/list"
+							window.location.href = `/record_browser/list?uid=1&date_from=${dateString}&date_to=${dateString}`
 						}
 					} }
 				/>

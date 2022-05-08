@@ -74,7 +74,7 @@ const RecordViewer = () => {
 	return (
 		<div>
 			<div className="title-div">
-				<p>Injury report - (ID HERE)</p>
+				<p>Injury Form - {(new URL(window.location).searchParams.get("report_id"))}</p>
 			</div>
 
 			<div className="report-div">
