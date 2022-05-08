@@ -3,6 +3,7 @@ import {
 	CalendarOutline,
 	LeftOutline
 } from 'antd-mobile-icons';
+import jwt from 'jwt-decode';
 import moment from 'moment'
 import React, { useEffect, useState } from 'react';
 
@@ -106,8 +107,17 @@ const CalendarViewer = () => {
 						if (datesWithRecord.indexOf(dateString) > -1) {
 							// TODO (Place reserved for reading reports in the day)
 							console.log(dateString);
-							//alert("selected " + dateSelected.format("YYYY-MM-DD"));
-							window.location.href = `/record_browser/list?uid=1&date_from=${dateString}&date_to=${dateString}`
+
+							// Find user self ID
+							// TODO: decode from cookie
+							let jwtObj = jwt(`eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUyMDA5ODIxLCJpYXQiOjE2NTE5OTE4MjEsImp0aSI6IjcyMWZhMjY3N2FkMjQ3OWI5MGMwMmY2OTZkYzQ3ZDY4IiwidXNlcl9pZCI6Mn0.q_H43nOLkdc5tMelFdNa552e4EvGi68ZxHma3feVTAs`);
+							let uid = jwtObj.user_id || null;
+
+							if (!uid) {
+								alert("Login issue - failed to get current user ID");
+							} else {
+								window.location.href = `/record_browser/list?uid=${uid}&date_from=${dateString}&date_to=${dateString}`
+							}
 						}
 					} }
 				/>

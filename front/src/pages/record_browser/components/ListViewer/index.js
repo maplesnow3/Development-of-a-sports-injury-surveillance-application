@@ -12,7 +12,10 @@ const useRecordList = () => {
 	const [recordList, setRecordList] = useState([]);
 	const getRecordList = async () => {
 		// TODO: use proper API for getting date list
-		const res = await fetch("/sample_record_list.json");
+		const res = await fetch(
+			"/sample_record_list.json" +
+			window.location.search
+		);
 		const resFetched = await res.json();
 
 		let readSucceed = false;

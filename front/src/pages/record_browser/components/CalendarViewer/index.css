@@ -19,10 +19,10 @@
 
 
 .range-div .ant-picker-range {
-  width: calc(100% - 90px);
+  width: calc(100% - 80px);
   margin-right: 10px;
 }
-.range-div button.ant-btn { width: 80px; }
+.range-div button.ant-btn { width: 70px; }
 
 /* Show only one month for dropdown */
 /* TODO: workaround for avoiding using !important */
