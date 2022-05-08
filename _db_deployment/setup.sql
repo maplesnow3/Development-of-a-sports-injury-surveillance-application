@@ -72,6 +72,7 @@ CREATE TABLE PerInfo (
 	address VARCHAR(50),
 	email VARCHAR(50),
 	mobile VARCHAR(20),
+	ethicBackground VARCHAR(20),
 	country VARCHAR(4),
 	PRIMARY KEY (perInfoId)
 );
