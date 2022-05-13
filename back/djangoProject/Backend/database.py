@@ -3,7 +3,6 @@ import random
 import re
 import datetime
 from iso3166 import countries
-import views.user_views
 
 '''
 Connects to the database using the connection string

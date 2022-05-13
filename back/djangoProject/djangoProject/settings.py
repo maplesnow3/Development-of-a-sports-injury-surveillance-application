@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.0/ref/settings/
 """
 
 from pathlib import Path
+import os.path
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -30,6 +31,7 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
+FRONTEND_ROOT = os.path.join(BASE_DIR, 'Frontend')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -43,7 +45,6 @@ INSTALLED_APPS = [
 ]
 
 REST_FRAMEWORK = {
-
     'DEFAULT_AUTHENTICATION_CLASSES': (
 
         'rest_framework_simplejwt.authentication.JWTAuthentication',
