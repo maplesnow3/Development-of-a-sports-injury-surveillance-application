@@ -115,7 +115,7 @@ CREATE TABLE InjForm (
 	injuryType VARCHAR(50),
 	removalWay VARCHAR(20),
 	actAfterInjury VARCHAR(50),
-	injuryMechanism VARCHAR(50),
+	injuryMechanism VARCHAR(100),
 	wearEquipment VARCHAR(50),
 	contributFactor VARCHAR(50),
 	provisionalDiag VARCHAR(1000),
