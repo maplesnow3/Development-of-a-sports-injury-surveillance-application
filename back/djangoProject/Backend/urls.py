@@ -9,7 +9,8 @@ from rest_framework_simplejwt.views import (
 # API list
 urlpatterns = [
     # Login api
-    path('login/', TokenObtainPairView.as_view(), name='token_obtain_pair'),
+    path('login', user_views.loginUser, name='login'),
+    path('logout', user_views.logoutUser, name='login'),
     # User related functions
     path('user/register', user_views.registerUser, name='register'),
     path('user/profile', user_views.getUserProfile, name='users'),
