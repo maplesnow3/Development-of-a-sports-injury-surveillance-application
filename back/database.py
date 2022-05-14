@@ -103,11 +103,14 @@ def register(account, password, type):
         )
         conn.commit()
         curs.close()
-        registerAth=addAth(userid)
-        if registerAth == "Success":
-            return userid
+        if type=="player":
+            registerAth=addAth(userid)
+            if registerAth == "Success":
+                return userid
+            else:
+                return "Fail"
         else:
-            return "Fail"
+            return userid
     except mariadb.Error as e:
         print(e)
         return "Fail"
@@ -172,7 +175,7 @@ def addPerInf(userid, surname, givenName, dateofbirth, ebackground, mobile, addr
         return "Fail"
 
 '''
-Insert the baseline information for a new user (Not Tested)
+Insert the baseline information for a new user 
 '''
 def addBaseInf(userid, medHistory, medHisInput, medicine, takeMedicine, injHistory, injHisInput, surgery, surYear, concHis, concDes):
     conn = openConnection()
@@ -193,7 +196,7 @@ def addBaseInf(userid, medHistory, medHisInput, medicine, takeMedicine, injHisto
         concuHistory=list2str(concHis)
         curs.execute("Insert into BaseInfo (baseInfoId, baseInfoTime, sufferFrom, sufferLength, "
                      "medicineTaken, injuryName, injuryLocation, surgeryName, surgeryYear, concuHistory, concuSympDesc) "
-                     "values (%r, %r, %r, %r, %r, %r, %r, %r, %r, %r)"
+                     "values (%r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r)"
                      %(baseInfoId, baseInfoTime, sufferFrom, sufferLength, medicineTaken, injuryName, injuryLocation,
                        surgeryName, surgeryYear, concuHistory, concDes))
         conn.commit()
@@ -235,7 +238,7 @@ def viewPerInf(userid):
         return "Fail"
 
 '''
-Get the baseline information for a given user (Not Tested)
+Get the baseline information for a given user 
 '''
 def viewBaseInf(userid):
     conn = openConnection()
@@ -335,16 +338,79 @@ def updateAthcode(userid, code):
         return "Fail"
 
 '''
-Insert a new injury report for a given user (ToDo)
+Insert a new injury report for a given user 
 '''
-def addInj(userid, ):
-    return "Success"
+def addInj(userid, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
+           conFact, proDia, injPres, iniTreat, iniTreatPer, referTo):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        injFormId = key('injFormId', 'InjForm')
+        now = datetime.datetime.now()
+        injFormTime = now.strftime('%Y-%m-%d %H:%M:%S')
+        athleteId=getAthid(userid)
+        bodyPart = list2str(bodyPart, "; ")
+        occurDuring=list2str(occurDuring, "; ")
 
-def addConc(userid, ):
-    return "Success"
+        # Check whether this injury report has a concussion report followed
+        isConcussion=0
+        for x in injType:
+            if x =="Concussion":
+                isConcussion=1
+
+        injType = list2str(injType, "; ")
+        injMech = list2str(injMech, "; ")
+        trainSpe = list2str(trainSpe, "; ")
+        injMehcan=[]
+        injMehcan.append(injMech)
+        injMehcan.append(trainSpe)
+        injMehcan=list2str(injMehcan)
+        wearEquip = list2str(wearEquip, "; ")
+        conFact = list2str(conFact)
+        iniTreat = list2str(iniTreat, "; ")
+        iniTreatPer = list2str(iniTreatPer, "; ")
+        referTo = list2str(referTo, "; ")
+        curs.execute("Insert into InjForm (injFormId, injFormTime, bodyPart, occurDuring, "
+                     "injuryType, removalWay, actAfterInjury, injuryMechanism, wearEquipment, contributFactor, "
+                     "provisionalDiag, injuryPresent, initTreat, initTreatPerson, referralTo, athleteId) "
+                     "values (%r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r, %r)"
+                     % (injFormId, injFormTime, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMehcan,
+                        wearEquip, conFact, proDia, injPres, iniTreat, iniTreatPer, referTo, athleteId))
+        conn.commit()
+        curs.close()
+        # Return injFormId as well which is used for insert a concussion report
+        # Return isConcussion to show whether a concussion report is followed
+        return "Success", injFormId, isConcussion
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail", "Fail", "Fail"
+
+def addConc(injFormId, concuFeature, sympRating, PsympWorseQ, MsympWorseQ, feelNormal, feelNormalWhy):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        concuFormId=key('concuFormId', 'ConcuForm')
+        concuFeature=list2str(concuFeature)
+        sympRating=list2str(sympRating)
+        sympWorseQ=[]
+        sympWorseQ.append(PsympWorseQ)
+        sympWorseQ.append(MsympWorseQ)
+        sympWorseQ=list2str(sympWorseQ)
+        feelNormal=feelNormal*0.01
+        curs.execute(
+            "Insert into ConcuForm (concuFormId, concuFeature, sympRating, sympWorseQ, feelNormal, feelNormalWhy, injFormId) "
+            "values (%r, %r, %r, %r, %r, %r, %r)"
+            % (concuFormId, concuFeature, sympRating, sympWorseQ, feelNormal, feelNormalWhy, injFormId))
+        conn.commit()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
 
 '''
-Get all the injury report id and datetime for a given individual user (Not Tested)
+Get all the injury report id and datetime for a given individual user 
 '''
 def viewAllDate(userid):
     conn = openConnection()
@@ -373,10 +439,10 @@ def viewAllDate(userid):
         "report_id": row[0],
         "date": row[1]
     } for row in date]
-    return data_list
+    return date_list
 
 '''
-Get all the injury report id and datetime for a given individual user and a range of date (Not Tested)
+Get all the injury report id and datetime for a given individual user and a range of date 
 '''
 def viewRangeDate(userid, startDate, endDate):
     conn = openConnection()
@@ -406,16 +472,112 @@ def viewRangeDate(userid, startDate, endDate):
         "report_id": row[0],
         "date": row[1]
     } for row in date]
-    return data_list
+    return date_list
 
 '''
-Get the injury report for a given report id (ToDo)
+Get the injury report for a given report id 
 '''
 def viewInj(injId):
-    return "Success"
+    conn = openConnection()
+    try:
+
+        curs = conn.cursor()
+        curs.execute("Select * from InjForm where injFormId = %r"
+                     % (injId))
+        row = curs.fetchone()
+        if row is not None:
+            bodyPart=str(row[3])[0: len(str(row[3])) - 2]
+            occurDuring=str(row[4])[0: len(str(row[4])) - 2]
+            injType=str(row[5])[0: len(str(row[5])) - 2]
+            remoWay=str(row[6])
+            actAfterInj=str(row[7])
+            injMehcan=str2list(str(row[8]))
+            injMech=injMehcan[0]
+            injMech=injMech[0: len(injMech) - 2]
+            trainSpe=injMehcan[1]
+            trainSpe=trainSpe[0: len(trainSpe) - 2]
+            wearEquip=str(row[9])[0: len(str(row[9])) - 2]
+            conFact=str2list(str(row[10]))
+            proDia=str(row[11])
+            injPres=str(row[12])
+            iniTreat=str(row[13])[0: len(str(row[13])) - 2]
+            iniTreatPer=str(row[14])[0: len(str(row[14])) - 2]
+            referTo=str(row[15])[0: len(str(row[15])) - 2]
+            injReport=[bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
+                       conFact, proDia, injPres, iniTreat, iniTreatPer, referTo]
+            curs.close()
+            return injReport
+        else:
+            curs.close()
+            return None
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
 
 def viewConc(injId):
-    return "Success"
+    conn = openConnection()
+    try:
+
+        curs = conn.cursor()
+        curs.execute("Select * from ConcuForm where injFormId = %r"
+                     % (injId))
+        row = curs.fetchone()
+        if row is not None:
+            concuFeature=str2list(str(row[2]))
+            sympRating=str2list(str(row[3]))
+            sympWorseQ=str2list(str(row[4]))
+            PsympWorseQ=sympWorseQ[0]
+            MsympWorseQ=sympWorseQ[1]
+            feelNormal=str(row[5])
+            feelNormalWhy=str(row[6])
+            concuReport=[concuFeature, sympRating, PsympWorseQ, MsympWorseQ, feelNormal, feelNormalWhy]
+            curs.close()
+            return concuReport
+        else:
+            curs.close()
+            return None
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
+Create a new team managed by a given user id(coach)
+'''
+def createTeam(userId, teamName):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        teamId=key('teamId', 'Team')
+        curs.execute("Insert into Team (teamId, teamName) values (%r, %r)"
+                     %(teamId, teamName))
+        curs.execute("Insert into Manage (userId, teamId) values (%r, %r)"
+                     %(userId, teamId))
+        conn.commit()
+        curs.close()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
+Remove the given team from all the teams managed by a given user id(coach)
+'''
+def removeTeam(userId, teamId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Delete from Manage where userId = %r and teamId = %r"
+                     %(userId, teamId))
+        conn.commit()
+        curs.close()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
 
 '''
 Sub-functions
