@@ -1,0 +1,13 @@
+{
+	"status": "success",
+	"team_list": [
+		{
+			"team_id": 24,
+			"name": "MacCannon"
+		},
+		{
+			"team_id": 33,
+			"name": "Casual Name"
+		}
+	]
+}
