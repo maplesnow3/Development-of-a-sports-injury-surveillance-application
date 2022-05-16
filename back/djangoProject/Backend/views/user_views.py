@@ -74,14 +74,91 @@ def logoutUser(request):
 
 @api_view(['POST'])
 def registerUser(request):
-    if request.method == 'POST':
-        request_data = request.body
-       # print(request_data)
+    if request.method != 'POST':
+        return Response({
+            "status": "failure",
+            "message": "Receives POST only"
+        })
+
+    if request.session.has_key("user_id") or request.session.has_key("user_type"):
+        return Response({
+            "status": "failure",
+            "message": "Already logged in"
+        })
+
+    request_data = request.body
     request_dict = json.loads(request_data.decode('utf-8'))
-    account = request_dict.get('account')
-    password = request_dict.get('password')
-    type = request_dict.get('type')
-    function(database.register,account,password,type)
+
+    # TODO: FULL Sanity check for fields
+    # Check usertype limit
+    user_type = request_dict.get('usertype')
+    if user_type != "player" and user_type != "coach":
+        return Response({
+            "status": "failure",
+            "message": "Cannot create user - invalid user type"
+        })
+
+    # Create user
+    user_id = database.register(
+        request_dict.get('email'),
+        request_dict.get('password'),
+        request_dict.get('usertype')
+    )
+    if user_id == "Fail":
+        return Response({
+            "status": "failure",
+            "message": "Cannot create user - email may have been used"
+        })
+
+    if user_type == "player":
+        # Create PerInfo
+        per_info_save_status = database.addPerInf(
+            user_id,
+            request_dict.get('surname'),
+            request_dict.get('givenName'),
+            request_dict.get('birthday'),
+            request_dict.get('ethicBackground'),
+            request_dict.get('mobile'),
+            request_dict.get('address'),
+            request_dict.get('country')
+        )
+        if per_info_save_status == "Fail":
+            # TODO: remove created user here
+            #database.unregister(user_id)
+            return Response({
+                "status": "failure",
+                "message": "User not created - invalid personal info"
+            })
+        # Create BaseInfo
+        base_info_save_status = database.addBaseInf(
+            user_id,
+            request_dict.get('medicalHistory'),
+            request_dict.get('medicalHistoryInput'),
+            request_dict.get('medicineTaken'),
+            request_dict.get('medicineTakenInput'),
+            request_dict.get('injuryHistory'),
+            request_dict.get('injuryHistoryInput'),
+            request_dict.get('surgery'),
+            request_dict.get('surgeryYear'),
+            request_dict.get('concussionQuestions'),
+            request_dict.get('describe'),
+        )
+        if base_info_save_status == "Fail":
+            # TODO: remove created user and personal info here
+            #database.removeBaseInf(user_id)
+            #database.unregister(user_id)
+            return Response({
+                "status": "failure",
+                "message": "User not created - invalid baseline info"
+            })
+
+    # Login the user after reg
+    request.session["user_id"] = user_id
+    request.session["user_type"] = user_type
+    return Response({
+        "status": "success"
+    })
+
 
 
 
