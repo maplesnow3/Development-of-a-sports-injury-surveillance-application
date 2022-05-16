@@ -150,10 +150,10 @@ def removeBaseInf(userId):
         baseInfoId = curs.fetchone()
         if baseInfoId is not None:
             baseInfoId = str(baseInfoId[0])
-        curs.execute("Delete from BaseInfo where baseInfoId = %r"
-                     %(baseInfoId))
         curs.execute("Update Athlete Set baseInfoId = Null Where userId=%r"
                      %(userId))
+        curs.execute("Delete from BaseInfo where baseInfoId = %r"
+                     %(baseInfoId))
         conn.commit()
         return "Success"
 
