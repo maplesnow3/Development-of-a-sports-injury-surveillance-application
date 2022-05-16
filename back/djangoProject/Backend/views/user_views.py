@@ -89,7 +89,6 @@ def registerUser(request):
     request_data = request.body
     request_dict = json.loads(request_data.decode('utf-8'))
 
-    # TODO: FULL Sanity check for fields
     # Check usertype limit
     user_type = request_dict.get('usertype')
     if user_type != "player" and user_type != "coach":
@@ -110,6 +109,7 @@ def registerUser(request):
             "message": "Cannot create user - email may have been used"
         })
 
+    # For players...
     if user_type == "player":
         # Create PerInfo
         per_info_save_status = database.addPerInf(
@@ -123,12 +123,14 @@ def registerUser(request):
             request_dict.get('country')
         )
         if per_info_save_status == "Fail":
-            # TODO: remove created user here
-            #database.unregister(user_id)
+            # Remove created user to keep atomicity
+            database.unregister(user_id)
+
             return Response({
                 "status": "failure",
                 "message": "User not created - invalid personal info"
             })
+
         # Create BaseInfo
         base_info_save_status = database.addBaseInf(
             user_id,
@@ -144,9 +146,10 @@ def registerUser(request):
             request_dict.get('describe'),
         )
         if base_info_save_status == "Fail":
-            # TODO: remove created user and personal info here
-            #database.removeBaseInf(user_id)
-            #database.unregister(user_id)
+            # Remove created user and personal info for atomicity
+            database.removeBaseInf(user_id)
+            database.unregister(user_id)
+
             return Response({
                 "status": "failure",
                 "message": "User not created - invalid baseline info"
