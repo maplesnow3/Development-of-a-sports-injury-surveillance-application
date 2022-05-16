@@ -21,7 +21,7 @@ def openConnection():
         )
     except mariadb.Error as e:
         print(e)
-    
+
     # return the connection to use
     return conn
 
@@ -202,7 +202,7 @@ def addPerInf(userid, surname, givenName, dateofbirth, ebackground, mobile, addr
         country_code=country_inf[3]
         curs.execute(
             "Insert into PerInfo (perInfoId, surname, givenName, dateOfBirth, address, email, mobile, country, ethicBackground) "
-            "values (%r, %r, %r, %r, %r, %r, %r, %r)"
+            "values (%r, %r, %r, %r, %r, %r, %r, %r, %r)"
             %(perInfId, surname, givenName, dateofbirth, address, email, mobile, country_code, ebackground))
         conn.commit()
         curs.execute(
@@ -217,7 +217,7 @@ def addPerInf(userid, surname, givenName, dateofbirth, ebackground, mobile, addr
         return "Fail"
 
 '''
-Insert the baseline information for a new user 
+Insert the baseline information for a new user
 '''
 def addBaseInf(userid, medHistory, medHisInput, medicine, takeMedicine, injHistory, injHisInput, surgery, surYear, concHis, concDes):
     conn = openConnection()
@@ -280,7 +280,7 @@ def viewPerInf(userid):
         return "Fail"
 
 '''
-Get the baseline information for a given user 
+Get the baseline information for a given user
 '''
 def viewBaseInf(userid):
     conn = openConnection()
@@ -380,7 +380,7 @@ def updateAthcode(userid, code):
         return "Fail"
 
 '''
-Insert a new injury report for a given user 
+Insert a new injury report for a given user
 '''
 def addInj(userid, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
            conFact, proDia, injPres, iniTreat, iniTreatPer, referTo):
@@ -452,7 +452,7 @@ def addConc(injFormId, concuFeature, sympRating, PsympWorseQ, MsympWorseQ, feelN
         return "Fail"
 
 '''
-Get all the injury report id and datetime for a given individual user 
+Get all the injury report id and datetime for a given individual user
 '''
 def viewAllDate(userid):
     conn = openConnection()
@@ -484,7 +484,7 @@ def viewAllDate(userid):
     return date_list
 
 '''
-Get all the injury report id and datetime for a given individual user and a range of date 
+Get all the injury report id and datetime for a given individual user and a range of date
 '''
 def viewRangeDate(userid, startDate, endDate):
     conn = openConnection()
@@ -517,7 +517,7 @@ def viewRangeDate(userid, startDate, endDate):
     return date_list
 
 '''
-Get the injury report for a given report id 
+Get the injury report for a given report id
 '''
 def viewInj(injId):
     conn = openConnection()
