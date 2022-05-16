@@ -138,6 +138,48 @@ def addAth(userid):
         return "Fail"
 
 '''
+Delete the baseline information for the given user
+'''
+def removeBaseInf(userId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute(
+            "SELECT baseInfoId FROM Athlete WHERE userId=%r"
+            % (userId))
+        baseInfoId = curs.fetchone()
+        if baseInfoId is not None:
+            baseInfoId = str(baseInfoId[0])
+        curs.execute("Delete from BaseInfo where baseInfoId = %r"
+                     %(baseInfoId))
+        curs.execute("Update Athlete Set baseInfoId = Null Where userId=%r"
+                     %(userId))
+        conn.commit()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
+Delete the user and athlete information for the given user
+'''
+def unregister(userId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Delete from Athlete where userId=%r"
+                     %(userId))
+        curs.execute("Delete from User where userId=%r"
+                     %(userId))
+        conn.commit()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
 Insert the personal information for a new user
 '''
 def addPerInf(userid, surname, givenName, dateofbirth, ebackground, mobile, address, country):
