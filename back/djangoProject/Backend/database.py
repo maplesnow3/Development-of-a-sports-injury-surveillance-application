@@ -21,7 +21,7 @@ def openConnection():
         )
     except mariadb.Error as e:
         print(e)
-
+    
     # return the connection to use
     return conn
 
@@ -180,6 +180,31 @@ def unregister(userId):
         return "Fail"
 
 '''
+Check the user type for the given user
+'''
+def isPlayerUser(userId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Select type from User where userId=%r"
+                     %(userId))
+        userType=curs.fetchone()
+        if userType is not None:
+            curs.close()
+            userType = str(userType[0])
+            if userType == "player":
+                return True
+            else:
+                return False
+        else:
+            curs.close()
+            return False
+
+    except mariadb.Error as e:
+        print(e)
+        return False
+
+'''
 Insert the personal information for a new user
 '''
 def addPerInf(userid, surname, givenName, dateofbirth, ebackground, mobile, address, country):
@@ -217,7 +242,7 @@ def addPerInf(userid, surname, givenName, dateofbirth, ebackground, mobile, addr
         return "Fail"
 
 '''
-Insert the baseline information for a new user
+Insert the baseline information for a new user 
 '''
 def addBaseInf(userid, medHistory, medHisInput, medicine, takeMedicine, injHistory, injHisInput, surgery, surYear, concHis, concDes):
     conn = openConnection()
@@ -280,7 +305,7 @@ def viewPerInf(userid):
         return "Fail"
 
 '''
-Get the baseline information for a given user
+Get the baseline information for a given user 
 '''
 def viewBaseInf(userid):
     conn = openConnection()
@@ -380,7 +405,7 @@ def updateAthcode(userid, code):
         return "Fail"
 
 '''
-Insert a new injury report for a given user
+Insert a new injury report for a given user 
 '''
 def addInj(userid, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
            conFact, proDia, injPres, iniTreat, iniTreatPer, referTo):
@@ -439,7 +464,6 @@ def addConc(injFormId, concuFeature, sympRating, PsympWorseQ, MsympWorseQ, feelN
         sympWorseQ.append(PsympWorseQ)
         sympWorseQ.append(MsympWorseQ)
         sympWorseQ=list2str(sympWorseQ)
-        feelNormal=feelNormal
         curs.execute(
             "Insert into ConcuForm (concuFormId, concuFeature, sympRating, sympWorseQ, feelNormal, feelNormalWhy, injFormId) "
             "values (%r, %r, %r, %r, %r, %r, %r)"
@@ -452,7 +476,24 @@ def addConc(injFormId, concuFeature, sympRating, PsympWorseQ, MsympWorseQ, feelN
         return "Fail"
 
 '''
-Get all the injury report id and datetime for a given individual user
+Delete the injury form for the given injury form id
+'''
+def removeInj(injId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Delete from InjForm where injFormId = %r"
+                     %(injId))
+        conn.commit()
+        curs.close()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
+Get all the injury report id and datetime for a given individual user 
 '''
 def viewAllDate(userid):
     conn = openConnection()
@@ -484,7 +525,7 @@ def viewAllDate(userid):
     return date_list
 
 '''
-Get all the injury report id and datetime for a given individual user and a range of date
+Get all the injury report id and datetime for a given individual user and a range of date 
 '''
 def viewRangeDate(userid, startDate, endDate):
     conn = openConnection()
@@ -517,7 +558,7 @@ def viewRangeDate(userid, startDate, endDate):
     return date_list
 
 '''
-Get the injury report for a given report id
+Get the injury report for a given report id 
 '''
 def viewInj(injId):
     conn = openConnection()
@@ -566,8 +607,8 @@ def viewConc(injId):
                      % (injId))
         row = curs.fetchone()
         if row is not None:
-            concuFeature=str2list(str(row[2]))
-            sympRating=str2list(str(row[3]))
+            concuFeature=str2list(str(row[2]),"|","int")
+            sympRating=str2list(str(row[3]),"|","int")
             sympWorseQ=str2list(str(row[4]))
             PsympWorseQ=sympWorseQ[0]
             MsympWorseQ=sympWorseQ[1]
