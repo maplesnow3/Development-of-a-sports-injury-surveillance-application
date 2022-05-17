@@ -6,7 +6,7 @@
 	<title>Reg test</title>
 </head>
 <body>
-	<button onclick="submitReg();">Submit</button>
+	<button onclick="submitReg();">Submit with prefilled details</button>
 	<script>
 		function submitReg() {
 			let xhr = new XMLHttpRequest();
@@ -17,7 +17,7 @@
 			};
 			xhr.open('POST', '/api/user/register', true);
 			xhr.send(JSON.stringify({
-				"email": "test@163.com",
+				"email": "test02@163.com",
 				"password": "123456",
 				"usertype": "player",
 

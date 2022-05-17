@@ -4,7 +4,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 @api_view(['POST'])
-def newInjury(request):
+def createNewForm(request):
     data = request.data
     content = {'under development'}
     return Response(content, status=status.HTTP_501_NOT_IMPLEMENTED)
