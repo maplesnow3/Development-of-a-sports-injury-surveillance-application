@@ -439,7 +439,7 @@ def addConc(injFormId, concuFeature, sympRating, PsympWorseQ, MsympWorseQ, feelN
         sympWorseQ.append(PsympWorseQ)
         sympWorseQ.append(MsympWorseQ)
         sympWorseQ=list2str(sympWorseQ)
-        feelNormal=feelNormal*0.01
+        feelNormal=feelNormal
         curs.execute(
             "Insert into ConcuForm (concuFormId, concuFeature, sympRating, sympWorseQ, feelNormal, feelNormalWhy, injFormId) "
             "values (%r, %r, %r, %r, %r, %r, %r)"
