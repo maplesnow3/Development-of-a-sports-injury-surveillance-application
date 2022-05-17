@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Reg test</title>
+</head>
+<body>
+	<button onclick="submitReg();">Submit with prefilled details</button>
+	<script>
+		function submitReg() {
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function (event) {
+				if (this.status === 200) {
+					console.log(this.responseText);
+				}
+			};
+			xhr.open('POST', '/api/injury_form/new', true);
+			// For injury without concussion
+			xhr.send(JSON.stringify({
+				"targetId": -1,
+				"injuredBodyPart": ["Right", "Forearm", "Wrist"],
+
+				"injuryOccurrence": ["Match"],
+				"nature_typeOfInjury": ["Abrasion/graze", "Inflammation/swelling", "XXXXXXXXXX"],
+				"removalFromField": "Walked",
+				"actionsFollowingInjury": "Completed game",
+				"mechanismOfInjury": ["Foul play", "Jumping", "XXXXXXXXXX"],
+				"trainingSpecific": ["Aerobic Conditioning", "Weight training"],
+				"protectiveEquipmentWorn": ["Headgear/helmet", "XXXXXXXXXX"],
+				"contributingFactors": ["wet", "hard"],
+				"provisionalInjuryDiagnosis": "XXXXXX",
+
+				"injuryPresentation": "New",
+				"initialTreatment": ["Dressing", "XXXXXXXXXX"],
+				"initialTreatingPerson": ["Ambulance", "XXXXXXXXXX"],
+				"referralTo": ["Physiotherapist", "XXXXXXXXXX"]
+			}));
+
+			// For injury with concussion -
+			// include EXACT STRING "Concussion" in "nature_typeOfInjury"
+			/*
+			{
+				"targetId": -1,
+				"injuredBodyPart": ["Right", "Forearm", "Wrist"],
+
+				"injuryOccurrence": ["Match"],
+				"nature_typeOfInjury": ["Concussion"],
+				"removalFromField": "Walked",
+				"actionsFollowingInjury": "Completed game",
+				"mechanismOfInjury": ["Foul play", "Jumping", "XXXXXXXXXX"],
+				"trainingSpecific": ["Aerobic Conditioning", "Weight training"],
+				"protectiveEquipmentWorn": ["Headgear/helmet", "XXXXXXXXXX"],
+				"contributingFactors": ["wet", "hard"],
+				"provisionalInjuryDiagnosis": "XXXXXX",
+
+				"injuryPresentation": "New",
+				"initialTreatment": ["Dressing", "XXXXXXXXXX"],
+				"initialTreatingPerson": ["Ambulance", "XXXXXXXXXX"],
+				"referralTo": ["Physiotherapist", "XXXXXXXXXX"],
+
+
+
+				"concussionProblems":[0,0,0,0,0,0,0,0,0,0,0],
+				"ConcussionSymptom":[0,0,0,0,0,0,0,0,0,0,
+							0,0,0,0,0,0,0,0,0,0,
+							13,56],
+
+				"physicalActivity":true,
+				"mentalActivity":false,
+				"percentOfFeel":78,
+				"why":"XXXXXXXXXXXX"
+			}
+			*/
+		}
+	</script>
+</body>
+</html>

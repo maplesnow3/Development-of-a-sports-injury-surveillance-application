@@ -92,7 +92,7 @@ def registerUser(request):
         print(e)
     finally:
         if user_id == "Fail":
-            Response({
+            return Response({
                 "status": "failure",
                 "message": "Cannot create user - email may have been used"
             })
