@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Reg test</title>
+</head>
+<body>
+	<button onclick="submitReg();">Submit with prefilled details</button>
+	<script>
+		function submitReg() {
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function (event) {
+				if (this.status === 200) {
+					console.log(this.responseText);
+				}
+			};
+			xhr.open('POST', '/api/user/register', true);
+			xhr.send(JSON.stringify({
+				"email": "test02@163.com",
+				"password": "123456",
+				"usertype": "player",
+
+				"surname": "surname",
+				"givenName": "givenName",
+				"birthday": "2022-05-06",
+				"ethicBackground": "African",
+				"phone": "1234567890",
+				"address": "Dalian",
+				"country": "China",
+
+				"medicalHistory": ["yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+				"medicalHistoryInput": ["1", "1", "1", "1", "1", "1", "1"],
+				"medicineTaken": ["yes", "yes", "yes"],
+				"medicineTakenInput": ["test", "test", "test"],
+				"injuryHistory": ["yes", "yes", "yes", "yes", "yes", "yes", "yes", "yes"],
+				"injuryHistoryInput": ["1", "1", "1", "1", "1", "1", "1", "1"],
+				"surgery": ["test", "test", "test"],
+				"surgeryYear": ["2010", "2011", "2012"],
+				"concussionQuestions": ["yes", "2", "yes", "4", "yes"],
+				"describe": "test"
+			}));
+
+			// For coach
+			/*
+			{
+				"email": "test_coachReg@163.com",
+				"password": "123456",
+				"usertype": "coach",
+			}
+			*/
+		}
+	</script>
+</body>
+</html>
