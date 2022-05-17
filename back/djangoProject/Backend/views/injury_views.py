@@ -34,8 +34,7 @@ def createNewForm(request):
             "status": "failure",
             "message": "You can only create new form for yourself"
         })
-    elif False: #user_type == "coach" and database.isPlayerUser(submit_target):
-        # TODO: Add check for coach
+    elif user_type == "coach" and database.isPlayerUser(submit_target):
         return Response({
             "status": "failure",
             "message": "Target is not a valid player"
@@ -89,8 +88,7 @@ def createNewForm(request):
         finally:
             if conc_result == "Fail":
                 # Remove created injury form for atmoi
-                # TODO
-                #database.removeInj(created_form_id)
+                database.removeInj(created_form_id)
                 return Response({
                     "status": "failure",
                     "message": "Cannot create form - invalid Concussion details"
