@@ -28,23 +28,29 @@ def loginUser(request):
             "message": "Already logged in"
         })
 
-    request_data = request.body
-    request_dict = json.loads(request_data.decode('utf-8'))
-    account = request_dict.get('account')
-    password = request_dict.get('password')
-    db_user_info = database.login(account, password)
-    if db_user_info == None:
+    try:
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+        account = request_dict.get('account')
+        password = request_dict.get('password')
+        db_user_info = database.login(account, password)
+        if db_user_info == None:
+            return Response({
+                "status": "failure",
+                "message": "Invalid username/password"
+            })
+        else:
+            request.session["user_id"] = db_user_info[0]
+            request.session["user_type"] = db_user_info[0]
+            return Response({
+                "status": "success"
+            })
+    except Exception as e:
+        print(e)
         return Response({
             "status": "failure",
-            "message": "Invalid username/password"
+            "message": "Invalid request / undefined issue"
         })
-    else:
-        request.session["user_id"] = db_user_info[0]
-        request.session["user_type"] = db_user_info[0]
-        return Response({
-            "status": "success"
-        })
-
 
 @api_view(['POST'])
 def logoutUser(request):
@@ -69,94 +75,101 @@ def registerUser(request):
             "message": "Already logged in"
         })
 
-    request_data = request.body
-    request_dict = json.loads(request_data.decode('utf-8'))
-
-    # Check usertype limit
-    user_type = request_dict.get('usertype')
-    if user_type != "player" and user_type != "coach":
-        return Response({
-            "status": "failure",
-            "message": "Cannot create user - invalid user type"
-        })
-
-    # Create user
-    user_id = "Fail"
     try:
-        user_id = database.register(
-            request_dict.get('email'),
-            request_dict.get('password'),
-            request_dict.get('usertype')
-        )
-    except Exception as e:
-        print(e)
-    finally:
-        if user_id == "Fail":
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+
+        # Check usertype limit
+        user_type = request_dict.get('usertype')
+        if user_type != "player" and user_type != "coach":
             return Response({
                 "status": "failure",
-                "message": "Cannot create user - email may have been used"
+                "message": "Cannot create user - invalid user type"
             })
 
-    # For players...
-    if user_type == "player":
-        # Create PerInfo
-        per_info_save_status = "Fail"
-
-        per_info_save_status = database.addPerInf(
-            user_id,
-            request_dict.get('surname'),
-            request_dict.get('givenName'),
-            request_dict.get('birthday'),
-            request_dict.get('ethicBackground'),
-            request_dict.get('phone'),
-            request_dict.get('address'),
-            request_dict.get('country')
-        )
-
-        if per_info_save_status == "Fail":
-            # Remove created user to keep atomicity
-            database.unregister(user_id)
-
-            return Response({
-                "status": "failure",
-                "message": "User not created - invalid personal info"
-            })
-
-        # Create BaseInfo
-        base_info_save_status = "Fail"
+        # Create user
+        user_id = "Fail"
         try:
-            base_info_save_status = database.addBaseInf(
-                user_id,
-                request_dict.get('medicalHistory'),
-                request_dict.get('medicalHistoryInput'),
-                request_dict.get('medicineTaken'),
-                request_dict.get('medicineTakenInput'),
-                request_dict.get('injuryHistory'),
-                request_dict.get('injuryHistoryInput'),
-                request_dict.get('surgery'),
-                request_dict.get('surgeryYear'),
-                request_dict.get('concussionQuestions'),
-                request_dict.get('describe'),
+            user_id = database.register(
+                request_dict.get('email'),
+                request_dict.get('password'),
+                request_dict.get('usertype')
             )
         except Exception as e:
             print(e)
         finally:
-            if base_info_save_status == "Fail":
-                # Remove created user and personal info for atomicity
-                database.removeBaseInf(user_id)
+            if user_id == "Fail":
+                return Response({
+                    "status": "failure",
+                    "message": "Cannot create user - email may have been used"
+                })
+
+        # For players...
+        if user_type == "player":
+            # Create PerInfo
+            per_info_save_status = "Fail"
+
+            per_info_save_status = database.addPerInf(
+                user_id,
+                request_dict.get('surname'),
+                request_dict.get('givenName'),
+                request_dict.get('birthday'),
+                request_dict.get('ethicBackground'),
+                request_dict.get('phone'),
+                request_dict.get('address'),
+                request_dict.get('country')
+            )
+
+            if per_info_save_status == "Fail":
+                # Remove created user to keep atomicity
                 database.unregister(user_id)
 
                 return Response({
                     "status": "failure",
-                    "message": "User not created - invalid baseline info"
+                    "message": "User not created - invalid personal info"
                 })
 
-    # Login the user after reg
-    request.session["user_id"] = user_id
-    request.session["user_type"] = user_type
-    return Response({
-        "status": "success"
-    })
+            # Create BaseInfo
+            base_info_save_status = "Fail"
+            try:
+                base_info_save_status = database.addBaseInf(
+                    user_id,
+                    request_dict.get('medicalHistory'),
+                    request_dict.get('medicalHistoryInput'),
+                    request_dict.get('medicineTaken'),
+                    request_dict.get('medicineTakenInput'),
+                    request_dict.get('injuryHistory'),
+                    request_dict.get('injuryHistoryInput'),
+                    request_dict.get('surgery'),
+                    request_dict.get('surgeryYear'),
+                    request_dict.get('concussionQuestions'),
+                    request_dict.get('describe'),
+                )
+            except Exception as e:
+                print(e)
+            finally:
+                if base_info_save_status == "Fail":
+                    # Remove created user and personal info for atomicity
+                    database.removeBaseInf(user_id)
+                    database.unregister(user_id)
+
+                    return Response({
+                        "status": "failure",
+                        "message": "User not created - invalid baseline info"
+                    })
+
+        # Login the user after reg
+        request.session["user_id"] = user_id
+        request.session["user_type"] = user_type
+        return Response({
+            "status": "success"
+        })
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
 
 
 
