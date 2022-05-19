@@ -258,7 +258,7 @@ def addBaseInf(userid, medHistory, medHisInput, medicine, takeMedicine, injHisto
         medicineTaken=list2str(medicine)
         injuryName=list2str(injHistory)
         injuryLocation=list2str(injHisInput)
-        surgeryName=list2str(surgery)
+        surgeryName=surgery  # Field adjusted for frontend requirement
         surgeryYear=list2str(surYear)
         concuHistory=list2str(concHis)
         curs.execute("Insert into BaseInfo (baseInfoId, baseInfoTime, sufferFrom, sufferLength, "
@@ -331,7 +331,7 @@ def viewBaseInf(userid):
                 n=n+1
             injHistory=str2list(str(row[5]))
             injHisInput=str2list(str(row[6]))
-            surgery=str2list(str(row[7]))
+            surgery=str(row[7])  # Field adjusted for frontend requirement
             surYear=str2list(str(row[8]))
             concHis=str2list(str(row[9]))
             concDes=str(row[10])

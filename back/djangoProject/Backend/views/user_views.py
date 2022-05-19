@@ -141,7 +141,7 @@ def registerUser(request):
                     request_dict.get('injuryHistory'),
                     request_dict.get('injuryHistoryInput'),
                     request_dict.get('surgery'),
-                    request_dict.get('surgeryYear'),
+                    [],  # surgeryYear Ignored for frontend requirement
                     request_dict.get('concussionQuestions'),
                     request_dict.get('describe'),
                 )
