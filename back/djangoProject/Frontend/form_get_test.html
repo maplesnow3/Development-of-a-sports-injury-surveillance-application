@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Reg test</title>
+</head>
+<body>
+	<input type="number" name="formid" id="formid">
+	<button onclick="submitGet();">Get form JSONs</button>
+	<p>See ID 12 for a form without concussion; See 13 for a form with it.</p>
+	<p>
+		Output JSON follows input; and extra key "concussionFormRetrived" will be
+		added for forms with concussion specified, indicating that if relevant
+		concussion form is found when there should be one. If false is specified,
+		it means that concussion-related variables are just placeholders since
+		no data available in database.
+	</p>
+	<script>
+		function submitGet() {
+			let formId = document.getElementById("formid").value
+
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function (event) {
+				if (this.status === 200) {
+					console.log(JSON.parse(this.responseText));
+				}
+			};
+			xhr.open('GET', `/api/injury_form/get/${formId}`, true);
+			// For injury without concussion
+			xhr.send();
+		}
+	</script>
+</body>
+</html>

@@ -41,7 +41,7 @@ def loginUser(request):
             })
         else:
             request.session["user_id"] = db_user_info[0]
-            request.session["user_type"] = db_user_info[0]
+            request.session["user_type"] = db_user_info[3]
             return Response({
                 "status": "success"
             })

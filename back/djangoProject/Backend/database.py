@@ -21,7 +21,7 @@ def openConnection():
         )
     except mariadb.Error as e:
         print(e)
-    
+
     # return the connection to use
     return conn
 
@@ -242,7 +242,7 @@ def addPerInf(userid, surname, givenName, dateofbirth, ebackground, mobile, addr
         return "Fail"
 
 '''
-Insert the baseline information for a new user 
+Insert the baseline information for a new user
 '''
 def addBaseInf(userid, medHistory, medHisInput, medicine, takeMedicine, injHistory, injHisInput, surgery, surYear, concHis, concDes):
     conn = openConnection()
@@ -305,7 +305,7 @@ def viewPerInf(userid):
         return "Fail"
 
 '''
-Get the baseline information for a given user 
+Get the baseline information for a given user
 '''
 def viewBaseInf(userid):
     conn = openConnection()
@@ -405,7 +405,7 @@ def updateAthcode(userid, code):
         return "Fail"
 
 '''
-Insert a new injury report for a given user 
+Insert a new injury report for a given user
 '''
 def addInj(userid, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
            conFact, proDia, injPres, iniTreat, iniTreatPer, referTo):
@@ -416,8 +416,8 @@ def addInj(userid, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech
         now = datetime.datetime.now()
         injFormTime = now.strftime('%Y-%m-%d %H:%M:%S')
         athleteId=getAthid(userid)
-        bodyPart = list2str(bodyPart, "; ")
-        occurDuring=list2str(occurDuring, "; ")
+        bodyPart = list2str(bodyPart, ";")
+        occurDuring=list2str(occurDuring, ";")
 
         # Check whether this injury report has a concussion report followed
         isConcussion=0
@@ -425,18 +425,18 @@ def addInj(userid, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech
             if x =="Concussion":
                 isConcussion=1
 
-        injType = list2str(injType, "; ")
-        injMech = list2str(injMech, "; ")
-        trainSpe = list2str(trainSpe, "; ")
+        injType = list2str(injType, ";")
+        injMech = list2str(injMech, ";")
+        trainSpe = list2str(trainSpe, ";")
         injMehcan=[]
         injMehcan.append(injMech)
         injMehcan.append(trainSpe)
-        injMehcan=list2str(injMehcan)
-        wearEquip = list2str(wearEquip, "; ")
+        injMehcan=list2str(injMehcan, "|")
+        wearEquip = list2str(wearEquip, ";")
         conFact = list2str(conFact)
-        iniTreat = list2str(iniTreat, "; ")
-        iniTreatPer = list2str(iniTreatPer, "; ")
-        referTo = list2str(referTo, "; ")
+        iniTreat = list2str(iniTreat, ";")
+        iniTreatPer = list2str(iniTreatPer, ";")
+        referTo = list2str(referTo, ";")
         curs.execute("Insert into InjForm (injFormId, injFormTime, bodyPart, occurDuring, "
                      "injuryType, removalWay, actAfterInjury, injuryMechanism, wearEquipment, contributFactor, "
                      "provisionalDiag, injuryPresent, initTreat, initTreatPerson, referralTo, athleteId) "
@@ -493,7 +493,7 @@ def removeInj(injId):
         return "Fail"
 
 '''
-Get all the injury report id and datetime for a given individual user 
+Get all the injury report id and datetime for a given individual user
 '''
 def viewAllDate(userid):
     conn = openConnection()
@@ -525,7 +525,7 @@ def viewAllDate(userid):
     return date_list
 
 '''
-Get all the injury report id and datetime for a given individual user and a range of date 
+Get all the injury report id and datetime for a given individual user and a range of date
 '''
 def viewRangeDate(userid, startDate, endDate):
     conn = openConnection()
@@ -558,7 +558,7 @@ def viewRangeDate(userid, startDate, endDate):
     return date_list
 
 '''
-Get the injury report for a given report id 
+Get the injury report for a given report id
 '''
 def viewInj(injId):
     conn = openConnection()
@@ -569,23 +569,23 @@ def viewInj(injId):
                      % (injId))
         row = curs.fetchone()
         if row is not None:
-            bodyPart=str(row[3])[0: len(str(row[3])) - 2]
-            occurDuring=str(row[4])[0: len(str(row[4])) - 2]
-            injType=str(row[5])[0: len(str(row[5])) - 2]
+            bodyPart=str2list(str(row[3]), ";")
+            occurDuring=str2list(str(row[4]), ";")
+            injType=str2list(str(row[5]), ";")
             remoWay=str(row[6])
             actAfterInj=str(row[7])
-            injMehcan=str2list(str(row[8]))
+            injMehcan=str2list(str(row[8]), "|")
             injMech=injMehcan[0]
-            injMech=injMech[0: len(injMech) - 2]
+            injMech=str2list(injMech, ";")
             trainSpe=injMehcan[1]
-            trainSpe=trainSpe[0: len(trainSpe) - 2]
-            wearEquip=str(row[9])[0: len(str(row[9])) - 2]
+            trainSpe=str2list(trainSpe, ";")
+            wearEquip=str2list(str(row[9]), ";")
             conFact=str2list(str(row[10]))
             proDia=str(row[11])
             injPres=str(row[12])
-            iniTreat=str(row[13])[0: len(str(row[13])) - 2]
-            iniTreatPer=str(row[14])[0: len(str(row[14])) - 2]
-            referTo=str(row[15])[0: len(str(row[15])) - 2]
+            iniTreat=str2list(str(row[13]), ";")
+            iniTreatPer=str2list(str(row[14]), ";")
+            referTo=str2list(str(row[15]), ";")
             injReport=[bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
                        conFact, proDia, injPres, iniTreat, iniTreatPer, referTo]
             curs.close()
@@ -610,9 +610,9 @@ def viewConc(injId):
             concuFeature=str2list(str(row[2]),"|","int")
             sympRating=str2list(str(row[3]),"|","int")
             sympWorseQ=str2list(str(row[4]))
-            PsympWorseQ=sympWorseQ[0]
-            MsympWorseQ=sympWorseQ[1]
-            feelNormal=str(row[5])
+            PsympWorseQ=(sympWorseQ[0] == "True")
+            MsympWorseQ=(sympWorseQ[1] == "True")
+            feelNormal=row[5]
             feelNormalWhy=str(row[6])
             concuReport=[concuFeature, sympRating, PsympWorseQ, MsympWorseQ, feelNormal, feelNormalWhy]
             curs.close()
