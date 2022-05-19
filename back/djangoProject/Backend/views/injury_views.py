@@ -202,7 +202,10 @@ def getFormById(request, form_id):
                 form_data_res["percentOfFeel"] = conc_form[4]
                 form_data_res["why"] = conc_form[5]
 
-        return Response(form_data_res)
+        return Response({
+            "status": "success",
+            "report": form_data_res
+        })
 
 
 
