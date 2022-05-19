@@ -1,5 +1,6 @@
 import json
 
+from django.http import HttpResponse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 # from django.shortcuts import redirect
@@ -34,9 +35,11 @@ def loginUser(request):
         else:
             request.session["user_id"] = db_user_info[0]
             request.session["user_type"] = db_user_info[3]
-            return Response({
-                "status": "success"
-            })
+
+            response = HttpResponse(json.dumps({ "status": "success" }))
+            response.set_cookie("user_id", value=request.session["user_id"], max_age=1209600)
+            response.set_cookie("user_type", value=request.session["user_type"], max_age=1209600)
+            return response
     except Exception as e:
         print(e)
         return Response({
@@ -50,7 +53,11 @@ def logoutUser(request):
         del request.session["user_id"]
     if request.session.has_key("user_type"):
         del request.session["user_type"]
-    return Response({ "status": "success" })
+
+    response = HttpResponse(json.dumps({ "status": "success" }))
+    response.delete_cookie("user_id")
+    response.delete_cookie("user_type")
+    return response
 
 
 @api_view(['POST'])
