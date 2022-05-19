@@ -1,10 +1,23 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Form,Input,Button,Toast} from 'antd-mobile';
-import { MailOutline,LockFill   } from 'antd-mobile-icons'
+import { MailOutline,LockFill   } from 'antd-mobile-icons';
+import {login} from '../../api'
 import './index.scss'
 const Login = ()=>{
   const navigator = useNavigate();
+  const loginFun = async (data:any)=>{
+    let res:any = await login({account:data.email,password:data.password});
+    if(res.status=="failure"){
+      Toast.show({
+        icon: 'fail',
+        content: res.message,
+      })
+      return
+    }else{
+      navigator('/home')
+    }
+  }
   return (
     <div className='login'>
       <div className="logo">
@@ -14,15 +27,7 @@ const Login = ()=>{
       <Form
       onFinish={(values)=>{
         console.log(values);
-        const {email,password} = values;
-        if(false){
-          Toast.show({
-            icon: 'fail',
-            content: 'The account or password is incorrect',
-          })
-        }else{
-          navigator('/home')
-        }
+        loginFun(values)
       }}
       footer={
         <Button style={{backgroundColor:'#09E316'}} block type='submit' color='primary' size='large'>

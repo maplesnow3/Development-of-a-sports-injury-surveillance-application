@@ -12,6 +12,9 @@ import ListViewer from '../pages/record_browser/components/ListViewer';
 import RecordViewer from '../pages/record_browser/components/RecordViewer';
 import TeamManage from '../pages/team_func/components/TeamManage';
 // import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
+
+import ChangePassword from '../pages/changePassword';
+import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import Personinfo from '../pages/personinfo/personinfo'
 const router:any = [
   {path:'/login',name:'login',element:Login},
@@ -28,7 +31,8 @@ const router:any = [
   {path:'/record_browser/view_record',name:'record_browser',element:RecordViewer},
   {path:'/team_func/teams',name:'team_func',element:TeamManage},
   // {path:'/team_func/members',name:'team_func',element:TeamMemberManage},
-
+  {path:'/change-password',name:'ChangePassword',element:ChangePassword},
+  {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
   {path:'/personinfo',name:'personal_info',element:Personinfo}
 ]
 

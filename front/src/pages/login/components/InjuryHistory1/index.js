@@ -34,12 +34,12 @@ const InjuryHistory1 = ()=>{
       </Grid.Item>
        
       </Grid>
-      <div className='form-input-wrapper'>
+      {/* <div className='form-input-wrapper'>
       <Form.Item name='describeInput'  className='input-wrapper'>
         <input value={surgeryInput} onChange={(e)=>{setSurgeryInput(e.target.value)}} className='textarea-input' />
       </Form.Item>
       <span className='unit'>year(s)</span>
-      </div>
+      </div> */}
       </Form>
       
       </div>

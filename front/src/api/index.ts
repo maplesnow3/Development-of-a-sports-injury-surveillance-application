@@ -5,13 +5,12 @@ import axios from "axios";
 
 
 const http = axios.create({
-  baseURL:'',
+  baseURL:'http://108.61.184.187:8000/',
   timeout:5000,
   
 })
  
 http.interceptors.response.use((response)=>{
-  console.log(response,888);
   // if(){
    
   // }
@@ -22,18 +21,18 @@ http.interceptors.response.use((response)=>{
 
 
 //注册
-export const addUser = (data:{name:string,password:string})=>{
+export const registry = (data:any)=>{
   return http({
-    // url:'',
-    // method:"",
-    // data
+    url:'/api/user/register',
+    method:"POST",
+    data
   })
 }
 //登录
-export const getDetail = (params:{name:string,password:string}) =>{
+export const login = (data:any) =>{
   return http({
-    // url:'',
-    // method:'',
-    // params
+    url:'api/login',
+    method:'POST',
+    data
   })
 }
