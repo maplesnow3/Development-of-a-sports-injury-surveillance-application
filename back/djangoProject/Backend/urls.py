@@ -6,9 +6,10 @@ from Backend.views import injury_views
 urlpatterns = [
     # Login api
     path('login', user_views.loginUser, name='login'),
-    path('logout', user_views.logoutUser, name='login'),
+    path('logout', user_views.logoutUser, name='logout'),
     # User related functions
     path('user/register', user_views.registerUser, name='register'),
+    path('user/change_password', user_views.changeUserSelfPassword, name='change_password'),
     # path('user/profile', user_views.getUserProfile, name='users'),
     # path('user/<str:pk>', user_views.getUserById, name='routes'),
     # path('user/delete/<str:pk>', user_views.deleteUser, name='delete'),

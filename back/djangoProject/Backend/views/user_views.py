@@ -1,16 +1,8 @@
 import json
 
-# from django.contrib.gis.gdal.libgdal import function
-# from django.shortcuts import render
-# from django.db import connection
-# from Backend.users import users
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
-# from django.contrib.auth.models import User
-# from django.contrib.auth.hashers import make_password
 # from django.shortcuts import redirect
-# from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-# from rest_framework_simplejwt.views import TokenObtainPairView
 
 from Backend import database
 
@@ -171,22 +163,70 @@ def registerUser(request):
             "message": "Invalid request / undefined issue"
         })
 
-
-
-
-@api_view(['GET'])
-def getUserProfile(request):
-    # user = request.user
-    # serializer = UserSerializer(user, many=False)
-    return Response(serializer.data)
-
-
-@api_view(['GET'])
-def getUserById(request, pk):
-    # user = User.objects.get(id=pk)
-    # serializer = UserSerializer(user,many=False)
-    return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
-
 @api_view(['POST'])
-def deleteUser(requset,pk):
-    return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
+def changeUserSelfPassword(request):
+    if request.method != 'POST':
+        return Response({
+            "status": "failure",
+            "message": "Receives POST only"
+        })
+
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    try:
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+
+        user_id = request.session["user_id"]
+        try:
+            result = database.changePw(
+                user_id,
+                request_dict.get('old_pw'),
+                request_dict.get('new_pw')
+            )
+        except Exception as e:
+            print(e)
+        finally:
+            if result == "Fail":
+                return Response({
+                    "status": "failure",
+                    "message": "Failed to change - is the old password correct?"
+                })
+            elif result == "Success":
+                return Response({
+                    "status": "success"
+                })
+            else:
+                return Response({
+                    "status": "failure",
+                    "message": "Failed to change - unidentified error"
+                })
+
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
+
+
+# @api_view(['GET'])
+# def getUserProfile(request):
+#     # user = request.user
+#     # serializer = UserSerializer(user, many=False)
+#     return Response(serializer.data)
+
+
+# @api_view(['GET'])
+# def getUserById(request, pk):
+#     # user = User.objects.get(id=pk)
+#     # serializer = UserSerializer(user,many=False)
+#     return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
+
+# @api_view(['POST'])
+# def deleteUser(requset,pk):
+#     return Response(status=status.HTTP_501_NOT_IMPLEMENTED)
