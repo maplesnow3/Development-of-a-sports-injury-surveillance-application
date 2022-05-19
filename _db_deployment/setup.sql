@@ -81,7 +81,7 @@ CREATE TABLE BaseInfo (
 	baseInfoId INT UNSIGNED AUTO_INCREMENT,
 	baseInfoTime DATETIME NOT NULL,
 	sufferFrom VARCHAR(300),
-	sufferLength VARCHAR(50),
+	sufferLength VARCHAR(300),
 	medicineTaken VARCHAR(300),
 	injuryName VARCHAR(300),
 	injuryLocation VARCHAR(300),
