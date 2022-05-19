@@ -181,12 +181,26 @@ def changeUserSelfPassword(request):
         request_data = request.body
         request_dict = json.loads(request_data.decode('utf-8'))
 
+        old_password = request_dict.get('old_pw')
+        new_password = request_dict.get('new_pw')
+
+        if old_password == "" or new_password == "":
+            return Response({
+                "status": "failure",
+                "message": "Invalid old/new password"
+            })
+        elif old_password == new_password:
+            return Response({
+                "status": "failure",
+                "message": "New password cannot be the same as the old one"
+            })
+
         user_id = request.session["user_id"]
         try:
             result = database.changePw(
                 user_id,
-                request_dict.get('old_pw'),
-                request_dict.get('new_pw')
+                old_password,
+                new_password
             )
         except Exception as e:
             print(e)
