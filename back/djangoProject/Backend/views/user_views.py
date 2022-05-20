@@ -315,6 +315,52 @@ def getPersonalInfoByUserId(request, info_user_id_in):
         })
 
 
+@api_view(['POST'])
+def setPersonalInfoForSelf(request):
+    if request.method != 'POST':
+        return Response({
+            "status": "failure",
+            "message": "Receives POST only"
+        })
+
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    try:
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+
+        # Request is completed?
+        new_address = request_dict.get('address')
+        new_phone = request_dict.get('phone')
+        if new_address == None or new_phone == None:
+            return Response({
+                "status": "failure",
+                "message": "Infomations is not completed"
+            })
+
+        user_id = request.session["user_id"]
+        update_result = database.updatePerInf(user_id, new_address, new_phone)
+        if update_result == "Success":
+            return Response({
+                "status": "success"
+            })
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Failed to edit personal information - please try later"
+            })
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
+
+
 @api_view(['GET'])
 def getBaselineByUserId(request, baseline_user_id_in):
     if request.method != 'GET':
