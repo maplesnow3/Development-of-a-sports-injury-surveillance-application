@@ -170,6 +170,7 @@ def registerUser(request):
             "message": "Invalid request / undefined issue"
         })
 
+
 @api_view(['POST'])
 def changeUserSelfPassword(request):
     if request.method != 'POST':
@@ -272,8 +273,12 @@ def getPersonalInfoByUserId(request, info_user_id_in):
         elif (user_type == "player" or user_type == "coach") and info_user_id == user_id:
             pass
         elif user_type == "coach" and database.coachIsManagingPlayer(coach_user_id, player_user_id):
-            # TODO: IMPLEMENT CONDITION FUNC ABOVE
             pass
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Personal info unavailable"
+            })
 
         # Get baseline
         info_data = database.viewPerInf(info_user_id)
@@ -344,11 +349,15 @@ def getBaselineByUserId(request, baseline_user_id_in):
         # Check access limit and set proper checked user id
         if user_type == "admin":
             pass
-        elif (user_type == "player" or user_type == "coach") and baseline_user_id == user_id:
+        elif user_type == "player" and baseline_user_id == user_id:
             pass
         elif user_type == "coach" and database.coachIsManagingPlayer(coach_user_id, player_user_id):
-            # TODO: IMPLEMENT CONDITION FUNC ABOVE
             pass
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Baseline unavailable"
+            })
 
         # Get baseline
         baseline_data = database.viewBaseInf(baseline_user_id)
