@@ -40,5 +40,5 @@ URL path for accessing implemented APIs will be list here for checking
 
 ## TODO - for individual
 
-- Set personal info
-- View injury report date list & filter by date
+- View injury report date list
+- Injury report filter by date
