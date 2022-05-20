@@ -706,7 +706,7 @@ def coachCanViewInjForm(coachUserId, injId):
 
     except mariadb.Error as e:
         print(e)
-        return None
+        return False
 
 '''
 Get the team list managed by the given coach id
@@ -812,6 +812,26 @@ def removeTeamMember(userIdList):
     except mariadb.Error as e:
         print(e)
         return "Fail"
+
+'''
+Check whether the given athlete user is managed by the given coach user
+'''
+def coachIsManagingPlayer(coachUserId, athUserId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Select * from Athlete where userId = %r and teamId in"
+                     "(Select teamId from Manage where userId = %r)"
+                     %(athUserId, coachUserId))
+        row = curs.fetchone()
+        if row is not None:
+            return True
+        else:
+            return False
+
+    except mariadb.Error as e:
+        print(e)
+        return False
 
 '''
 Sub-functions
