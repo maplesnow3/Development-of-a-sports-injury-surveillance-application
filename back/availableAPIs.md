@@ -3,27 +3,38 @@
 URL path for accessing implemented APIs will be list here for checking
 
 - *Login:*
-	- `/api/login` (Receive POST only)
+	- `/api/login` (POST only)
 - *Logout:*
-	- `/api/logout` (Receive POST only)
+	- `/api/logout` (POST only)
 - *Change Password:*
-	- `/api/user/change_password` (Receive POST only)
+	- `/api/user/change_password` (POST only)
 	- See `/back/djangoProject/Frontend/pw_change_test.html`
 - *Registration:*
-	- `/api/user/register` (Receive POST only)
+	- `/api/user/register` (POST only)
 	- See `/back/djangoProject/Frontend/reg_test.html`
 
 <br>
 
+- *View access code (aka invite code):*
+	- `/api/user/access_code/get/<user_id>` (GET only)
+	- Use `-1` for getting info for oneself
+	- See `code_get_test.html` for sample
+- *Edit access code for user oneself:*
+	- `/api/user/access_code/set` (POST only)
+	- See `code_set_test.html` for sample
+		- Request JSON should be like `{ "code": "newCodeHere" }`
+
+<br>
+
 - *View personal info:*
-	- `/api/user/personal_info/get/<target_user_id>` (Receive GET only)
+	- `/api/user/personal_info/get/<target_user_id>` (GET only)
 	- Use `-1` for getting info for oneself
 	- See `perinfo_get_test.html` for sample
 - *Edit personal info:*
-	- `/api/user/personal_info/set` (Receive POST only)
+	- `/api/user/personal_info/set` (POST only)
 	- See `perinfo_set_test.html` for sample request
 - *View baseline info:*
-	- `/api/user/baseline/get/<target_user_id>` (Receive GET only)
+	- `/api/user/baseline/get/<target_user_id>` (GET only)
 	- Use `-1` for getting info for oneself
 	- See `baseline_get_test.html` for sample
 - *Get form ID-date list (all):*
@@ -37,14 +48,14 @@ URL path for accessing implemented APIs will be list here for checking
 <br>
 
 - *Injury form submission:*
-	- `/api/injury_form/new` (Receive POST only)
+	- `/api/injury_form/new` (POST only)
 	- See `/back/djangoProject/Frontend/form_sub_test.html` for accepted JSON
 - *Injury form view:*
-	- `/api/injury_form/get/<form_id>` (Receive GET only)
+	- `/api/injury_form/get/<form_id>` (GET only)
 	- See `/back/djangoProject/Frontend/form_get_test.html` for checking
 
 
 
 ## TODO - for individual
 
-- View injury report content
+- Access code view/edit

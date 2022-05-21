@@ -157,9 +157,9 @@ def registerUser(request):
                         "message": "User not created - invalid baseline info"
                     })
 
-        # Login the user after reg
-        request.session["user_id"] = user_id
-        request.session["user_type"] = user_type
+        # # Login the user after reg - DISABLED
+        # request.session["user_id"] = user_id
+        # request.session["user_type"] = user_type
         return Response({
             "status": "success"
         })
@@ -272,7 +272,7 @@ def getPersonalInfoByUserId(request, info_user_id_in):
             pass
         elif (user_type == "player" or user_type == "coach") and info_user_id == user_id:
             pass
-        elif user_type == "coach" and database.coachIsManagingPlayer(coach_user_id, player_user_id):
+        elif user_type == "coach" and database.coachIsManagingPlayer(user_id, info_user_id):
             pass
         else:
             return Response({
@@ -397,7 +397,7 @@ def getBaselineByUserId(request, baseline_user_id_in):
             pass
         elif user_type == "player" and baseline_user_id == user_id:
             pass
-        elif user_type == "coach" and database.coachIsManagingPlayer(coach_user_id, player_user_id):
+        elif user_type == "coach" and database.coachIsManagingPlayer(user_id, baseline_user_id):
             pass
         else:
             return Response({
@@ -428,6 +428,123 @@ def getBaselineByUserId(request, baseline_user_id_in):
             return Response({
                 "status": "success",
                 "baseline": baseline_data_res
+            })
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
+
+
+@api_view(['GET'])
+def getAccessCodeByUserId(request, code_user_id_in):
+    if request.method != 'GET':
+        return Response({
+            "status": "failure",
+            "message": "Receives GET only"
+        })
+
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    try:
+        # Check usertype limit
+        user_id = request.session["user_id"]
+        user_type = request.session["user_type"]
+        if user_type != "player" and user_type != "coach" and user_type != "admin":
+            return Response({
+                "status": "failure",
+                "message": "Undefined user type"
+            })
+
+        # Convert input data
+        if code_user_id_in == "-1":
+            # -1 for "self"
+            code_user_id = user_id
+        else:
+            code_user_id = code_user_id_in
+
+        # Check access limit and set proper checked user id
+        if user_type == "admin":
+            pass
+        elif user_type == "player" and code_user_id == user_id:
+            pass
+        elif user_type == "coach" and database.coachIsManagingPlayer(user_id, code_user_id):
+            pass
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Code unavailable"
+            })
+
+        code = database.viewAthcode(code_user_id)
+        if code == None:
+            # should never happend in ordinary situations
+            return Response({
+                "status": "failure",
+                "message": "Code does not exist"
+            })
+        else:
+            return Response({
+                "status": "success",
+                "code": code[1]
+            })
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
+
+
+@api_view(['POST'])
+def setAccessCodeForSelf(request):
+    if request.method != 'POST':
+        return Response({
+            "status": "failure",
+            "message": "Receives POST only"
+        })
+
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    try:
+        # Check usertype limit
+        user_id = request.session["user_id"]
+        user_type = request.session["user_type"]
+        if user_type != "player":
+            return Response({
+                "status": "failure",
+                "message": "API not available for the user"
+            })
+
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+
+        # Request sanity check
+        new_code = request_dict.get('code')
+        if new_code == None:
+            return Response({
+                "status": "failure",
+                "message": "New code is not given"
+            })
+
+        update_result = database.updateAthcode(user_id, new_code)
+        if update_result == "Success":
+            return Response({
+                "status": "success"
+            })
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Failed to edit code - please try later"
             })
     except Exception as e:
         print(e)

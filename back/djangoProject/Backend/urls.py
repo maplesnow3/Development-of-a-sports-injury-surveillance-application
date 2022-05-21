@@ -13,6 +13,8 @@ urlpatterns = [
     path('user/personal_info/get/<str:info_user_id_in>', user_views.getPersonalInfoByUserId, name='get_personal_info'),
     path('user/personal_info/set', user_views.setPersonalInfoForSelf, name='set_personal_info'),
     path('user/baseline/get/<str:baseline_user_id_in>', user_views.getBaselineByUserId, name='get_baseline'),
+    path('user/access_code/get/<str:code_user_id_in>', user_views.getAccessCodeByUserId, name='get_access_code'),
+    path('user/access_code/set', user_views.setAccessCodeForSelf, name='set_access_code'),
     # injury form functions
     path('injury_form/new', injury_views.createNewForm, name='create_new_form'),
     path('injury_form/get/<str:form_id>', injury_views.getFormById, name='get_form_by_id'),
