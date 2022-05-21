@@ -11,11 +11,11 @@ const Personinfo = ()=>{
        
       <div className= 'title'><br></br><br></br>  Personal Information 
       </div>
-      <div className = 'body'>
+      <div className = 'tablebody'>
         
       <table>
-      <tr >
-       <th >Personal Information</th>  
+      <tr>
+       <th>Personal Information</th>  
        <th></th>
       
       </tr>
@@ -48,7 +48,9 @@ const Personinfo = ()=>{
         <td>Date of Birth</td>
         <td></td>
       </tr>
-      <tr className="spacer"><td >&nbsp;</td></tr>
+      </table>
+      <table> 
+      
       <tr>
        <th>User id and  invite code</th>
        <th></th>
@@ -63,8 +65,9 @@ const Personinfo = ()=>{
         <td>Invite code </td>
         <td></td>
       </tr>
-
-      <tr className="spacer"><td >&nbsp;</td></tr>
+      </table>
+      <table>
+      
       <tr>
        <th>Medical History</th>
        <th></th>
@@ -136,8 +139,9 @@ const Personinfo = ()=>{
         <td></td>
         <td></td>
       </tr>
-
-      <tr className="spacer"><td >&nbsp;</td></tr>
+   </table>
+   <table>
+     
       <tr>
 
        <th>Injury History</th>
@@ -192,7 +196,7 @@ const Personinfo = ()=>{
       </tr> 
       <tr className="thead2">
             <td > surgery(s) or reconstruction(s) </td>
-            <td >Approximate year</td>
+            <td >  </td>
             <td></td>
         </tr>
         <tr>
@@ -204,27 +208,17 @@ const Personinfo = ()=>{
         <td></td>
         <td></td>
       </tr> 
-      <tr className="spacer"><td >&nbsp;</td></tr>
+      </table>
+ <table>
       <tr>
-
        <th>Concusssion History</th>
        <th></th>
-       
       </tr>
-      
-     
       <tr>
         <td>Were diagnosed with a CONCUSSION in the past 12 months? </td>
-        <td></td>
-        
+        <td></td> 
       </tr>
-      <tr>
-       <td>If Yes, these questions will pop up 
-Was the concussion sport related
-</td>
-       <td></td>
-       
-      </tr>
+      
       <tr>
        <td>How many concussions did you suffer in the past 12 months?</td>
        <td></td>
@@ -250,20 +244,20 @@ Was the concussion sport related
         <td></td>
         
       </tr>  
-      <tr className="spacer"><td >&nbsp;</td></tr> 
-      <button id ="save_btn">save</button> 
+      
+      
 </table>
         
       
-
+<button id ="save_btn">save</button> 
 
       </div>
       
       
       <div className = 'bottom2'> 
        
-      <a href="/home"><HomeOutlined style={{ textAlign:'left',marginTop:20,marginLeft:15, fontSize: '400%', color: '#fff' }}/></a>
-      <a href="/login"   ><LogoutOutlined style={{ textAlign:'center',marginTop:20,marginRight:15, fontSize: '400%', color: '#fff' }}/></a>
+      <a href="/#/home"><HomeOutlined style={{ textAlign:'left',marginTop:20,marginLeft:15, fontSize: '400%', color: '#fff' }}/></a>
+      <a href="/#/login"   ><LogoutOutlined style={{ textAlign:'center',marginTop:20,marginRight:15, fontSize: '400%', color: '#fff' }}/></a>
       </div>
     </div>
   )
