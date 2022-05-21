@@ -11,6 +11,7 @@ import CalendarViewer from '../pages/record_browser/components/CalendarViewer';
 import ListViewer from '../pages/record_browser/components/ListViewer';
 import RecordViewer from '../pages/record_browser/components/RecordViewer';
 import TeamManage from '../pages/team_func/components/TeamManage';
+import NewForm from '../pages/newfrom'
 // import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
 
 import ChangePassword from '../pages/changePassword';
@@ -26,6 +27,9 @@ const router:any = [
   {path:'/registry/injury1',name:'registry',element:InjuryHistory1},
   {path:'/registry/complete',name:'registry',element:ConcussionHistory},
   {path:'/home',name:'home',element:Home},
+
+  {path:'/newform',name:'newform',element:NewForm},
+
   {path:'/record_browser/calendar',name:'record_browser',element:CalendarViewer},
   {path:'/record_browser/list',name:'record_browser',element:ListViewer},
   {path:'/record_browser/view_record',name:'record_browser',element:RecordViewer},
