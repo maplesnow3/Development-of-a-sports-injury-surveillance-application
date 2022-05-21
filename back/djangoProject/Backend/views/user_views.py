@@ -264,8 +264,6 @@ def getPersonalInfoByUserId(request, info_user_id_in):
         if info_user_id_in == "-1":
             # -1 for "self"
             info_user_id = user_id
-        else:
-            info_user_id = int(info_user_id_in)
 
         # Check access limit and set proper checked user id
         if user_type == "admin":
@@ -389,8 +387,6 @@ def getBaselineByUserId(request, baseline_user_id_in):
         if baseline_user_id_in == "-1":
             # -1 for "self"
             baseline_user_id = user_id
-        else:
-            baseline_user_id = int(baseline_user_id_in)
 
         # Check access limit and set proper checked user id
         if user_type == "admin":
