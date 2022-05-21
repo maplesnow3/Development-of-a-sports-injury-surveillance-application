@@ -66,7 +66,7 @@ const TeamManage = () => {
 	return (
 		<>
 			<div className="title-div">
-				<p>Teeam Management</p>
+				<p>Team Management</p>
 				<span className="title--icon">
 					<TeamOutline />
 				</span>
