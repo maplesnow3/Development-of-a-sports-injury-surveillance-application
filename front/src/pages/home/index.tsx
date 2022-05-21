@@ -18,7 +18,7 @@ const Home = ()=>{
         <div id = 'two'><a href="#"  title="New Form"><FormOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
         <p>New Form</p>
         </div>
-        <div id = 'three'><a href="#" title="Change Password"><LockOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff'}}/></a>
+        <div id = 'three'><a href="#/change-password" title="Change Password"><LockOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff'}}/></a>
         <p>Change Password</p>
         </div>
         <div id = 'four'><a href="/personinfo"  title="Personal Info" ><UserOutlined style={{ textAlign:'center',marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>

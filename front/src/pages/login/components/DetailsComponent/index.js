@@ -9,6 +9,8 @@ const DetailsComponent = ()=>{
   const location = useLocation();
   const {state} = location;
   const [pickerVisible, setPickerVisible] = useState(false);
+  const [othersValue,setOthersValue] = useState('');
+  const [disabled,setDiasbled] = useState(true)
   const formArray = [
           {type:'input',name:'surname',label:'Surname',rules:[{required:true,message:'Please Enter your Surname'}],placeholder:'Please Enter your Surname'},
           {type:'input',name:'givenName',label:'Given Name',rules:[{required:true,message:'Please Enter your Given Name'}],placeholder:'Please Enter your Given Name'},
@@ -23,7 +25,14 @@ const DetailsComponent = ()=>{
       <RegistryTitle step={1} />
         <Form 
           name='form' 
-          onFinish={(values)=>{navigate('/registry/history',{state:{...values,...state}})}}
+          onFinish={(values)=>{
+            
+            if(values.ethicBackground==='other'){
+              values.ethicBackground = othersValue;
+            }
+           navigate('/registry/history',{state:{...values,...state}})
+          }
+          }
           footer={<Button style={{backgroundColor:'#1DB860'}} block type='submit' color='primary' size='large'>Continue</Button>}>
           {formArray.map(item=>{
             if(item.type==='input'){
@@ -45,12 +54,23 @@ const DetailsComponent = ()=>{
             if(item.type === 'radio'){
               return (
                 <Form.Item key={item.name} name={item.name} label={item.label} rules={item.rules}>
-                  <Radio.Group>
+                  <Radio.Group onChange={(e)=>{ if(e!=='other'){setOthersValue('')};setDiasbled(e!=='other')}}>
                     <Space>
-                      <Radio value='American'>American</Radio>
                       <Radio value='African'>African</Radio>
-                      <Radio value='European'>European</Radio>
+                      <Radio value='Afro-American'>Afro-American</Radio>
                       <Radio value='Asian'>Asian</Radio>
+                      <Radio value='Caucasian'>Caucasian</Radio>
+                      </Space>
+                      <Space>
+                      <Radio value='Indigenous Australian'>Indigenous Australian</Radio>
+                      <Radio value='Maori'>Maori</Radio>
+                      <Radio value='Middle Eastern'>Middle Eastern</Radio>
+                      </Space>
+                      <Space>
+                      <Radio value='Oceanian(Pacific Islander)'>Oceanian(Pacific Islander)</Radio>
+                      <Radio value='other'></Radio><>other &nbsp;:&nbsp;<Input onChange={(e)=>{
+                        setOthersValue(e)
+                      }} value={othersValue} disabled={disabled} style={{display:'inline-block', width:'100px',border:'1px solid #ccc',zIndex:9999}} /></>
                     </Space>
                   </Radio.Group>
               </Form.Item>
