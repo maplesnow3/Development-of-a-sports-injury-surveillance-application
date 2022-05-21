@@ -1,12 +1,13 @@
 .personinfo{
     width: auto;
-    height: 100vh;
-    overflow: hidden;
-    overflow-y: auto;
+    height: fit-content;
+    overflow:hidden;
+   
     background-color: #1DB860;
+    flex-direction: row;
     
-    }
-    .title{
+ }
+.title{
       font-size: 18px;
       text-align: left;
       color: #fff;
@@ -15,34 +16,36 @@
       height:100px;
       font-size: 28px;
       margin-left:30px;
-    }
-   
-    div.body {
+      
+}
+.tablebody {
         
         
         background-color: #fff;
-        height:700px;
+      
         text-align: center;
-        width:100%;
+        height:fit-content;
+     
         display:flex;
         justify-content: center;
-        overflow-y: auto;
-   
+        flex-direction: column;
+        align-items: center;
        }
        
        
        .bottom2{
         display: flex;
         justify-content: space-between;
-        
+        height:100px;
         color:#fff;
+        background-color: #1DB860;
        }
        table {
         margin-top: 10px;
         border-collapse: collapse;
-        width: 50%;
-        height:50%;
         
+        height:50%;
+        width:60%;
         margin-bottom: 10px;
       }
     
@@ -73,10 +76,10 @@
       #save_btn{
         background-color: #1DB860;
     height:38px;
-    border: none;
+    border-style: ridge;
     color: white;
-    width: 50px;
-    margin-left: 160px;
+    width: 100px;
+    margin-bottom: 10px;
    
     
     
