@@ -3,18 +3,44 @@ import {
 	CalendarOutline,
 	LeftOutline
 } from 'antd-mobile-icons';
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
 import './index.css';
 
 
+// Allows specify checked user and date range in search string like:
+//  ?user_id=12&date_from=2020-01-02&date_to=2022-05-05
+//
+// - use ID `-1` or leave `user_id` ungiven for searching for the logged-in user themself
+// - date range will be "today - today" if date_from is not given
+//     (and ofc if both "from" and "to" are not given)
+// - date range will be "from - today" if date_to is not given
+
+
 const useRecordList = () => {
 	const [recordList, setRecordList] = useState([]);
 	const getRecordList = async () => {
+		const todayString = moment().format("YYYY-MM-DD");
+		// A fake domain is given for successfully construct URL object
+		const urlSearch =
+			(new URL("http://localhost" + window.location.hash.slice(1))).searchParams;
+
+		// Parse checked params
+		const checkedUserId = urlSearch.get("user_id") || "-1";
+		const checkedDateFrom = urlSearch.get("date_from") || todayString;
+		const checkedDateTo = (() => {
+			if (checkedDateFrom === todayString) {
+				return todayString
+			} else {
+				return (urlSearch.get("date_to") || todayString);
+			}
+		})();
+
 		// TODO: use proper API for getting date list
 		const res = await fetch(
-			"/sample_record_list.json" +
-			window.location.search
+			`/api/injury_form/get_dates/${checkedUserId}` +
+			`/from/${checkedDateFrom}/to/${checkedDateTo}`
 		);
 		const resFetched = await res.json();
 
@@ -38,7 +64,11 @@ const useRecordList = () => {
 		}
 
 		if (!readSucceed) {
-			alert("Failed to get record list - please try later");
+			if (resFetched.hasOwnProperty("status") && resFetched.status === "failure") {
+				alert("Failed to get record list - " + resFetched.message);
+			} else {
+				alert("Failed to get record list - please try later");
+			}
 		}
 	};
 

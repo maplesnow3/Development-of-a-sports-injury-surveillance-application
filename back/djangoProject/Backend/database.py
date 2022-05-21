@@ -663,6 +663,177 @@ def removeTeam(userId, teamId):
         return "Fail"
 
 '''
+Get the user id for the owner athlete of the given injury form id
+'''
+def getOwnerIdByInjFormId(injId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Select userId from Athlete where athleteId in "
+                     "(Select athleteId from InjForm where injFormId = %r)"
+                     %(injId))
+        userId = curs.fetchone()
+        if userId is not None:
+            curs.close()
+            return str(userId[0])
+        else:
+            curs.close()
+            return None
+
+    except mariadb.Error as e:
+        print(e)
+        return None
+
+'''
+Check whether the coach is qualified to view the injury form
+'''
+def coachCanViewInjForm(coachUserId, injId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        athUserId=getOwnerIdByInjFormId(injId)
+        if athUserId is not None:
+            curs.execute("Select * from Athlete where userId = %r and teamId in"
+                         "(Select teamId from Manage where userId = %r)"
+                         %(athUserId, coachUserId))
+            result = curs.fetchone()
+            if result is not None:
+                return True
+            else:
+                return False
+        else:
+            return False
+
+    except mariadb.Error as e:
+        print(e)
+        return False
+
+'''
+Get the team list managed by the given coach id
+'''
+def viewTeam(userId):
+    conn = openConnection()
+    team=[]
+    try:
+        curs = conn.cursor()
+        curs.execute("Select * from Team where teamId in"
+                     "(Select teamId from Manage where userId = %r)"
+                     %(userId))
+        nr = 0
+        row = curs.fetchone()
+        while row is not None:
+            nr += 1
+            team.append([str(row[0]), str(row[1])])
+            row = curs.fetchone()
+
+        if nr == 0:
+            return None
+        curs.close()
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+    team_list = [{
+        "team_id": row[0],
+        "team_name": row[1]
+    } for row in team]
+    return team_list
+
+'''
+Get all the team members of the given team id
+'''
+def viewTeamMember(teamId):
+    conn = openConnection()
+    member=[]
+    try:
+        curs = conn.cursor()
+        curs.execute("Select userId from Athlete where teamId = %r"
+                     %(teamId))
+        nr = 0
+        row = curs.fetchone()
+        while row is not None:
+            nr += 1
+            member.append([str(row[0]), getAthName(str(row[0]))])
+            row = curs.fetchone()
+
+        if nr == 0:
+            return None
+        curs.close()
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+    member_list = [{
+        "user_id": row[0],
+        "name": row[1]
+    } for row in member]
+    return member_list
+
+'''
+Add a new team member by the given team id and user id and code of the member invited
+'''
+def addTeamMember(teamId, athUserId, athCode):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Select code from Athlete where userId = %r"
+                     %(athUserId))
+        row = curs.fetchone()
+        code = str(row[0])
+        if code == athCode:
+            curs.execute("Update Athlete Set teamId=%r Where userId=%r"
+                         %(teamId, athUserId))
+            conn.commit()
+            curs.close()
+            return "Success"
+        else:
+            return "The invitation code is not correct."
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
+Remove the members in the given user list of the team
+'''
+def removeTeamMember(userIdList):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        for x in userIdList:
+            curs.execute("Update Athlete Set teamId = Null Where userId=%r"
+                         %(x))
+        conn.commit()
+        curs.close()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
+Check whether the given athlete user is managed by the given coach user
+'''
+def coachIsManagingPlayer(coachUserId, athUserId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Select * from Athlete where userId = %r and teamId in"
+                     "(Select teamId from Manage where userId = %r)"
+                     %(athUserId, coachUserId))
+        row = curs.fetchone()
+        if row is not None:
+            return True
+        else:
+            return False
+
+    except mariadb.Error as e:
+        print(e)
+        return False
+
+'''
 Sub-functions
 '''
 def getAthid(userid):
@@ -680,6 +851,25 @@ def getAthid(userid):
             return str(athleteid[0])
         else:
             curs.close()
+            return None
+
+    except mariadb.Error as e:
+        print(e)
+        return None
+
+def getAthName(userId):
+    # Get the full name of the athlete
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Select givenName, surname from PerInfo where perInfoId in"
+                     "(Select perInfoId from Athlete where userId = %r)"
+                     %(userId))
+        row=curs.fetchone()
+        if row is not None:
+            name=str(row[0])+" "+str(row[1])
+            return name
+        else:
             return None
 
     except mariadb.Error as e:

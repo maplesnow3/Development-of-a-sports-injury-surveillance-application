@@ -3,8 +3,7 @@ import {
 	CalendarOutline,
 	LeftOutline
 } from 'antd-mobile-icons';
-import jwt from 'jwt-decode';
-import moment from 'moment'
+import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
 import './index.css';
@@ -12,11 +11,23 @@ import './index.css';
 const { RangePicker } = DatePicker;
 
 
+// Allows specify checked user in search string like:
+//   ?user_id=12
+// use ID `-1` or leave `user_id` ungiven for searching for the logged-in user themself
+
+
 const useRecordDates = () => {
 	const [recordDates, setRecordDates] = useState([]);
 	const getRecordDates = async () => {
-		// TODO: use proper API for getting date list
-		const res = await fetch("/sample_record_list.json");
+		// Get checked user ID
+		// A fake domain is given for successfully construct URL object
+		const checkedUserId =
+			(new URL("http://localhost" + window.location.hash.slice(1)).
+				searchParams.get("user_id")) ||
+			"-1";
+
+		// Query date list from API
+		const res = await fetch(`/api/injury_form/get_dates/${checkedUserId}`);
 		const resFetched = await res.json();
 
 		let readSucceed = false;
@@ -30,7 +41,7 @@ const useRecordDates = () => {
 					return item.date.replace(
 						/ [0-9]{2}:[0-9]{2}:[0-9]{2}$/,
 						""
-					);
+					);  // Remove HMS and keep YMD only
 				}).filter((item, i, arr) => {
 					return arr.indexOf(item) === i;
 				});
@@ -39,7 +50,11 @@ const useRecordDates = () => {
 		}
 
 		if (!readSucceed) {
-			alert("Failed to get record date list - please try later");
+			if (resFetched.hasOwnProperty("status") && resFetched.status === "failure") {
+				alert("Failed to get record date list - " + resFetched.message);
+			} else {
+				alert("Failed to get record date list - please try later");
+			}
 		}
 	};
 
@@ -83,9 +98,19 @@ const CalendarViewer = () => {
 						if (!dateRangeSelected || dateRangeSelected.length < 2) {
 							alert("Please select a valid date range");  // TODO: more user friendly here
 						} else {
-							// TODO (Place reserved for do the search)
-							console.log(dateRangeSelected);
-							window.location.href = `/front/index.html/#/record_browser/list?uid=1&date_from=${dateRangeSelected[0].format("YYYY-MM-DD")}&date_to=${dateRangeSelected[1].format("YYYY-MM-DD")}`
+							// Get checked user ID
+							// A fake domain is given for successfully construct URL object
+							let checkedUserId =
+								(new URL("http://localhost" + window.location.hash.slice(1)).
+									searchParams.get("user_id")) ||
+								"-1";
+
+							//console.log(dateRangeSelected);
+							// Jump to list view with proper params
+							window.location.href =
+								`/front/index.html/#/record_browser/list?user_id=${checkedUserId}&` +
+								`date_from=${dateRangeSelected[0].format("YYYY-MM-DD")}&` +
+								`date_to=${dateRangeSelected[1].format("YYYY-MM-DD")}`
 						}
 					} }
 				>Show</Button>
@@ -105,10 +130,19 @@ const CalendarViewer = () => {
 						// Only react to valid dates
 						let dateString = dateSelected.format("YYYY-MM-DD");
 						if (datesWithRecord.indexOf(dateString) > -1) {
-							// TODO (Place reserved for reading reports in the day)
-							console.log(dateString);
-							// TODO: Update URI to proper one
-							window.location.href = `/front/index.html/#/record_browser/list?uid=self&date_from=${dateString}&date_to=${dateString}`
+							// Get checked user ID
+							// A fake domain is given for successfully construct URL object
+							let checkedUserId =
+								(new URL("http://localhost" + window.location.hash.slice(1)).
+									searchParams.get("user_id")) ||
+								"-1";
+
+							//console.log(dateRangeSelected);
+							// Jump to list view with proper params
+							window.location.href =
+								`/front/index.html/#/record_browser/list?user_id=${checkedUserId}&` +
+								`date_from=${dateString}&` +
+								`date_to=${dateString}`
 						}
 					} }
 				/>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Per info get test</title>
+</head>
+<body>
+	<input type="number" name="formid" id="formid" value="-1">
+	<button onclick="submitGet();">Get form JSONs</button>
+	<p>Use -1 for checking the info of oneself; for coaches, specify user id
+		for viewing info from a team member.
+	</p>
+	<p>
+		ur personal info will be like:
+		<code>
+			{
+				"status":"success",
+				"personal_info":{
+					"surname":"reglast",
+					"givenName":"regfirst",
+					"birthday":"2020-01-13",
+					"ethicBackground":"Asian",
+					"phone":"123456654",
+					"address":"regaddr",
+					"country":"China"
+				}
+			}
+		</code>
+	</p>
+	<script>
+		function submitGet() {
+			let formId = document.getElementById("formid").value
+
+			let xhr = new XMLHttpRequest();
+			xhr.onload = function (event) {
+				if (this.status === 200) {
+					console.log(JSON.parse(this.responseText));
+				}
+			};
+			xhr.open('GET', `/api/user/personal_info/get/${formId}`, true);
+			xhr.send();
+		}
+	</script>
+</body>
+</html>

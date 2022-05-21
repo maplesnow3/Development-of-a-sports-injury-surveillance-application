@@ -28,14 +28,15 @@ def createNewForm(request):
 
         # Check usertype limit
         # Is player and submit for himself
+        user_id = request.session["user_id"]
         user_type = request.session["user_type"]
         submit_target = request_dict.get('targetId')
-        if user_type == "player" and (submit_target != -1 and submit_target != request.session["user_id"]):
+        if user_type == "player" and (submit_target != -1 and str(submit_target) != user_id):
             return Response({
                 "status": "failure",
                 "message": "You can only create new form for yourself"
             })
-        elif user_type == "coach" and database.isPlayerUser(submit_target):
+        elif user_type == "coach" and database.coachIsManagingPlayer(user_id, submit_target):
             return Response({
                 "status": "failure",
                 "message": "Target is not a valid player"
@@ -48,7 +49,7 @@ def createNewForm(request):
 
         # Redirect to real self ID if -1 is used
         if submit_target == -1:
-            submit_target = request.session["user_id"]
+            submit_target = user_id
 
         result, created_form_id, need_concussion_form = "Fail", "Fail", "Fail"
         try:
@@ -111,6 +112,7 @@ def createNewForm(request):
             "message": "Invalid request / undefined issue"
         })
 
+
 @api_view(['GET'])
 def getFormById(request, form_id):
     if request.method != 'GET':
@@ -133,17 +135,20 @@ def getFormById(request, form_id):
             "status": "failure",
             "message": "Undefined user type"
         })
+
     # Check access limit
-    # TODO: IMPLEMENT FUNC BELOW
-    #form_owner_id = database.getOwnerIdByInjFormId(form_id)
+    form_owner_id = database.getOwnerIdByInjFormId(form_id)
+    if form_owner_id == None:
+        return Response({
+            "status": "failure",
+            "message": "Invalid form"
+        })
+
     if user_type == "admin":
-        pass
-    elif True: # TODO: For testing ONLY; REMOVE LATER
         pass
     elif user_type == "player" and form_owner_id == user_id:
         pass
-    elif user_type == "coach" and database.coachCanViewInjForm(user_id, form_id):
-        # TODO: IMPLEMENT CONDITION FUNC ABOVE
+    elif user_type == "coach" and database.coachIsManagingPlayer(user_id, form_owner_id):
         pass
     else:
         return Response({
@@ -162,7 +167,7 @@ def getFormById(request, form_id):
     else:
         # Convert list to dict for responsing
         form_data_res = {
-            "targetId": 9999,  # TODO: read proper ID from `form_owner_id`
+            "targetId": int(form_owner_id),
             "injuredBodyPart": form_data[0],
 
             "injuryOccurrence": form_data[1],
@@ -205,6 +210,118 @@ def getFormById(request, form_id):
         return Response({
             "status": "success",
             "report": form_data_res
+        })
+
+
+@api_view(['GET'])
+def getFormDatesByUserId(request, viewed_user_id_in):
+    if request.method != 'GET':
+        return Response({
+            "status": "failure",
+            "message": "Receives GET only"
+        })
+
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    # Check usertype limit
+    user_id = request.session["user_id"]
+    user_type = request.session["user_type"]
+    if user_type != "player" and user_type != "coach" and user_type != "admin":
+        return Response({
+            "status": "failure",
+            "message": "Undefined user type"
+        })
+
+    # Convert input data
+    if viewed_user_id_in == "-1":
+        # -1 for "self"
+        viewed_user_id = user_id
+    else:
+        viewed_user_id = viewed_user_id_in
+
+    # Check access limit
+    if user_type == "admin":
+        pass
+    elif user_type == "player" and viewed_user_id == user_id:
+        pass
+    elif user_type == "coach" and database.coachIsManagingPlayer(user_id, viewed_user_id):
+        pass
+    else:
+        return Response({
+            "status": "failure",
+            "message": "Date list unavailable"
+        })
+
+    dates = database.viewAllDate(viewed_user_id)
+    if dates == None or dates == "Fail":
+        return Response({
+            "status": "failure",
+            "message": "Cannot find date list"
+        })
+    else:
+        return Response({
+            "status": "success",
+            "report_date_list": dates
+        })
+
+
+@api_view(['GET'])
+def getFormDatesByUserIdInRange(request, viewed_user_id_in, start_date, end_date):
+    if request.method != 'GET':
+        return Response({
+            "status": "failure",
+            "message": "Receives GET only"
+        })
+
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    # Check usertype limit
+    user_id = request.session["user_id"]
+    user_type = request.session["user_type"]
+    if user_type != "player" and user_type != "coach" and user_type != "admin":
+        return Response({
+            "status": "failure",
+            "message": "Undefined user type"
+        })
+
+    # Convert input data
+    if viewed_user_id_in == "-1":
+        # -1 for "self"
+        viewed_user_id = user_id
+    else:
+        viewed_user_id = viewed_user_id_in
+
+    # Check access limit
+    if user_type == "admin":
+        pass
+    elif user_type == "player" and viewed_user_id == user_id:
+        pass
+    elif user_type == "coach" and database.coachIsManagingPlayer(user_id, viewed_user_id):
+        pass
+    else:
+        return Response({
+            "status": "failure",
+            "message": "Date list unavailable"
+        })
+
+    dates = database.viewRangeDate(viewed_user_id, start_date, end_date)
+    if dates == None or dates == "Fail":
+        return Response({
+            "status": "failure",
+            "message": "Cannot find date list"
+        })
+    else:
+        return Response({
+            "status": "success",
+            "report_date_list": dates
         })
 
 

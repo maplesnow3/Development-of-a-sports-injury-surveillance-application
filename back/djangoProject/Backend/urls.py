@@ -10,12 +10,14 @@ urlpatterns = [
     # User related functions
     path('user/register', user_views.registerUser, name='register'),
     path('user/change_password', user_views.changeUserSelfPassword, name='change_password'),
-    # path('user/profile', user_views.getUserProfile, name='users'),
-    # path('user/<str:pk>', user_views.getUserById, name='routes'),
-    # path('user/delete/<str:pk>', user_views.deleteUser, name='delete'),
+    path('user/personal_info/get/<str:info_user_id_in>', user_views.getPersonalInfoByUserId, name='get_personal_info'),
+    path('user/personal_info/set', user_views.setPersonalInfoForSelf, name='set_personal_info'),
+    path('user/baseline/get/<str:baseline_user_id_in>', user_views.getBaselineByUserId, name='get_baseline'),
     # injury form functions
     path('injury_form/new', injury_views.createNewForm, name='create_new_form'),
     path('injury_form/get/<str:form_id>', injury_views.getFormById, name='get_form_by_id'),
+    path('injury_form/get_dates/<str:viewed_user_id_in>/from/<str:start_date>/to/<str:end_date>', injury_views.getFormDatesByUserIdInRange, name='get_form_dates_by_user_id_in_range'),
+    path('injury_form/get_dates/<str:viewed_user_id_in>', injury_views.getFormDatesByUserId, name='get_form_dates_by_user_id'),
     # path('injuryform/<str:pk>/<str:start>/<str:finish>', injury_views.injuryByTimeID, name='form_by_id_time'),
     # path('concussionform', injury_views.newConcussion, name='new_form'),
     # Team functions, under development
