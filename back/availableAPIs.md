@@ -53,3 +53,13 @@ URL path for accessing implemented APIs will be list here for checking
 - *Injury form view:*
 	- `/api/injury_form/get/<form_id>` (GET only)
 	- See `/back/djangoProject/Frontend/form_get_test.html` for checking
+
+
+# TODO
+
+- Injury date writein
+	- API
+	- Frontend submit page
+- Injury date print
+	- API
+	- Frontend submit page
