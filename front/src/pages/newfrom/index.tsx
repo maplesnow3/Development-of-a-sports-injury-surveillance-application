@@ -7,11 +7,9 @@ import InjureForm from './Component/injureForm.js'
 const Newform = ()=>{
   const navigator = useNavigate()
   return (
-   
-      
-      <div className='new_form'>
-        <div className='top_bar'>New Form</div>
-          <InjureForm />
+    <div className='new_form'>
+      <div className='top_bar'>Create a New Form</div>
+      <InjureForm />
     </div>
   )
 }
