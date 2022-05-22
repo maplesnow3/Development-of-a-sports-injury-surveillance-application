@@ -18,7 +18,14 @@ const InjureForm = () => {
       return specifiedTargetId;
    })();
    let [concuFormDisabled, setConcuFormDisabled] = useState(true)
-   let [concuFormPromptStyle, setConcuFormPromptStyle] = useState({display: "none"})
+   let [concuFormPromptStyle, setConcuFormPromptStyle] = useState({ display: "none" })
+   let [nature_typeOfInjuryOtherDisable, setNature_typeOfInjuryOtherDisable] = useState(true)
+   let [mechanismOfInjuryOtherDisable, setMechanismOfInjuryOtherDisable] = useState(true)
+   let [protectiveEquipmentWornOtherDisable, setProtectiveEquipmentWornOtherDisable] = useState(true)
+   let [initialTreatmentOtherDisable, setInitialTreatmentOtherDisable] = useState(true)
+   let [initialTreatingPersonOtherDisable, setInitialTreatingPersonOtherDisable] = useState(true)
+   let [specialistPhysicianTypeDisable, setSpecialistPhysicianTypeDisable] = useState(true)
+   let [referralToOtherDisable, setReferralToOtherDisable] = useState(true)
 
    return (
       <div>
@@ -86,14 +93,14 @@ const InjureForm = () => {
                if (formData.nature_typeOfInjury.indexOf("Concussion") > -1) {
                   formData["concussionProblems"] = [
                      q1, q2, q3, q4, q5, q6, q7, q8, q9, q10, q11
-                  ] || [0,0,0,0,0,0,0,0,0,0,0];
+                  ] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                   formData["ConcussionSymptom"] = [
                      headache, pressureInHead, neckPain, NauseaOrVomiting, dizziness,
                      blurredVision, balanceProblems, sensitivityToLight, sensitivityToNoise,
                      feelingSlowedDown, feelingLikeInAFog, dontFeelRight, difficultyConcentrating,
                      difficultyRemembering, fatigueOrLowEnergy, confusion, drowsiness, moreEmotional,
                      irritability, sadness, nervousOrAnxious, troubleFallingAsleep
-                  ] || [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+                  ] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                   formData["physicalActivity"] = Y_N_1 || false;
                   formData["mentalActivity"] = Y_N_2 || false;
                   formData["percentOfFeel"] = range || 0;
@@ -233,8 +240,8 @@ const InjureForm = () => {
                                     async (checked) => {
                                        setConcuFormDisabled(!checked);
                                        checked ?
-                                          setConcuFormPromptStyle({display: "block"}) :
-                                          setConcuFormPromptStyle({display: "none"});
+                                          setConcuFormPromptStyle({ display: "block" }) :
+                                          setConcuFormPromptStyle({ display: "none" });
                                     }
                                  }>Concussion</Checkbox>
                                  <p className="checkbox-level-2" style={concuFormPromptStyle}>
@@ -254,12 +261,16 @@ const InjureForm = () => {
                                  <Checkbox value='Heart problem'>Heart problem</Checkbox>
                                  <Checkbox value='Respiratory problem'>Respiratory problem</Checkbox>
                                  <Checkbox value='Unknown'>Unknown</Checkbox>
-                                 <Checkbox value='Other'>Other</Checkbox>
+                                 <Checkbox value='Other' onChange={
+                                    async (checked) => {
+                                       setNature_typeOfInjuryOtherDisable(!checked);
+                                    }
+                                 }>Other</Checkbox>
                               </Space>
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='nature_typeOfInjuryOther'>
-                              <Input placeholder="Other - Please specify details" />
+                           <Input disabled={nature_typeOfInjuryOtherDisable} placeholder="Other - Please specify details" />
                         </Form.Item>
                      </Collapse.Panel>
 
@@ -324,12 +335,17 @@ const InjureForm = () => {
                                  <Checkbox value='Skills training - non contact'>Skills training - non contact</Checkbox>
                                  <Checkbox value='Weight training'>Weight training</Checkbox>
 
-                                 <Checkbox value='Other'>Other</Checkbox>
+                                 <Checkbox value='Other' onChange={
+                                    async (checked) => {
+                                       setMechanismOfInjuryOtherDisable(!checked);
+                                    }
+                                 }>Other</Checkbox>
+
                               </Space>
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='mechanismOfInjuryOther'>
-                              <Input placeholder="Other - Please specify details" />
+                           <Input disabled={mechanismOfInjuryOtherDisable} placeholder="Other - Please specify details" />
                         </Form.Item>
                      </Collapse.Panel>
 
@@ -339,12 +355,17 @@ const InjureForm = () => {
                               <Space direction='vertical'>
                                  <Checkbox value='Headgear/helmet'>Headgear/helmet</Checkbox>
                                  <Checkbox value='Strapping'>Strapping</Checkbox>
-                                 <Checkbox value='Other'>Other</Checkbox>
+                                 <Checkbox value='Other' onChange={
+                                    async (checked) => {
+                                       setProtectiveEquipmentWornOtherDisable(!checked);
+                                    }
+                                 }
+                                 >Other</Checkbox>
                               </Space>
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='protectiveEquipmentWornOther'>
-                              <Input placeholder="Other - Please specify details" />
+                           <Input disabled={protectiveEquipmentWornOtherDisable} placeholder="Other - Please specify details" />
                         </Form.Item>
                      </Collapse.Panel>
 
@@ -396,12 +417,16 @@ const InjureForm = () => {
                                  <Checkbox value='RICE'>RICE</Checkbox>
                                  <Checkbox value='Sling/splint'>Sling/splint</Checkbox>
                                  <Checkbox value='Strapping/taping'>Strapping/taping</Checkbox>
-                                 <Checkbox value='Other'>Other</Checkbox>
+                                 <Checkbox value='Other' onChange={
+                                    async (checked) => {
+                                       setInitialTreatmentOtherDisable(!checked);
+                                    }
+                                 }>Other</Checkbox>
                               </Space>
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='initialTreatmentOther'>
-                              <Input placeholder="Other - Please specify details" />
+                           <Input disabled={initialTreatmentOtherDisable} placeholder="Other - Please specify details" />
                         </Form.Item>
                      </Collapse.Panel>
 
@@ -414,12 +439,16 @@ const InjureForm = () => {
                                  <Checkbox value='Medical/Sport trainer'>Medical/Sport trainer</Checkbox>
                                  <Checkbox value='Physiotherapist'>Physiotherapist</Checkbox>
                                  <Checkbox value='Teacher'>Teacher</Checkbox>
-                                 <Checkbox value='Other'>Other</Checkbox>
+                                 <Checkbox value='Other' onChange={
+                                    async (checked) => {
+                                       setInitialTreatingPersonOtherDisable(!checked);
+                                    }
+                                 }>Other</Checkbox>
                               </Space>
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='initialTreatingPersonOther'>
-                              <Input placeholder="Other - Please specify details" />
+                           <Input disabled={initialTreatingPersonOtherDisable} placeholder="Other - Please specify details" />
                         </Form.Item>
                      </Collapse.Panel>
 
@@ -433,10 +462,20 @@ const InjureForm = () => {
                                  <Checkbox value='Hospital'>Hospital</Checkbox>
                                  <Checkbox value='Medical practitioner'>Medical practitioner</Checkbox>
                                  <Checkbox value='Physiotherapist'>Physiotherapist</Checkbox>
-                                 <Checkbox value='Specialist physician'>Specialist physician</Checkbox>
-                                 <Checkbox value='Other'>Other</Checkbox>
+                                 <Checkbox value='Specialist physician'>Specialist physician(type)</Checkbox>
+                                 <Checkbox value='Other' onChange={
+                                    async (checked) => {
+                                       setReferralToOtherDisable(!checked);
+                                    }
+                                 }>Other</Checkbox>
                               </Space>
                            </Checkbox.Group>
+                        </Form.Item>
+                        {/* <Form.Item name='specialistPhysicianType'>
+                           <Input disabled={specialistPhysicianTypeDisable} placeholder="Please specify type" />
+                        </Form.Item> */}
+                        <Form.Item name='referralToOther'>
+                           <Input disabled={referralToOtherDisable} placeholder="Other - Please specify details" />
                         </Form.Item>
                      </Collapse.Panel>
                   </Collapse>
@@ -446,7 +485,7 @@ const InjureForm = () => {
 
                   <Collapse defaultActiveKey={['1', '2', '3']}>
                      <Collapse.Panel key='1' title='1. Questions'>
-                        <p style={{color: "red"}}>
+                        <p style={{ color: "red" }}>
                            Structural Head or Neck Injury: an ambulance must be
                            called for immediate transfer to hospital if YES:
                         </p>
@@ -467,7 +506,7 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <p style={{color: "red"}}>
+                        <p style={{ color: "red" }}>
                            Immediate removal from play if YES for following questions:
                         </p>
 
@@ -476,8 +515,8 @@ const InjureForm = () => {
                               movement of &lt; 1 – 2 seconds) or not responding appropriately to people"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name="q2" >
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -492,8 +531,8 @@ const InjureForm = () => {
                               (not bracing for impact/ floppy or stiff)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name="q3" >
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -507,8 +546,8 @@ const InjureForm = () => {
                            label="4. Impact seizure/convulsion/fit (stiffening or shaking of arms and/or legs on impact)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name="q4" >
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -522,8 +561,8 @@ const InjureForm = () => {
                            label="5. Confusion or disorientation"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name="q5" >
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -537,8 +576,8 @@ const InjureForm = () => {
                            label="6. Memory impairment (e.g. fails Maddocks questions – refer to CRT5)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name="q6" >
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -553,8 +592,8 @@ const InjureForm = () => {
                            following a possible head injury (10-15 s)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name="q7" >
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -568,8 +607,8 @@ const InjureForm = () => {
                            label="8. Player reports or displays any other concussion symptoms (refer to CRT5)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name='q8'>
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -584,8 +623,8 @@ const InjureForm = () => {
                            to surroundings"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name='q9'>
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -599,8 +638,8 @@ const InjureForm = () => {
                            label="10. Unusual or atypical behaviour for the player"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name='q10'>
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -614,8 +653,8 @@ const InjureForm = () => {
                            label="11. Loss of responsiveness (player motionless for 2-3 seconds or until support staff arrives)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name='q11'>
                               <Space direction='vertical'>
                                  <Radio value={2}>Yes(Observed directly)</Radio>
@@ -942,8 +981,8 @@ const InjureForm = () => {
                         <Form.Item name='Y_N_1' value={false}
                            label="Do your symptoms get worse with physical activity?"
                            rules={[
-                           { required: true, message: 'Please choose one' },
-                        ]}>
+                              { required: true, message: 'Please choose one' },
+                           ]}>
                            <Radio.Group name="Y_N_1">
                               <Radio value={true}>yes</Radio>
                               <Radio value={false}>no</Radio>
@@ -953,7 +992,7 @@ const InjureForm = () => {
                            label="Do your symptoms get worse with mental activity?"
                            rules={[
                               { required: true, message: 'Please choose one' },
-                        ]}>
+                           ]}>
                            <Radio.Group name="Y_N_2" >
                               <Radio value={true}>yes</Radio>
                               <Radio value={false}>no</Radio>
@@ -969,7 +1008,7 @@ const InjureForm = () => {
                         <Form.Item name='rangeReason'
                            label="If not 100%, why?"
                         >
-                           <Input type="text" placeholder="Reason..."/>
+                           <Input type="text" placeholder="Reason..." />
                         </Form.Item>
                      </Collapse.Panel>
                   </Collapse>
