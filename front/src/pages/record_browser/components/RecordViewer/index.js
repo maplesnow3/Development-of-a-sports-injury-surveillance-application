@@ -219,146 +219,187 @@ const useReport = () => {
 
 					// ConcussionSymptom
 					linesShown.push({ key: keyCount,
-						name: "__Concussion Symptom Rating:__",
+						name: "__Concussion Symptom(s) and Rating:__",
 						value: " "
 					});
 					keyCount++;
 
-					linesShown.push({ key: keyCount,
-						name: "Headache",
-						value: reportFetched.ConcussionSymptom[0]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[0] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Headache",
+							value: reportFetched.ConcussionSymptom[0]
+						});
+						keyCount++;
+					}
+					if (reportFetched.ConcussionSymptom[1] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "“Pressure in head”",
+							value: reportFetched.ConcussionSymptom[1]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "“Pressure in head”",
-						value: reportFetched.ConcussionSymptom[1]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[2] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Neck Pain",
+							value: reportFetched.ConcussionSymptom[2]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Neck Pain",
-						value: reportFetched.ConcussionSymptom[2]
-					});
-					keyCount++;
-					linesShown.push({ key: keyCount,
-						name: "Nausea or vomiting",
-						value: reportFetched.ConcussionSymptom[3]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[3] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Nausea or vomiting",
+							value: reportFetched.ConcussionSymptom[3]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Dizziness",
-						value: reportFetched.ConcussionSymptom[4]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[4] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Dizziness",
+							value: reportFetched.ConcussionSymptom[4]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Blurred vision",
-						value: reportFetched.ConcussionSymptom[5]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[5] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Blurred vision",
+							value: reportFetched.ConcussionSymptom[5]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Balance problems",
-						value: reportFetched.ConcussionSymptom[6]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[6] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Balance problems",
+							value: reportFetched.ConcussionSymptom[6]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Sensitivity to light",
-						value: reportFetched.ConcussionSymptom[7]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[7] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Sensitivity to light",
+							value: reportFetched.ConcussionSymptom[7]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Sensitivity to noise",
-						value: reportFetched.ConcussionSymptom[8]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[8] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Sensitivity to noise",
+							value: reportFetched.ConcussionSymptom[8]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Feeling slowed down",
-						value: reportFetched.ConcussionSymptom[9]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[9] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Feeling slowed down",
+							value: reportFetched.ConcussionSymptom[9]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Feeling like “in a fog“",
-						value: reportFetched.ConcussionSymptom[10]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[10] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Feeling like “in a fog“",
+							value: reportFetched.ConcussionSymptom[10]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "“Don’t feel right”",
-						value: reportFetched.ConcussionSymptom[11]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[11] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "“Don’t feel right”",
+							value: reportFetched.ConcussionSymptom[11]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Difficulty concentrating",
-						value: reportFetched.ConcussionSymptom[12]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[12] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Difficulty concentrating",
+							value: reportFetched.ConcussionSymptom[12]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Difficulty remembering",
-						value: reportFetched.ConcussionSymptom[13]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[13] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Difficulty remembering",
+							value: reportFetched.ConcussionSymptom[13]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Fatigue or low energy",
-						value: reportFetched.ConcussionSymptom[14]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[14] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Fatigue or low energy",
+							value: reportFetched.ConcussionSymptom[14]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Confusion",
-						value: reportFetched.ConcussionSymptom[15]
-					});
-					keyCount++;
-
-
-					linesShown.push({ key: keyCount,
-						name: "Drowsiness",
-						value: reportFetched.ConcussionSymptom[16]
-					});
-					keyCount++;
-
-
-					linesShown.push({ key: keyCount,
-						name: "More emotional",
-						value: reportFetched.ConcussionSymptom[17]
-					});
-					keyCount++;
-
-
-					linesShown.push({ key: keyCount,
-						name: "Irritability",
-						value: reportFetched.ConcussionSymptom[18]
-					});
-					keyCount++;
-
-
-					linesShown.push({ key: keyCount,
-						name: "Sadness",
-						value: reportFetched.ConcussionSymptom[19]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[15] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Confusion",
+							value: reportFetched.ConcussionSymptom[15]
+						});
+						keyCount++;
+					}
 
 
-					linesShown.push({ key: keyCount,
-						name: "Nervous or Anxious",
-						value: reportFetched.ConcussionSymptom[20]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[16] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Drowsiness",
+							value: reportFetched.ConcussionSymptom[16]
+						});
+						keyCount++;
+					}
 
-					linesShown.push({ key: keyCount,
-						name: "Trouble falling asleep",
-						value: reportFetched.ConcussionSymptom[21]
-					});
-					keyCount++;
+					if (reportFetched.ConcussionSymptom[17] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "More emotional",
+							value: reportFetched.ConcussionSymptom[17]
+						});
+						keyCount++;
+					}
+
+					if (reportFetched.ConcussionSymptom[18] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Irritability",
+							value: reportFetched.ConcussionSymptom[18]
+						});
+						keyCount++;
+					}
+
+
+					if (reportFetched.ConcussionSymptom[19] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Sadness",
+							value: reportFetched.ConcussionSymptom[19]
+						});
+						keyCount++;
+					}
+
+					if (reportFetched.ConcussionSymptom[20] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Nervous or Anxious",
+							value: reportFetched.ConcussionSymptom[20]
+						});
+						keyCount++;
+					}
+
+					if (reportFetched.ConcussionSymptom[21] > 0) {
+						linesShown.push({ key: keyCount,
+							name: "Trouble falling asleep",
+							value: reportFetched.ConcussionSymptom[21]
+						});
+						keyCount++;
+					}
 
 					linesShown.push({ key: keyCount,
 						name: "__Total number of symptom(s)__",
