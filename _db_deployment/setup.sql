@@ -132,7 +132,7 @@ CREATE TABLE ConcuForm (
 	injFormId INT UNSIGNED UNIQUE,
 	concuFeature VARCHAR(50),
 	sympRating VARCHAR(100),
-	sympWorseQ VARCHAR(10),
+	sympWorseQ VARCHAR(20),
 	feelNormal TINYINT UNSIGNED,
 	feelNormalWhy VARCHAR(1000),
 	PRIMARY KEY (concuFormId),
