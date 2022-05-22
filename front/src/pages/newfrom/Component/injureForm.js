@@ -142,7 +142,7 @@ const InjureForm = () => {
                      return actived;
                   })()}>
                      <Collapse.Panel key='1' title='1. Injured Body Part'>
-                        <Form.Item name='injuredBodyPart' label='Please choose at least one'
+                        <Form.Item name='injuredBodyPart' label='Please choose at least one:'
                            rules={[
                               { required: true, message: 'Please choose at least one' },
                            ]}
@@ -204,7 +204,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='2' title='2. Injury Occurrence'>
-                        <Form.Item name='injuryOccurrence' label='Please choose at least one' rules={[
+                        <Form.Item name='injuryOccurrence' label='Please choose at least one:' rules={[
                            { required: true, message: 'Please choose at least one' },
                         ]}>
                            <Checkbox.Group>
@@ -220,7 +220,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='3' title='3. Nature / Type of Injury'>
-                        <Form.Item name='nature_typeOfInjury' label='Please choose at least one' rules={[
+                        <Form.Item name='nature_typeOfInjury' label='Please choose at least one:' rules={[
                            { required: true, message: 'Please choose at least one' },
                         ]}>
                            <Checkbox.Group>
@@ -293,7 +293,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='6' title='6. Mechanism of Injury'>
-                        <Form.Item name='mechanismOfInjury' label='Please choose at least one' rules={[
+                        <Form.Item name='mechanismOfInjury' label='Please choose at least one:' rules={[
                            { required: true, message: 'Please choose at least one' },
                         ]}>
                            <Checkbox.Group>
@@ -334,7 +334,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='7' title='7. Protective Equipment Worn'>
-                        <Form.Item name='protectiveEquipmentWorn'>
+                        <Form.Item name='protectiveEquipmentWorn' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
                                  <Checkbox value='Headgear/helmet'>Headgear/helmet</Checkbox>
@@ -349,7 +349,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='8' title='8. Contributing Factors'>
-                        <Form.Item name='contributingFactors'>
+                        <Form.Item name='contributingFactors' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
                                  <p>Weather is...</p>
@@ -388,7 +388,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='11' title='11. Initial Treatment'>
-                        <Form.Item name='initialTreatment'>
+                        <Form.Item name='initialTreatment' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
                                  <Checkbox value='None (not required)'>None (not required)</Checkbox>
@@ -406,7 +406,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='12' title='12. Initial Treating Person '>
-                        <Form.Item name='initialTreatingPerson'>
+                        <Form.Item name='initialTreatingPerson' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
                                  <Checkbox value='Ambulance'>Ambulance</Checkbox>
@@ -424,7 +424,7 @@ const InjureForm = () => {
                      </Collapse.Panel>
 
                      <Collapse.Panel key='13' title='13. Referral to'>
-                        <Form.Item name='referralTo' label='Please choose at least one' rules={[
+                        <Form.Item name='referralTo' label='Please choose at least one:' rules={[
                            { required: true, message: 'Please choose at least one' },
                         ]}>
                            <Checkbox.Group>
@@ -456,7 +456,7 @@ const InjureForm = () => {
                               prolonged loss of consciousness (&lt;1 minute) requiring urgent and emergency hospital transfer?"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose at least one' },
+                              { required: true, message: 'Please choose one' },
                            ]}
                         >
                            <Radio.Group name="q1" >
@@ -476,7 +476,7 @@ const InjureForm = () => {
                               movement of &lt; 1 – 2 seconds) or not responding appropriately to people"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="q2" >
                               <Space direction='vertical'>
@@ -492,7 +492,7 @@ const InjureForm = () => {
                               (not bracing for impact/ floppy or stiff)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="q3" >
                               <Space direction='vertical'>
@@ -507,7 +507,7 @@ const InjureForm = () => {
                            label="4. Impact seizure/convulsion/fit (stiffening or shaking of arms and/or legs on impact)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="q4" >
                               <Space direction='vertical'>
@@ -522,7 +522,7 @@ const InjureForm = () => {
                            label="5. Confusion or disorientation"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="q5" >
                               <Space direction='vertical'>
@@ -537,7 +537,7 @@ const InjureForm = () => {
                            label="6. Memory impairment (e.g. fails Maddocks questions – refer to CRT5)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="q6" >
                               <Space direction='vertical'>
@@ -553,7 +553,7 @@ const InjureForm = () => {
                            following a possible head injury (10-15 s)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="q7" >
                               <Space direction='vertical'>
@@ -568,7 +568,7 @@ const InjureForm = () => {
                            label="8. Player reports or displays any other concussion symptoms (refer to CRT5)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name='q8'>
                               <Space direction='vertical'>
@@ -584,7 +584,7 @@ const InjureForm = () => {
                            to surroundings"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name='q9'>
                               <Space direction='vertical'>
@@ -599,7 +599,7 @@ const InjureForm = () => {
                            label="10. Unusual or atypical behaviour for the player"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name='q10'>
                               <Space direction='vertical'>
@@ -614,7 +614,7 @@ const InjureForm = () => {
                            label="11. Loss of responsiveness (player motionless for 2-3 seconds or until support staff arrives)"
                            initialValue={0}
                            rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name='q11'>
                               <Space direction='vertical'>
@@ -631,7 +631,7 @@ const InjureForm = () => {
                            (Rate: None - 0; Mild - 1/2; Moderate - 3/4; Severe - 5/6)
                         </p>
                         <Form.Item name='headache' label="1. Headache" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="headache" >
                               <Radio value={0}>0</Radio>
@@ -645,7 +645,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='pressureInHead' label="2. pressureInHead" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="pressureInHead" >
                               <Radio value={0}>0</Radio>
@@ -659,7 +659,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='neckPain' label="3. neckPain" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="neckPain" >
                               <Radio value={0}>0</Radio>
@@ -674,7 +674,7 @@ const InjureForm = () => {
 
 
                         <Form.Item name='NauseaOrVomiting' label="NauseaOrVomiting" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="NauseaOrVomiting" >
                               <Radio value={0}>0</Radio>
@@ -689,7 +689,7 @@ const InjureForm = () => {
 
 
                         <Form.Item name='dizziness' label="dizziness" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="dizziness" >
                               <Radio value={0}>0</Radio>
@@ -702,7 +702,7 @@ const InjureForm = () => {
                            </Radio.Group></Form.Item>
 
                         <Form.Item name='blurredVision' label="blurredVision" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="blurredVision" >
                               <Radio value={0}>0</Radio>
@@ -715,7 +715,7 @@ const InjureForm = () => {
                            </Radio.Group></Form.Item>
 
                         <Form.Item name='balanceProblems' label="balanceProblems" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="balanceProblems" >
                               <Radio value={0}>0</Radio>
@@ -728,7 +728,7 @@ const InjureForm = () => {
                            </Radio.Group></Form.Item>
 
                         <Form.Item name='sensitivityToLight' label="sensitivityToLight" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="sensitivityToLight" >
                               <Radio value={0}>0</Radio>
@@ -742,7 +742,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='sensitivityToNoise' label="sensitivityToNoise" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="sensitivityToNoise" >
                               <Radio value={0}>0</Radio>
@@ -756,7 +756,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='feelingSlowedDown' label="feelingSlowedDown" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="feelingSlowedDown" >
                               <Radio value={0}>0</Radio>
@@ -770,7 +770,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='feelingLikeInAFog' label="feelingLikeInAFog" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="feelingLikeInAFog" >
                               <Radio value={0}>0</Radio>
@@ -784,7 +784,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='dontFeelRight' label="dontFeelRight" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="dontFeelRight" >
                               <Radio value={0}>0</Radio>
@@ -798,7 +798,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='difficultyConcentrating' label="difficultyConcentrating" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="difficultyConcentrating" >
                               <Radio value={0}>0</Radio>
@@ -812,7 +812,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='difficultyRemembering' label="difficultyRemembering" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="difficultyRemembering" >
                               <Radio value={0}>0</Radio>
@@ -826,7 +826,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='fatigueOrLowEnergy' label="fatigueOrLowEnergy" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="fatigueOrLowEnergy" >
                               <Radio value={0}>0</Radio>
@@ -840,7 +840,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='confusion' label="confusion" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="confusion" >
                               <Radio value={0}>0</Radio>
@@ -854,7 +854,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='drowsiness' label="drowsiness" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="drowsiness" >
                               <Radio value={0}>0</Radio>
@@ -868,7 +868,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='moreEmotional' label="moreEmotional" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="moreEmotional" >
                               <Radio value={0}>0</Radio>
@@ -882,7 +882,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='irritability' label="irritability" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="irritability" >
                               <Radio value={0}>0</Radio>
@@ -896,7 +896,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='sadness' label="sadness" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="sadness" >
                               <Radio value={0}>0</Radio>
@@ -910,7 +910,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='nervousOrAnxious' label="nervousOrAnxious" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="nervousOrAnxious" >
                               <Radio value={0}>0</Radio>
@@ -924,7 +924,7 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='troubleFallingAsleep' label="troubleFallingAsleep" initialValue={0} rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           { required: true, message: 'Please choose one' },
                         ]}>
                            <Radio.Group name="troubleFallingAsleep" >
                               <Radio value={0}>0</Radio>
