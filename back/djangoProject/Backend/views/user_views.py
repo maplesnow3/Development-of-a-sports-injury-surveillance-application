@@ -36,9 +36,14 @@ def loginUser(request):
             request.session["user_id"] = db_user_info[0]
             request.session["user_type"] = db_user_info[3]
 
-            response = HttpResponse(json.dumps({ "status": "success" }))
-            response.set_cookie("user_id", value=request.session["user_id"], max_age=1209600)
-            response.set_cookie("user_type", value=request.session["user_type"], max_age=1209600)
+            response = HttpResponse(json.dumps({
+                "status": "success",
+                "user_id": int(db_user_info[0]),
+                "user_type": db_user_info[3]
+            }))
+            # Set cookie disabled
+            # response.set_cookie("user_id", value=request.session["user_id"], max_age=1209600)
+            # response.set_cookie("user_type", value=request.session["user_type"], max_age=1209600)
             return response
     except Exception as e:
         print(e)
@@ -55,8 +60,9 @@ def logoutUser(request):
         del request.session["user_type"]
 
     response = HttpResponse(json.dumps({ "status": "success" }))
-    response.delete_cookie("user_id")
-    response.delete_cookie("user_type")
+    # Set cookie disabled
+    # response.delete_cookie("user_id")
+    # response.delete_cookie("user_type")
     return response
 
 
