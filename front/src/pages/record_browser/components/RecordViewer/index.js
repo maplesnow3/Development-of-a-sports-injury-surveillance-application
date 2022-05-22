@@ -445,12 +445,12 @@ const RecordViewer = () => {
 			render: (text) => {
 				if (typeof text === "string" || typeof text === "number") {
 					if (typeof text === "string" && text === "") {
-						return "[empty]";
+						return (<i>(empty)</i>);
 					}
 					return text;
 				} else if (Array.isArray(text)) {
 					if (text.length <= 0 || text.length === 1 && text[0] === "") {
-						return "[empty]";
+						return (<i>(empty)</i>);
 					}
 					return text.map((ele) => (<li>- {ele}</li>))
 				}
