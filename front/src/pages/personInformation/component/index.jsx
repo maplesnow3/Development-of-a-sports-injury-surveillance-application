@@ -5,20 +5,13 @@ import {getPersonInfo,getAccessCode} from '../../../api'
 import Cookies from 'js-cookie'
 import './index.scss'
 
-const userId = Cookies.get('user_id');
-if(!userId){
-  Toast.show({
-    icon: 'fail',
-    content: 'please login in',
-  })
-  window.open('#/login','__self')
-  
-}
 export const PersonInformation = ({phoneChange,addressChange})=>{
   const navigate = useNavigate()
   const [phone,setPhone] = useState();
   const [address,setAddress] = useState();
   const [data,setData] = useState([])
+  const userId = Cookies.get('user_id') || "";
+
   const getPersonInfoFun = async()=>{
     let res = await getPersonInfo(userId)
     if(res.status ==='success'){
@@ -36,7 +29,7 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
       setPhone(phone);
       setAddress(address);
     }else if(res.status==='failure' && res.message === "Not logged in"){
-      navigate('/login')
+      // navigate('/login')
       Toast.show({
         icon: 'fail',
         content: res.message,
@@ -50,7 +43,7 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
   }
   useEffect(()=>{
     getPersonInfoFun()
-    
+
   },[])
   return (
     <Form className='info-form' layout='horizontal'>
@@ -66,8 +59,10 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
 
 export const UserIdInviteCode = ()=>{
   const [data,setData] = useState([])
-  
+
   const getAccessCodeFun = async ()=>{
+    const userId = Cookies.get('user_id');
+
     const res = await getAccessCode(userId);
     if(res.status==='success'){
       const data = [
@@ -84,7 +79,7 @@ export const UserIdInviteCode = ()=>{
   }
   useEffect(()=>{
     getAccessCodeFun()
-    
+
   },[])
   return (
     <div className='user-id-invite-code'>
@@ -158,7 +153,7 @@ export const InjuryHistory = ({injuryHistory,injuryHistoryInput,surgery})=>{
   strArr.map((item,index)=>{
     data.push( {key:item,type:injuryHistory[index],location:injuryHistoryInput[index]})
   })
- 
+
   return (
     <div className='injury_history'>
        <table className='table'>
@@ -181,12 +176,12 @@ export const InjuryHistory = ({injuryHistory,injuryHistoryInput,surgery})=>{
         </thead>
           <tr className='table-td' >
             <td ><TextArea className='my-textarea' disabled value={surgery} /></td>
-           
+
           </tr>
       </table>
     </div>
   )
-} 
+}
 
 export const ConcussionHistory = ({concussionQuestions})=>{
   const questions = [

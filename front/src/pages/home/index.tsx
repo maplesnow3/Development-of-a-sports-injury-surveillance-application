@@ -22,7 +22,7 @@ const Home = ()=>{
         <div id = 'three'><a href="#/change-password" title="Change Password"><LockOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff'}}/></a>
         <p>Change Password</p>
         </div>
-        <div id = 'four'><a href="#/personinfo"  title="Personal Info" ><UserOutlined style={{ textAlign:'center',marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
+        <div id = 'four'><a href="#/person-information"  title="Personal Info" ><UserOutlined style={{ textAlign:'center',marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
         <p>Personal Info</p>
         </div>
       </div>

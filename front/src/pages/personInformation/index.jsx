@@ -7,8 +7,18 @@ import {PersonInformation as PersonInfo,UserIdInviteCode,MedicalHistory,InjuryHi
 import {getBaseline,updatePersonInfo} from '../../api';
 import HomeIcon from '../../image/home.png'
 import './index.scss'
-const userId = Cookies.get('user_id')
 const PersonInformation = ()=>{
+  const userId = Cookies.get('user_id');
+  if(!userId){
+    Toast.show({
+      icon: 'fail',
+      content: 'please log in',
+    })
+    // window.open('#/login','__self')
+    window.location.hash = '#/login'
+    window.location.reload();
+  }
+
   const navigate = useNavigate();
   const [phone,setPhone] = useState('');
   const [address,setAddress] = useState('');
@@ -72,11 +82,11 @@ const PersonInformation = ()=>{
           </Collapse.Panel>
         </Collapse>
         {(phone || address) &&<div style={{backgroundColor:'#fff',padding:'20px 5px 5px 5px'}}>
-        <Button 
-          style={{backgroundColor:'rgb(29, 184, 96)'}}  
-          block 
-          color='primary' 
-          size='large' 
+        <Button
+          style={{backgroundColor:'rgb(29, 184, 96)'}}
+          block
+          color='primary'
+          size='large'
           onClick={async ()=>{
             const res = await updatePersonInfo({
               phone:phone?phone:undefined,
@@ -100,7 +110,7 @@ const PersonInformation = ()=>{
             Save
         </Button>
         </div>}
-        
+
     </div>
   )
 }
