@@ -16,7 +16,7 @@ const Home = ()=>{
         <div id = 'one'><a href="#/record_browser/calendar" title="View  Report"><CalendarOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
         <p>View Report</p>
         </div>
-        <div id = 'two'><a href=""  title="New Form"><FormOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
+        <div id = 'two'><a href="#/newform"  title="New Form"><FormOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
         <p>New Form</p>
         </div>
         <div id = 'three'><a href="#/change-password" title="Change Password"><LockOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff'}}/></a>

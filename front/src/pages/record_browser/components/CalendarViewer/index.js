@@ -107,8 +107,8 @@ const CalendarViewer = () => {
 
 							//console.log(dateRangeSelected);
 							// Jump to list view with proper params
-							window.location.href =
-								`/front/index.html/#/record_browser/list?user_id=${checkedUserId}&` +
+							window.location.hash =
+								`#/record_browser/list?user_id=${checkedUserId}&` +
 								`date_from=${dateRangeSelected[0].format("YYYY-MM-DD")}&` +
 								`date_to=${dateRangeSelected[1].format("YYYY-MM-DD")}`
 						}
@@ -139,8 +139,8 @@ const CalendarViewer = () => {
 
 							//console.log(dateRangeSelected);
 							// Jump to list view with proper params
-							window.location.href =
-								`/front/index.html/#/record_browser/list?user_id=${checkedUserId}&` +
+							window.location.hash =
+								`#/record_browser/list?user_id=${checkedUserId}&` +
 								`date_from=${dateString}&` +
 								`date_to=${dateString}`
 						}

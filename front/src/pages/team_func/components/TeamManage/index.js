@@ -81,7 +81,7 @@ const TeamManage = () => {
 						return {
 							onClick: (ev) => {
 								// TODO: Proper path for viewing specific
-								window.location.href = `/team_func/members?team_id=${record.team_id}`;
+								window.location.hash = `#/team_func/members?team_id=${record.team_id}`;
 							}
 						}
 					}}

@@ -115,8 +115,7 @@ const ListViewer = () => {
 					onRow={(record, index) => {
 						return {
 							onClick: (ev) => {
-								// TODO: Proper path for viewing specific
-								window.location.href = `/front/#/record_browser/view_record?report_id=${record.report_id}`;
+								window.location.hash = `#/record_browser/view_record?report_id=${record.report_id}`;
 							}
 						}
 					}}

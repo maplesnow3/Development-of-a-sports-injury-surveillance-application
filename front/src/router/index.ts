@@ -1,4 +1,5 @@
 import Login from '../pages/login';
+import Logout from '../pages/logout';
 import Registry from '../pages/login/registry';
 import DetailsComponent from '../pages/login/components/DetailsComponent';
 import MedicalHistory from '../pages/login/components/MedicalHistory';
@@ -11,6 +12,7 @@ import CalendarViewer from '../pages/record_browser/components/CalendarViewer';
 import ListViewer from '../pages/record_browser/components/ListViewer';
 import RecordViewer from '../pages/record_browser/components/RecordViewer';
 import TeamManage from '../pages/team_func/components/TeamManage';
+import NewForm from '../pages/newfrom'
 // import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
 
 import ChangePassword from '../pages/changePassword';
@@ -18,6 +20,7 @@ import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import PersonInformation from '../pages/personInformation';
 const router:any = [
   {path:'/login',name:'login',element:Login},
+  {path:'/logout',name:'login',element:Logout},
   {path:'/registry',name:'registry',element:Registry},
   {path:'/registry/detail',name:'registry',element:DetailsComponent},
   {path:'/registry/history',name:'registry',element:MedicalHistory},
@@ -26,6 +29,9 @@ const router:any = [
   {path:'/registry/injury1',name:'registry',element:InjuryHistory1},
   {path:'/registry/complete',name:'registry',element:ConcussionHistory},
   {path:'/home',name:'home',element:Home},
+
+  {path:'/newform',name:'newform',element:NewForm},
+
   {path:'/record_browser/calendar',name:'record_browser',element:CalendarViewer},
   {path:'/record_browser/list',name:'record_browser',element:ListViewer},
   {path:'/record_browser/view_record',name:'record_browser',element:RecordViewer},
