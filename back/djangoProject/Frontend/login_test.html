@@ -35,6 +35,9 @@
 			let xhr = new XMLHttpRequest();
 			xhr.onload = function (event) {
 				if (this.status === 200) {
+					window.document.cookie = `user_id=-1; path=/; expires=Sun, 20 Aug 2000 12:00:00 UTC`
+					window.document.cookie = `user_type=unknown; path=/; expires=Sun, 20 Aug 2000 12:00:00 UTC`
+
 					console.log(this.responseText);
 				}
 			};

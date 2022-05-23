@@ -1,4 +1,5 @@
 import Login from '../pages/login';
+import Logout from '../pages/logout';
 import Registry from '../pages/login/registry';
 import DetailsComponent from '../pages/login/components/DetailsComponent';
 import MedicalHistory from '../pages/login/components/MedicalHistory';
@@ -19,6 +20,7 @@ import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import Personinfo from '../pages/personinfo/personinfo'
 const router:any = [
   {path:'/login',name:'login',element:Login},
+  {path:'/logout',name:'login',element:Logout},
   {path:'/registry',name:'registry',element:Registry},
   {path:'/registry/detail',name:'registry',element:DetailsComponent},
   {path:'/registry/history',name:'registry',element:MedicalHistory},
