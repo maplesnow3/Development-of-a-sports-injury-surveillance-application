@@ -2,19 +2,22 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Form,Input,Button,Toast} from 'antd-mobile';
 import { MailOutline,LockFill   } from 'antd-mobile-icons';
-import {login} from '../../api'
+import {login} from '../../api';
+import Cookies from 'js-cookie'
 import './index.scss'
 const Login = ()=>{
   const navigator = useNavigate();
   const loginFun = async (data:any)=>{
     let res:any = await login({account:data.email,password:data.password});
-    if(res.status=="failure"){
+    if(res.status=="failure" && res.message !== "Already logged in"){
       Toast.show({
         icon: 'fail',
         content: res.message,
       })
       return
     }else{
+      Cookies.set('user_id',res.user_id );
+      Cookies.set('user_type',res.user_type )
       navigator('/home')
     }
   }

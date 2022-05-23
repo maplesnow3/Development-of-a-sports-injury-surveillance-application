@@ -7,7 +7,8 @@ const titleArr = [
   'Medical History Information（continued）',
   'Injury History Information',
   'Injury History Information（continued）',
-  'Concussion History Information'
+  'Concussion History Information',
+  'Personal Information'
  ]
 const RegistryTitle = ({step})=>{
   return (

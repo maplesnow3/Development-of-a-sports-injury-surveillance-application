@@ -15,7 +15,7 @@ import TeamManage from '../pages/team_func/components/TeamManage';
 
 import ChangePassword from '../pages/changePassword';
 import ChangeSuccess from '../pages/changePassword/changeSuccess'
-import Personinfo from '../pages/personinfo/personinfo'
+import PersonInformation from '../pages/personInformation';
 const router:any = [
   {path:'/login',name:'login',element:Login},
   {path:'/registry',name:'registry',element:Registry},
@@ -33,7 +33,7 @@ const router:any = [
   // {path:'/team_func/members',name:'team_func',element:TeamMemberManage},
   {path:'/change-password',name:'ChangePassword',element:ChangePassword},
   {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
-  {path:'/personinfo',name:'personal_info',element:Personinfo}
+  {path:'/person-information',name:'PersonInformation',element:PersonInformation}
 ]
 
 export default router;
