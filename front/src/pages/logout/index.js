@@ -1,3 +1,5 @@
+import Cookies from 'js-cookie'
+
 
 const requestLogout = () => {
 	let xhr = new XMLHttpRequest();
@@ -6,8 +8,10 @@ const requestLogout = () => {
 			let responseJson = JSON.parse(this.responseText);
 			if (responseJson.status === "success") {
 				// Remove cached cookie
-				window.document.cookie = `user_id=-1; path=/; expires=Sun, 20 Aug 2000 12:00:00 UTC`
-				window.document.cookie = `user_type=unknown; path=/; expires=Sun, 20 Aug 2000 12:00:00 UTC`
+				Cookies.remove("user_id");
+				Cookies.remove("user_type");
+				// window.document.cookie = `user_id=-1; path=/; expires=Sun, 20 Aug 2000 12:00:00 UTC`
+				// window.document.cookie = `user_type=unknown; path=/; expires=Sun, 20 Aug 2000 12:00:00 UTC`
 
 				window.location.hash = "#/login";
 				return;
@@ -17,6 +21,7 @@ const requestLogout = () => {
 		alert("Logout request failed.");
 		return;
 	};
+	xhr.withCredentials = true;
 	xhr.open('POST', '/api/logout', true);
 	xhr.send();
 }

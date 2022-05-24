@@ -1,4 +1,4 @@
-import { Button, Drawer, Input, Table } from "antd"
+import { Button, Drawer, Input, Table, message, Modal } from "antd"
 import {
 	TeamOutline,
 	LeftOutline
@@ -16,7 +16,7 @@ const useTeamList = () => {
 			"/sample_team_list.json" +
 			window.location.search
 		);
-		if (!res.ok) { alert("Failed to get record list - please try later"); }
+		if (!res.ok) { alert("Failed to get team list - please try later"); }
 		const resFetched = await res.json();
 
 		let readSucceed = false;
@@ -49,19 +49,42 @@ const useTeamList = () => {
 
 
 const TeamManage = () => {
+	const [overlayVisible, setOverlayVisible] = useState(false);
+	const showOverlay = () => { setOverlayVisible(true); }
+	const hideOverlay = () => { setOverlayVisible(false); }
+
+	const [removeModalVisible, setRemoveModalVisible] = useState(false);
+	const showRemoveModal = () => { setRemoveModalVisible(true); }
+	const hideRemoveModal = () => { setRemoveModalVisible(false); }
+
+	const [removedTeam, setRemovedTeam] = useState({
+		team_id: -1,
+		name: "unknown"
+	})
+
 	const dataSource = useTeamList();
 	const tableColumns = [
 		{
 			title: 'Team Name',
 			dataIndex: 'name',
 			key: 'name',
-			render: (text) => (<a>{text}</a>),
+			render: (text, record) => (<a href={`#/team_func/members?team_id=${record.team_id}`}>{text}</a>),
+		},
+		{
+			title: '',
+			dataIndex: 'team_id',
+			key: 'actions',
+			render: (id_text, record) => (<Button type="text" danger
+				onClick = {() => {
+					setRemovedTeam({
+						team_id: record.team_id,
+						name: record.name
+					});
+					showRemoveModal();
+				}}
+			>Delete</Button>),
 		},
 	];
-
-	const [overlayVisible, setOverlayVisible] = useState(false);
-	const showOverlay = () => { setOverlayVisible(true); }
-	const hideOverlay = () => { setOverlayVisible(false); }
 
 	return (
 		<>
@@ -77,14 +100,6 @@ const TeamManage = () => {
 				<Table
 					dataSource={dataSource}
 					columns={tableColumns}
-					onRow={(record, index) => {
-						return {
-							onClick: (ev) => {
-								// TODO: Proper path for viewing specific
-								window.location.hash = `#/team_func/members?team_id=${record.team_id}`;
-							}
-						}
-					}}
 				/>
 			</div>
 
@@ -115,16 +130,77 @@ const TeamManage = () => {
 							() => {
 								let teamNameInput = document.getElementById("team--new-team-name");
 								if (!teamNameInput || teamNameInput.value === "") {
-									alert("Please enter a team name");
+									message.warning("Please enter a team name");
 								} else {
-									// TODO: send team create POST request here
-									alert(teamNameInput.value);
+									let xhr = new XMLHttpRequest();
+									xhr.onload = function (event) {
+										if (this.status === 200) {
+											let resJson = JSON.parse(this.responseText);
+
+											if (resJson.status !== "success") {
+												message.error("Failed to create new team - " + (resJson.message || "Please try later"));
+											} else {
+
+												let newTeamId = resJson.team_id;
+												message.success("New team created");
+												if (newTeamId) {
+													window.location.hash = `#/team_func/members?team_id=${newTeamId}`
+												} else {
+													window.location.reload();
+												}
+											}
+										} else {
+											message.error("Failed to create new team - Please try later");
+										}
+									};
+									xhr.onerror = function () {
+										message.error("Failed to create new team - Please try later");
+									};
+									xhr.withCredentials = true;
+									// TODO: Proper link to post request
+									xhr.open('POST', '/api/team/new', true);
+									xhr.send(JSON.stringify({
+										"team_name": teamNameInput.value
+									}));
+
+									hideOverlay();
 								}
 							}
 						}
 					>Create</Button>
 				</Input.Group>
 			</Drawer>
+
+			<Modal title="Delete team" visible={removeModalVisible} onCancel={hideRemoveModal} onOk={() => {
+				hideRemoveModal();
+
+				let xhr = new XMLHttpRequest();
+				xhr.onload = function (event) {
+					if (this.status === 200) {
+						let resJson = JSON.parse(this.responseText);
+
+						if (resJson.status !== "success") {
+							message.error("Failed to delete the team - " + (resJson.message || "Please try later"));
+						} else {
+							message.success("Team deleted");
+							window.location.reload();
+						}
+					} else {
+						message.error("Failed to delete the team - Please try later");
+					}
+				};
+				xhr.onerror = function () {
+					message.error("Failed to delete the team - Please try later");
+				};
+				xhr.withCredentials = true;
+				// TODO: Proper link to post request
+				xhr.open('POST', '/api/team/delete', true);
+				xhr.send(JSON.stringify({
+					"team_id": removedTeam.team_id
+				}));
+			}} >
+				Do you really want to delete "{removedTeam.name}"?
+			</Modal>
 
 			<div className="nav-div">
 				<div className="nav--icon">

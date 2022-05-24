@@ -1,4 +1,4 @@
-import { Table } from "antd"
+import { Table, message } from "antd"
 import {
 	CalendarOutline,
 	LeftOutline
@@ -65,9 +65,9 @@ const useRecordList = () => {
 
 		if (!readSucceed) {
 			if (resFetched.hasOwnProperty("status") && resFetched.status === "failure") {
-				alert("Failed to get record list - " + resFetched.message);
+				message.error("Failed to get record list - " + resFetched.message);
 			} else {
-				alert("Failed to get record list - please try later");
+				message.error("Failed to get record list - please try later");
 			}
 		}
 	};

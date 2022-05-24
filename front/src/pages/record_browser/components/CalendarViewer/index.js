@@ -1,4 +1,4 @@
-import { Button, Calendar, DatePicker } from 'antd';
+import { Button, Calendar, DatePicker, message } from 'antd';
 import {
 	CalendarOutline,
 	LeftOutline
@@ -51,9 +51,9 @@ const useRecordDates = () => {
 
 		if (!readSucceed) {
 			if (resFetched.hasOwnProperty("status") && resFetched.status === "failure") {
-				alert("Failed to get record date list - " + resFetched.message);
+				message.error("Failed to get record date list - " + resFetched.message);
 			} else {
-				alert("Failed to get record date list - please try later");
+				message.error("Failed to get record date list - please try later");
 			}
 		}
 	};
@@ -96,7 +96,7 @@ const CalendarViewer = () => {
 					type="primary"
 					onClick={() => {
 						if (!dateRangeSelected || dateRangeSelected.length < 2) {
-							alert("Please select a valid date range");  // TODO: more user friendly here
+							message.warn("Please select a valid date range");
 						} else {
 							// Get checked user ID
 							// A fake domain is given for successfully construct URL object

@@ -1,5 +1,6 @@
 import { useNavigate, useLocation } from 'react-router-dom';
 import React, { useState } from 'react'
+import { message } from "antd"
 import {
    Form, Button, Checkbox, Space, Input, DatePicker,
    Radio, TextArea, Collapse, Slider, Tag, Toast
@@ -122,12 +123,13 @@ const InjureForm = () => {
                         return;
                      }
                      if (resFetched.status === "failure") {
-                        alert("Submission failed: " + resFetched.message);
+                        message.error("Submission failed: " + (resFetched.message || "please try later"));
                      }
                   } else {
-                     alert("Submission failed: please try later");
+                     message.error("Submission failed: please try later");
                   }
                };
+               xhr.withCredentials = true;
                xhr.open('POST', '/api/injury_form/new', true);
                xhr.send(JSON.stringify(formData));
 

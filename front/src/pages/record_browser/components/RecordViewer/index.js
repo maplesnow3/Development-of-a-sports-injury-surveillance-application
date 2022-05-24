@@ -1,4 +1,4 @@
-import { Table } from "antd"
+import { Table, message } from "antd"
 import {
 	LeftOutline
 } from 'antd-mobile-icons';
@@ -448,7 +448,7 @@ const useReport = () => {
 		}
 
 		if (!readSucceed) {
-			alert("Failed to get specified report - please try later");
+			message.error("Failed to get specified report - please try later");
 			setReport([]);
 		}
 	};
