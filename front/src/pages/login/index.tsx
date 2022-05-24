@@ -16,8 +16,8 @@ const Login = ()=>{
       })
       return
     }else{
-      Cookies.set('user_id',res.user_id );
-      Cookies.set('user_type',res.user_type )
+      Cookies.set('user_id',res.user_id  || "");
+      Cookies.set('user_type',res.user_type || "") ;
       navigator('/home')
     }
   }
@@ -49,7 +49,7 @@ const Login = ()=>{
              fontSize={22} color='#fff' />}>
             <Input  placeholder='Enter email address' clearable />
           </Form.Item>
-          <Form.Item 
+          <Form.Item
               name='password'
               rules={[
                 { required: true,message:'please enter your password' },
@@ -66,7 +66,7 @@ const Login = ()=>{
         </div>
         <div className='coach-account'>
           <p>Are you a Coach? Sign in <span>Here</span></p>
-          
+
         </div>
     </div>
   )

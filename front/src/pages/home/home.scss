@@ -3,7 +3,7 @@
     height: 100vh;
     overflow: hidden;
     background-color: #1DB860;
-    
+
     }
     .title{
       font-size: 18px;
@@ -17,47 +17,47 @@
     }
     .menu{
         background-color: white;
-        
+
         height:700px;
     }
     .container {
         display: grid;
         grid-gap: 1rem;
-        
+
         grid-template-columns: 200px 200px;
         background-color: #fff;
         height:700px;
         text-align: center;
         width:100%;
         justify-content: center;
-   
+
        }
-       
-       #one {
+
+       .home-indi-one {
         border-style: solid;
         border-width:5px;
         border:none;
         box-sizing: border-box;
         width: 200px;
         height: 200px;
-        
+
         padding:5px;
         margin-left: 10px;
         margin-top:110px;
         background-color: #1DB860;
         text-align: center;
         color:#fff;
-        
+
        }
-       
-       #two  {
+
+       .home-indi-two  {
         border-style: solid;
         border-width:5px;
         border:none;
         box-sizing: border-box;
         width: 200px;
         height: 200px;
-        
+
         padding:5px;
         margin-left: 0px;
         margin-right:10px;
@@ -66,32 +66,32 @@
         text-align: center;
         color:#fff;
        }
-       
-       #three {
+
+       .home-indi-three {
         border-style: solid;
         border-width:5px;
         border:none;
         box-sizing: border-box;
         width: 200px;
         height: 200px;
-        
+
         padding:5px;
         margin-left: 10px;
-        
+
         margin-bottom:130px;
         background-color: #1DB860;
         text-align: center;
         color:#fff;
        }
-       
-       #four {
+
+       .home-indi-four {
         border-style: solid;
         border-width:5px;
         border:none;
         box-sizing: border-box;
         width: 200px;
         height: 200px;
-        
+
         padding:5px;
         margin-left: 0px;
         margin-bottom:130px;
@@ -105,13 +105,12 @@
         text-align: right;
         color:#fff;
        }
-       #bottom{
-           
+       .home-logout{
+
            color:#fff;
        }
-  
-       
-    
-  
-  
-  
+
+
+
+
+
