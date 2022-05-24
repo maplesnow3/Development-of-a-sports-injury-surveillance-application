@@ -1,6 +1,8 @@
 from django.urls import path
 from Backend.views import user_views
 from Backend.views import injury_views
+from Backend.views import team_views
+
 
 # API list
 urlpatterns = [
@@ -20,7 +22,8 @@ urlpatterns = [
     path('injury_form/get/<str:form_id>', injury_views.getFormById, name='get_form_by_id'),
     path('injury_form/get_dates/<str:viewed_user_id_in>/from/<str:start_date>/to/<str:end_date>', injury_views.getFormDatesByUserIdInRange, name='get_form_dates_by_user_id_in_range'),
     path('injury_form/get_dates/<str:viewed_user_id_in>', injury_views.getFormDatesByUserId, name='get_form_dates_by_user_id'),
-    # path('injuryform/<str:pk>/<str:start>/<str:finish>', injury_views.injuryByTimeID, name='form_by_id_time'),
-    # path('concussionform', injury_views.newConcussion, name='new_form'),
-    # Team functions, under development
+    # Team functions
+    path('team/new', team_views.setNewTeam, name='set_new_team'),
+    path('team/remove', team_views.removeTeam, name='remove_team'),
+    path('team/get_all', team_views.getAllTeams, name='get_all_teams'),
 ]

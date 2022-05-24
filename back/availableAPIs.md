@@ -54,6 +54,19 @@ URL path for accessing implemented APIs will be list here for checking
 	- `/api/injury_form/get/<form_id>` (GET only)
 	- See `/back/djangoProject/Frontend/form_get_test.html` for checking
 
+<br>
+
+> For testing coach, use `testcoach@testcoach.com`, `testcoach`
+
+- *Create new team*
+	- `/api/team/new` (POST only)
+	- JSON: `{ "name": "New Team Name" }`
+- *Remove a team*
+	- `/api/team/new` (POST only)
+	- JSON: `{ "team_id": 123 }`
+- *View accessible team list*
+	- `/api/team/get_all` (GET only)
+
 
 # TODO
 

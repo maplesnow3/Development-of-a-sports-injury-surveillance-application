@@ -736,7 +736,7 @@ def viewTeam(userId):
 
     team_list = [{
         "team_id": row[0],
-        "team_name": row[1]
+        "name": row[1]
     } for row in team]
     return team_list
 

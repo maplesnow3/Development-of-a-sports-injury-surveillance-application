@@ -13,13 +13,11 @@ const useTeamList = () => {
 	const getTeamList = async () => {
 		// TODO: use proper API for getting date list
 		const res = await fetch(
-			"/sample_team_list.json" +
-			window.location.search
+			`/api/team/get_all`
 		);
 		if (!res.ok) { alert("Failed to get team list - please try later"); }
 		const resFetched = await res.json();
 
-		let readSucceed = false;
 		if (resFetched.status !== "success") {
 			setTeamList([]);
 			if (resFetched.status === "failure") {
@@ -36,6 +34,17 @@ const useTeamList = () => {
 				});
 				keyCurrent++;
 			}
+
+			result.sort((a, b) => {
+				let aLower = a.name.toLowerCase();
+				let bLower = b.name.toLowerCase();
+				return (
+					aLower > bLower ? 1 :
+					aLower < bLower ? -1 :
+					0
+				);
+			})
+
 			setTeamList(result);
 		}
 	};
@@ -69,6 +78,11 @@ const TeamManage = () => {
 			dataIndex: 'name',
 			key: 'name',
 			render: (text, record) => (<a href={`#/team_func/members?team_id=${record.team_id}`}>{text}</a>),
+		},
+		{
+			title: 'ID',
+			dataIndex: 'team_id',
+			key: 'team_id',
 		},
 		{
 			title: '',
@@ -141,13 +155,14 @@ const TeamManage = () => {
 												message.error("Failed to create new team - " + (resJson.message || "Please try later"));
 											} else {
 
-												let newTeamId = resJson.team_id;
+												// let newTeamId = resJson.team_id;
 												message.success("New team created");
-												if (newTeamId) {
-													window.location.hash = `#/team_func/members?team_id=${newTeamId}`
-												} else {
-													window.location.reload();
-												}
+												window.location.reload();
+												// if (newTeamId) {
+												// 	window.location.hash = `#/team_func/members?team_id=${newTeamId}`
+												// } else {
+												// 	window.location.reload();
+												// }
 											}
 										} else {
 											message.error("Failed to create new team - Please try later");
@@ -157,10 +172,9 @@ const TeamManage = () => {
 										message.error("Failed to create new team - Please try later");
 									};
 									xhr.withCredentials = true;
-									// TODO: Proper link to post request
 									xhr.open('POST', '/api/team/new', true);
 									xhr.send(JSON.stringify({
-										"team_name": teamNameInput.value
+										"name": teamNameInput.value
 									}));
 
 									hideOverlay();
@@ -193,8 +207,7 @@ const TeamManage = () => {
 					message.error("Failed to delete the team - Please try later");
 				};
 				xhr.withCredentials = true;
-				// TODO: Proper link to post request
-				xhr.open('POST', '/api/team/delete', true);
+				xhr.open('POST', '/api/team/remove', true);
 				xhr.send(JSON.stringify({
 					"team_id": removedTeam.team_id
 				}));
