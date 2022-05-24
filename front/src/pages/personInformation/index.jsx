@@ -56,7 +56,7 @@ const PersonInformation = ()=>{
     <div className='person-information'>
       <RegistryTitle step={7} />
       <img src={HomeIcon} onClick={()=>{navigate('/home')}} style={{display:'inline-block',width:'40px',position:'relative',left:'85vw'}}  alt="" />
-      <Collapse defaultActiveKey={['1']}>
+      <Collapse defaultActiveKey={['1']} accordion>
           <Collapse.Panel key='1' title='Personal Information'>
             <PersonInfo phoneChange={(e)=>{setPhone(e)}} addressChange={(e)=>{setAddress(e)}} />
           </Collapse.Panel>
