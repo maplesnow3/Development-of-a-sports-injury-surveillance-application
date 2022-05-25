@@ -28,9 +28,7 @@ const useReport = () => {
 		const resFetched = await res.json();
 
 		let readSucceed = false;
-		if (resFetched.status !== "success") {
-			setReport([]);
-		} else {
+		if (resFetched.status === "success") {
 			readSucceed = true;
 
 			const reportFetched = resFetched.report;

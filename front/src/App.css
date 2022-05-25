@@ -1,38 +1,104 @@
-c.App {
-  text-align: center;
+@import '~antd/dist/antd.css';
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root {
+  font-size: initial;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root {
+  --green-main: #1db860;
+  --red-main: #dd4343;
+  --white-main: white;
+  --white-sub: #edfdf4;
+  --black-sub: #606060;
+
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+:root {
+  --common--page-title--height: 80px;
+  --common--page-title--height__large: 160px;
+
+  --content-max-width: 400px;
+}
+
+
+.common--page-title {
+  position: fixed;
+  top: 0;
+	box-sizing: border-box;
+	margin: 0;
+  padding: 4px 12px;
+  width: 100%;
+  height: var(--common--page-title--height);
+  overflow: hidden;
+  background-color: var(--green-main);
+
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.common--page-title.common--page-title__large {
+  height: var(--common--page-title--height__large);
+}
+.common--page-title > h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: var(--white-main);
+}
+.common--page-title > h1 > .common--page-title-sub {
+  margin: 0;
+  padding: 0;
+  font-size: 12px;
+  color: var(--white-sub);
+}
+.common--page-title > h1 > .common--page-title-sub:empty { display: none; }
+.common--page-title > .page-title--icon-cont svg {
+  transform: scale(3);
+  color: var(--white-sub);
 }
 
-.App-link {
-  color: #61dafb;
+
+.common--page-main {
+  position: fixed;
+  top: 0;
+  box-sizing: border-box;
+  margin-top: var(--common--page-title--height);
+  margin-bottom: var(--common--nav-bar--height);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+  width: 100%;
+  height: calc( 100% - var(--common--page-title--height) - var(--common--nav-bar--height) );
+
+  overflow: auto;
+}
+.common--page-main.common--page-main__large-title {
+  margin-top: var(--common--page-title--height__large);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+
+/* Modify ant button to match antMobile style */
+.ant-btn {
+  height: 40px;
+  font-size: 17px;
+}
+
+/* Button color global */
+.ant-btn.ant-btn-primary,
+.adm-button.adm-button-success {
+  background-color: var(--green-main);
+  color: var(--white-main);
+}
+.ant-btn.ant-btn-dangerous,
+.ant-btn.ant-btn-dangerous:hover,
+.adm-button.adm-button-danger {
+  background-color: var(--red-main);
+  color: var(--white-main);
 }

@@ -7,11 +7,11 @@ import React, { useEffect, useState } from 'react';
 
 import './index.css';
 
+import NavBarBottom from "../../../part-navBarBottom"
 
 const useTeamList = () => {
 	const [teamList, setTeamList] = useState([]);
 	const getTeamList = async () => {
-		// TODO: use proper API for getting date list
 		const res = await fetch(
 			`/api/team/get_all`
 		);
@@ -77,17 +77,19 @@ const TeamManage = () => {
 			title: 'Team Name',
 			dataIndex: 'name',
 			key: 'name',
-			render: (text, record) => (<a href={`#/team_func/members?team_id=${record.team_id}`}>{text}</a>),
+			render: (text, record) => (<a href={`#/team_func/members?team_id=${record.team_id}&name=${encodeURIComponent(record.name)}`}>{text}</a>),
 		},
 		{
 			title: 'ID',
 			dataIndex: 'team_id',
 			key: 'team_id',
+			width: 50
 		},
 		{
 			title: '',
 			dataIndex: 'team_id',
 			key: 'actions',
+			width: 100,
 			render: (id_text, record) => (<Button type="text" danger
 				onClick = {() => {
 					setRemovedTeam({
@@ -102,129 +104,125 @@ const TeamManage = () => {
 
 	return (
 		<>
-			<div className="title-div">
-				<p>Team Management</p>
-				<span className="title--icon">
-					<TeamOutline />
-				</span>
+			<div className="common--page-title">
+				<h1>Team Management</h1>
+				<div className="page-title--icon-cont"><TeamOutline /></div>
 			</div>
 
-			<div className="team-table-div">
-				<p>Select the team to be viewed:</p>
-				<Table
-					dataSource={dataSource}
-					columns={tableColumns}
-				/>
-			</div>
+			<div className="common--page-main">
 
-			<div className="team-button-div">
-				<Button type="primary" onClick={showOverlay}>
-					Create a new team
-				</Button>
-			</div>
-
-			<Drawer
-				className="team-create-overlay"
-				title="Create a new team"
-				placement="bottom"
-				onClose={hideOverlay}
-				visible={overlayVisible}
-				height={240}
-			>
-				<p>Please enter a name:</p>
-				<Input.Group>
-     				<Input
-						id="team--new-team-name"
-					 	allowClear={true}
-						defaultValue=""
-						placeholder="Enter a team name here"
+				<div className="teams--list-section">
+					<p className="teams--instruction-text">
+						Please select the team to be viewed:
+					</p>
+					<Table
+						dataSource={dataSource}
+						columns={tableColumns}
+						size="middle"
 					/>
-					<Button type="primary" className="team-create-confirm"
-						onClick={
-							() => {
-								let teamNameInput = document.getElementById("team--new-team-name");
-								if (!teamNameInput || teamNameInput.value === "") {
-									message.warning("Please enter a team name");
-								} else {
-									let xhr = new XMLHttpRequest();
-									xhr.onload = function (event) {
-										if (this.status === 200) {
-											let resJson = JSON.parse(this.responseText);
+				</div>
 
-											if (resJson.status !== "success") {
-												message.error("Failed to create new team - " + (resJson.message || "Please try later"));
+				<div className="teams--button-cont">
+					<Button type="primary" onClick={showOverlay}>
+						Create a new team
+					</Button>
+				</div>
+
+				<Drawer
+					className="team-create-overlay"
+					title="Create a new team"
+					placement="bottom"
+					onClose={hideOverlay}
+					visible={overlayVisible}
+					height={240}
+				>
+					<p>Please enter a name:</p>
+					<Input.Group>
+						<Input
+							id="team--new-team-name"
+							allowClear={true}
+							defaultValue=""
+							placeholder="Enter a team name here"
+						/>
+						<Button block type="primary" className="teams--create-confirm-btn"
+							onClick={
+								() => {
+									let teamNameInput = document.getElementById("team--new-team-name");
+									if (!teamNameInput || teamNameInput.value === "") {
+										message.warning("Please enter a team name");
+									} else {
+										let xhr = new XMLHttpRequest();
+										xhr.onload = function (event) {
+											if (this.status === 200) {
+												let resJson = JSON.parse(this.responseText);
+
+												if (resJson.status !== "success") {
+													message.error("Failed to create new team - " + (resJson.message || "Please try later"));
+												} else {
+
+													// let newTeamId = resJson.team_id;
+													message.success("New team created");
+													window.location.reload();
+													// if (newTeamId) {
+													// 	window.location.hash = `#/team_func/members?team_id=${newTeamId}`
+													// } else {
+													// 	window.location.reload();
+													// }
+												}
 											} else {
-
-												// let newTeamId = resJson.team_id;
-												message.success("New team created");
-												window.location.reload();
-												// if (newTeamId) {
-												// 	window.location.hash = `#/team_func/members?team_id=${newTeamId}`
-												// } else {
-												// 	window.location.reload();
-												// }
+												message.error("Failed to create new team - Please try later");
 											}
-										} else {
+										};
+										xhr.onerror = function () {
 											message.error("Failed to create new team - Please try later");
-										}
-									};
-									xhr.onerror = function () {
-										message.error("Failed to create new team - Please try later");
-									};
-									xhr.withCredentials = true;
-									xhr.open('POST', '/api/team/new', true);
-									xhr.send(JSON.stringify({
-										"name": teamNameInput.value
-									}));
+										};
+										xhr.withCredentials = true;
+										xhr.open('POST', '/api/team/new', true);
+										xhr.send(JSON.stringify({
+											"name": teamNameInput.value
+										}));
 
-									hideOverlay();
+										hideOverlay();
+									}
 								}
 							}
-						}
-					>Create</Button>
-				</Input.Group>
-			</Drawer>
+						>Create</Button>
+					</Input.Group>
+				</Drawer>
 
-			<Modal title="Delete team" visible={removeModalVisible} onCancel={hideRemoveModal} onOk={() => {
-				hideRemoveModal();
+				<Modal title="Delete team" visible={removeModalVisible} onCancel={hideRemoveModal} onOk={() => {
+					hideRemoveModal();
 
-				let xhr = new XMLHttpRequest();
-				xhr.onload = function (event) {
-					if (this.status === 200) {
-						let resJson = JSON.parse(this.responseText);
+					let xhr = new XMLHttpRequest();
+					xhr.onload = function (event) {
+						if (this.status === 200) {
+							let resJson = JSON.parse(this.responseText);
 
-						if (resJson.status !== "success") {
-							message.error("Failed to delete the team - " + (resJson.message || "Please try later"));
+							if (resJson.status !== "success") {
+								message.error("Failed to delete the team - " + (resJson.message || "Please try later"));
+							} else {
+								message.success("Team deleted");
+								window.location.reload();
+							}
 						} else {
-							message.success("Team deleted");
-							window.location.reload();
+							message.error("Failed to delete the team - Please try later");
 						}
-					} else {
+					};
+					xhr.onerror = function () {
 						message.error("Failed to delete the team - Please try later");
-					}
-				};
-				xhr.onerror = function () {
-					message.error("Failed to delete the team - Please try later");
-				};
-				xhr.withCredentials = true;
-				xhr.open('POST', '/api/team/remove', true);
-				xhr.send(JSON.stringify({
-					"team_id": removedTeam.team_id
-				}));
-			}} >
-				Do you really want to delete "{removedTeam.name}"?
-			</Modal>
+					};
+					xhr.withCredentials = true;
+					xhr.open('POST', '/api/team/remove', true);
+					xhr.send(JSON.stringify({
+						"team_id": removedTeam.team_id
+					}));
+				}} >
+					Do you really want to delete "{removedTeam.name}"?
+				</Modal>
 
-			<div className="nav-div">
-				<div className="nav--icon">
-					<a href="/">
-						<svg viewBox="64 64 896 896" focusable="false" data-icon="home" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 00-44.4 0L77.5 505a63.9 63.9 0 00-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0018.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path></svg>
-					</a>
-				</div>
-				<div className="nav--icon">
-					<a href="javascript:history.back();"><LeftOutline /></a>
-				</div>
 			</div>
+
+			<NavBarBottom />
 		</>
 	);
 };
