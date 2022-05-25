@@ -7,7 +7,7 @@
 	bottom: 0;
 	box-sizing: border-box;
 	margin: 0;
-	padding: 4px 12px;
+	padding: 4px 12px 2px;
 	width: 100%;
 	height: var(--common--nav-bar--height);
 	overflow: hidden;
@@ -20,14 +20,22 @@
 	width: 60px;
 	height: 100%;
 	padding: 6px;
-}
-.common--nav-bar .adm-button svg {
-	transform: scale(1.5);
 	color: var(--white-main);
+}
+.common--nav-bar .adm-button .nav-bar--btn-icon-cont {
+	width: auto;
+	height: 26px;
+}
+.common--nav-bar .adm-button .nav-bar--btn-icon-cont .anticon {
+	width: 100%;
+	height: 100%;
+}
+.common--nav-bar .adm-button .nav-bar--btn-icon-cont svg {
+	width: auto;
+    height: 100%;
 }
 .common--nav-bar .adm-button p.nav-bar--btn-desc {
 	margin: 0;
 	padding: 0;
 	font-size: 12px;
-	color: var(--white-main);
 }

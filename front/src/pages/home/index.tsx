@@ -1,9 +1,14 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Form,Input,Button,Toast} from 'antd-mobile';
-import { MailOutline,LockFill   } from 'antd-mobile-icons'
 import NavBarBottom from "../part-navBarBottom"
-import { CalendarOutlined, StarFilled,FormOutlined, LockOutlined,UserOutlined,LogoutOutlined } from '@ant-design/icons';
+import {
+  CalendarOutlined,
+  FormOutlined,
+  LockOutlined,
+  UserOutlined,
+  TeamOutlined
+} from '@ant-design/icons';
 import Cookies from 'js-cookie'
 
 import './home.css'
@@ -41,7 +46,7 @@ const Home = ()=>{
 
           <a className="anchor-block" href="#/person-information">
             <div className="anchor-block--icon-cont"><UserOutlined /></div>
-            <p className="anchor-block--text">Personal Information</p>
+            <p className="anchor-block--text">Personal Info</p>
           </a>
         </>
       )
@@ -49,7 +54,7 @@ const Home = ()=>{
       return (
         <>
           <a className="anchor-block anchor-block__full-size" href="#/team_func/teams">
-            <div className="anchor-block--icon-cont"><UserOutlined /></div>
+            <div className="anchor-block--icon-cont"><TeamOutlined /></div>
             <p className="anchor-block--text">Team Management</p>
           </a>
 
