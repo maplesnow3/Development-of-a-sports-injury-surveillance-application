@@ -67,8 +67,52 @@ URL path for accessing implemented APIs will be list here for checking
 - *View accessible team list*
 	- `/api/team/get_all` (GET only)
 
+- *Get members of team*
+	- `/api/team/members/get/<team_id>` (GET only)
+	- TODO
+- *Add members into a team*
+	- `/api/team/members/add` (POST only)
+	- TODO
+- *Add members into a team*
+	- `/api/team/members/remove` (POST only)
+	- TODO
 
-# TODO
+<br>
+
+- *Admin reset password for a user:*
+	- `/api/user/reset_password` (POST only)
+	- TODO
+	- In:
+		```json
+		{ "account": "account@email.addr" }
+		```
+	- Out:
+		```json
+		{
+			"status": "success",
+			"new_password": "passwordAfterReset"
+		}
+		```
+- *Admin get all players in database:*
+	- `/api/team/get_all_players` (GET only)
+	- TODO
+	- In: None
+	- Out:
+		```json
+		{
+			"status": "success",
+			"players": [
+				{
+					"user_id": 123,
+					"name": "Jack Jon"
+				},
+				{...}
+			]
+		}
+		```
+
+
+# TODO - others
 
 - Injury date writein
 	- API

@@ -193,3 +193,180 @@ def getAllTeams(request):
             "status": "failure",
             "message": "Invalid request / undefined issue"
         })
+
+
+@api_view(['GET'])
+def getTeamMembers(request, team_id_in):
+    """
+    Get all members of specified team
+
+    INPUT:
+    - `team_id_in` (str, from function param)
+
+    OUTPUT (SUCCESS):
+    ```
+    {
+        "status": "success",
+        "team_members": [
+            {
+                "user_id": 123,
+                "name": "First Last"
+            },
+            {...}
+        ]
+    }
+    ```
+
+    OUTPUT (FAILURE):
+    ```
+    {"status": "failure", "message": "Failure reason message"}
+    ```
+
+    **Always return something**
+    """
+    if request.method != 'GET':
+        return Response({
+            "status": "failure",
+            "message": "Receives GET only"
+        })
+
+    # TODO
+    # Check:
+    # 1. Requested by "coach"
+    # 2. Coach is managing team `team_id`
+
+    return Response({
+        "status": "failure",
+        "message": "API TODO getTeamMembers"
+    })
+
+
+@api_view(['POST'])
+def addTeamMembers(request):
+    """
+    add members into specified team
+
+    INPUT JSON:
+    {
+        "team_id": 12
+        "add_members": [
+            {
+                "user_id": 123,
+                "access_code": "AcCeSsCoDe"
+            },
+            {...}
+        ]
+    }
+
+    OUTPUT (SUCCESS):
+    ```
+    {"status": "success"}
+    ```
+
+    OUTPUT (Some members are not added):
+    ```
+    {
+        "status": "failure",
+        "message": "Not all members are added",
+        "failed_members": [
+            {
+                "user_id": 123,
+                "access_code": "AcCeSsCoDe"
+            },
+            {...}
+        ]
+    }
+    ```
+
+    OUTPUT (Other FAILURE):
+    ```
+    {"status": "failure", "message": "Failure reason message"}
+    ```
+
+    **Always return something**
+    """
+
+    if request.method != 'POST':
+        return Response({
+            "status": "failure",
+            "message": "Receives POST only"
+        })
+
+    # TODO
+    # Check:
+    # 1. Requested by "coach"
+    # 2. Coach is managing team `team_id`
+
+    return Response({
+        "status": "failure",
+        "message": "API TODO addTeamMembers"
+    })
+
+
+@api_view(['POST'])
+def removeTeamMembers(request):
+    """
+    add members into specified team
+
+    INPUT JSON:
+    {
+        "team_id": 12
+        "remove_members": [
+            { "user_id": 123 },
+            {...}
+        ]
+    }
+
+    OUTPUT (SUCCESS):
+    ```
+    {"status": "success"}
+    ```
+
+    OUTPUT (Some members are not removed):
+    ```
+    {
+        "status": "failure",
+        "message": "Not all members are removed",
+        "failed_members": [
+            { "user_id": 123 },
+            {...}
+        ]
+    }
+    ```
+
+    OUTPUT (Other FAILURE):
+    ```
+    {"status": "failure", "message": "Failure reason message"}
+    ```
+
+    **Always return something**
+    """
+    if request.method != 'POST':
+        return Response({
+            "status": "failure",
+            "message": "Receives POST only"
+        })
+
+    # TODO
+    # Check:
+    # 1. Requested by "coach"
+    # 2. Coach is managing team `team_id`
+
+    return Response({
+        "status": "failure",
+        "message": "API TODO removeTeamMembers"
+    })
+
+
+@api_view(['GET'])
+def getAllPlayers(request):
+    """
+    ADMIN FUNC
+    """
+    if request.method != 'GET':
+        return Response({
+            "status": "failure",
+            "message": "Receives GET only"
+        })
+
+    # TODO

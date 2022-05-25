@@ -242,6 +242,20 @@ def changeUserSelfPassword(request):
         })
 
 
+@api_view(['POST'])
+def resetUserPassword(request):
+    """
+    ADMIN FUNC
+    """
+    if request.method != 'POST':
+        return Response({
+            "status": "failure",
+            "message": "Receives POST only"
+        })
+
+    # TODO
+
+
 @api_view(['GET'])
 def getPersonalInfoByUserId(request, info_user_id_in):
     if request.method != 'GET':
