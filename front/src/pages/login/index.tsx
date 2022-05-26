@@ -16,8 +16,8 @@ const Login = ()=>{
       })
       return
     }else{
-      Cookies.set('user_id',res.user_id  || "");
-      Cookies.set('user_type',res.user_type || "") ;
+      Cookies.set('user_id',res.user_id  || "", {expires: 14});
+      Cookies.set('user_type',res.user_type || "", {expires: 14});
       navigator('/home')
     }
   }
