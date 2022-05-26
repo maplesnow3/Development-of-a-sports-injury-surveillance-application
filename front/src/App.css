@@ -98,6 +98,7 @@ body {
 }
 .ant-btn.ant-btn-dangerous,
 .ant-btn.ant-btn-dangerous:hover,
+.ant-btn.ant-btn-dangerous:active,
 .adm-button.adm-button-danger {
   background-color: var(--red-main);
   color: var(--white-main);

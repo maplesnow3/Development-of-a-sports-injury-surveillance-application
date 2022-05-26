@@ -11,11 +11,8 @@ import './index.css';
 
 
 // TODO:
-// - Add new member REQUEST
-// - Click name/ID for popup drawer menu
-// - Jump to create new form
-// - Jump to form list
-// - Remove a single user
+// - Add new member REQUEST - Added; TODO test with API
+// - Remove member REQUEST - TODO test with API
 
 
 const useTableDataSourceRaw = (setTableDataMethod, setTeamIdMethod) => {
@@ -73,6 +70,36 @@ const useTableDataSourceRaw = (setTableDataMethod, setTeamIdMethod) => {
 
 
 const TeamMemberManage = () => {
+	// Member details drawer vars
+	const [memberOverlayVisible, setMemberOverlayVisible] = useState(false);
+
+	const memberOverlayPhRecord = { key: -1, user_id: -1, name: "Unset" };
+	const [shownOverlayMemberRecord, setshownOverlayMemberRecord] = useState(memberOverlayPhRecord)
+
+	const showMemberOverlay = () => { setMemberOverlayVisible(true); }
+	const hideMemberOverlay = () => { setMemberOverlayVisible(false); }
+	// setshownOverlayMemberRecord(selectedRecord);
+	// setshownOverlayMemberRecord(memberOverlayPhRecord);
+
+
+	// Add member drawer vars
+	const [addOverlayVisible, setAddOverlayVisible] = useState(false);
+	const showAddOverlay = () => { setAddOverlayVisible(true); }
+	const hideAddOverlay = () => { setAddOverlayVisible(false); }
+	const [addMemberForm] = Form.useForm();
+
+	// Remove selected member modal vars
+	const [removeOneModalVisible, setRemoveOneModalVisible] = useState(false);
+	const showRemoveOneModal = () => { setRemoveOneModalVisible(true); }
+	const hideRemoveOneModal = () => { setRemoveOneModalVisible(false); }
+
+	// Remove multiple member(s) modal vars
+	const [removeModalVisible, setRemoveModalVisible] = useState(false);
+	const showRemoveModal = () => { setRemoveModalVisible(true); }
+	const hideRemoveModal = () => { setRemoveModalVisible(false); }
+
+
+	// Team id storage and Table vars
 	const [targetTeamId, setTargetTeamId] = useState(-1)
 	const [tableDataSource, setTableDataSource] = useState([]);
 
@@ -96,6 +123,14 @@ const TeamMemberManage = () => {
 			title: "Name",
 			dataIndex: 'name',
 			key: 'name',
+			render: (text, record) => {
+				return (
+					<a onClick={() => {
+						setshownOverlayMemberRecord(record);
+						showMemberOverlay();
+					}}>{text}</a>
+				);
+			}
 		},
 		{
 			title: "ID",
@@ -105,16 +140,37 @@ const TeamMemberManage = () => {
 		}
 	]
 
+	// Storage for current selected table row key value(s)
 	const [tableRowKeysSelected, setTableRowKeysSelected] = useState([])
 
-	const [addOverlayVisible, setAddOverlayVisible] = useState(false);
-	const showAddOverlay = () => { setAddOverlayVisible(true); }
-	const hideAddOverlay = () => { setAddOverlayVisible(false); }
-	const [addMemberForm] = Form.useForm();
+	// Method for sending removing member request
+	// TODO: Test with backend
+	const sendRemoveMemberRequest = (requestJsonObj) => {
+		console.log(requestJsonObj)
 
-	const [removeModalVisible, setRemoveModalVisible] = useState(false);
-	const showRemoveModal = () => { setRemoveModalVisible(true); }
-	const hideRemoveModal = () => { setRemoveModalVisible(false); }
+		let xhr = new XMLHttpRequest();
+		xhr.onload = function (event) {
+			if (this.status === 200) {
+				let resJson = JSON.parse(this.responseText);
+
+				if (resJson.status !== "success") {
+					// TODO - add not-all-removed condition check
+					message.error("Failed to remove member(s) - " + (resJson.message || "Please try later"));
+				} else {
+					message.success("Member(s) removed from the team");
+					window.location.reload();
+				}
+			} else {
+				message.error("Failed to remove member(s) - Please try later");
+			}
+		};
+		xhr.onerror = function () {
+			message.error("Failed to remove member(s) - Please try later");
+		};
+		xhr.withCredentials = true;
+		xhr.open('POST', '/api/team/members/remove', true);
+		xhr.send(JSON.stringify(requestJsonObj));
+	}
 
 	return (
 		<>
@@ -190,6 +246,38 @@ const TeamMemberManage = () => {
 			</div>
 
 			<Drawer
+				className="team-members--select-member-overlay"
+				title={`${shownOverlayMemberRecord.name} - ${shownOverlayMemberRecord.user_id}`}
+				placement="bottom"
+				onClose={() => {
+					hideMemberOverlay();
+					setshownOverlayMemberRecord(memberOverlayPhRecord);
+				}}
+				visible={memberOverlayVisible}
+				height={320}
+			>
+				<Button block size="middle" onClick={() => {
+					// Jump to add new report for the user
+					window.location.hash = `#/newform?user_id=${shownOverlayMemberRecord.user_id}`;
+					hideMemberOverlay();
+					setshownOverlayMemberRecord(memberOverlayPhRecord);
+				}}>Create a new injury report</Button>
+				<Button block size="middle" onClick={() => {
+					// Jump to report calendar
+					window.location.hash = `#/record_browser/calendar?user_id=${shownOverlayMemberRecord.user_id}`;
+					hideMemberOverlay();
+					setshownOverlayMemberRecord(memberOverlayPhRecord);
+				}}>View historical report(s)</Button>
+
+				<hr />
+
+				<Button block danger onClick={() => {
+
+					showRemoveOneModal(); // TODO
+				}}>Remove from your team</Button>
+			</Drawer>
+
+			<Drawer
 				className="team-members--add-member-overlay"
 				title="Add a new member"
 				placement="bottom"
@@ -216,8 +304,27 @@ const TeamMemberManage = () => {
 								]
 							};
 
-							// TODO: Call proper API
-							console.log(requestJson);
+							let xhr = new XMLHttpRequest();
+							xhr.onload = function (event) {
+								if (this.status === 200) {
+									let resJson = JSON.parse(this.responseText);
+
+									if (resJson.status !== "success") {
+										message.error("Failed to add new member - " + (resJson.message || "Please try later"));
+									} else {
+										message.success("Member added");
+										window.location.reload();
+									}
+								} else {
+									message.error("Failed to add new member - Please try later");
+								}
+							};
+							xhr.onerror = function () {
+								message.error("Failed to add new member - Please try later");
+							};
+							xhr.withCredentials = true;
+							xhr.open('POST', '/api/team/members/add', true);
+							xhr.send(JSON.stringify(requestJson));
 
 							addMemberForm.resetFields();
 							hideAddOverlay();
@@ -247,101 +354,51 @@ const TeamMemberManage = () => {
 
 					<Button block size="middle" type="primary" htmlType="submit">Add</Button>
 				</Form>
-
-
-					{/* <Button type="primary" className="team-create-confirm"
-						onClick={
-							() => {
-								let teamNameInput = document.getElementById("team--new-team-name");
-								if (!teamNameInput || teamNameInput.value === "") {
-									message.warning("Please enter a team name");
-								} else {
-									let xhr = new XMLHttpRequest();
-									xhr.onload = function (event) {
-										if (this.status === 200) {
-											let resJson = JSON.parse(this.responseText);
-
-											if (resJson.status !== "success") {
-												message.error("Failed to create new team - " + (resJson.message || "Please try later"));
-											} else {
-
-												// let newTeamId = resJson.team_id;
-												message.success("New team created");
-												window.location.reload();
-												// if (newTeamId) {
-												// 	window.location.hash = `#/team_func/members?team_id=${newTeamId}`
-												// } else {
-												// 	window.location.reload();
-												// }
-											}
-										} else {
-											message.error("Failed to create new team - Please try later");
-										}
-									};
-									xhr.onerror = function () {
-										message.error("Failed to create new team - Please try later");
-									};
-									xhr.withCredentials = true;
-									xhr.open('POST', '/api/team/new', true);
-									xhr.send(JSON.stringify({
-										"name": teamNameInput.value
-									}));
-
-									hideOverlay();
-								}
-							}
-						}
-					>Create</Button> */}
 			</Drawer>
 
+			<Modal title={`Remove a member from the team`} visible={removeOneModalVisible} onCancel={() => {
+				hideRemoveOneModal();
+			}} onOk={() => {
+				hideRemoveOneModal();
+				hideMemberOverlay();
+
+				let requestJson = {
+					"team_id": targetTeamId,
+					"remove_members": [
+						{ "user_id": shownOverlayMemberRecord.user_id || -1 }
+					]
+				};
+				sendRemoveMemberRequest(requestJson);
+
+				// Clear after close overlay and used the value
+				setshownOverlayMemberRecord(memberOverlayPhRecord);
+			}} >
+				Do you really want to remove {shownOverlayMemberRecord.name} from your team?
+			</Modal>
 
 			<Modal title="Remove member(s) from team" visible={removeModalVisible} onCancel={hideRemoveModal} onOk={() => {
 				hideRemoveModal();
 
-				let selectedRowUserId = [];
+				let selectedRowUserIds = [];
 				for (let rowKey of tableRowKeysSelected) {
 					let dataRawI = tableDataSourceRaw.findIndex((element) => element.key === rowKey)
 					if (dataRawI < 0) {
 						console.log("Remove member error: cannot find row with key " + rowKey);
 					} else {
 						// console.log(tableDataSourceRaw[dataRawI]);
-						selectedRowUserId.push(tableDataSourceRaw[dataRawI].user_id);
+						selectedRowUserIds.push(tableDataSourceRaw[dataRawI].user_id);
 					}
 
 					// TODO: Remove selected user with API
-					console.log(selectedRowUserId);
+					console.log(selectedRowUserIds);
 				}
-
-				// let xhr = new XMLHttpRequest();
-				// xhr.onload = function (event) {
-				// 	if (this.status === 200) {
-				// 		let resJson = JSON.parse(this.responseText);
-
-				// 		if (resJson.status !== "success") {
-				// 			message.error("Failed to delete the team - " + (resJson.message || "Please try later"));
-				// 		} else {
-				// 			message.success("Team deleted");
-				// 			window.location.reload();
-				// 		}
-				// 	} else {
-				// 		message.error("Failed to delete the team - Please try later");
-				// 	}
-				// };
-				// xhr.onerror = function () {
-				// 	message.error("Failed to delete the team - Please try later");
-				// };
-				// xhr.withCredentials = true;
-				// xhr.open('POST', '/api/team/remove', true);
-				// xhr.send(JSON.stringify({
-				// 	"team_id": removedTeam.team_id
-				// }));
 			}} >
 				Do you really want to remove the selected {
 					tableRowKeysSelected.length > 1 ?
 						`${tableRowKeysSelected.length} members` :
 						`member`
 				}?
-				</Modal>
+			</Modal>
 
 			<NavBarBottom />
 		</>
