@@ -34,5 +34,5 @@ urlpatterns = [
     path('team/members/remove', team_views.removeTeamMembers, name='remove_teams_members'),
     #   - Admin only func
     #     TODO
-    # path('team/get_all_players', team_views.getAllPlayers, name='get_all_players'),
+    path('team/get_all_players', team_views.getAllPlayers, name='get_all_players'),
 ]

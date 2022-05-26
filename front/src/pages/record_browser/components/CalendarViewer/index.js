@@ -76,8 +76,21 @@ const CalendarViewer = () => {
 			<div className="common--page-title">
 				<h1>
 					Report Viewer
-          			<p className="common--page-title-sub">
-						Select a date to view injury report(s)
+          			<p className="common--page-title-sub">{(() => {
+							// A fake domain is given for successfully construct URL object
+							const urlSearch =
+								(new URL("http://localhost" + window.location.hash.slice(1))).searchParams;
+
+							// Parse checked params
+							const checkedUserId = urlSearch.get("user_id") || "-1";
+							const checkedUserName = urlSearch.get("name") || "";
+
+							if (checkedUserId !== "-1" && checkedUserName) {
+								return `${checkedUserName} - ${checkedUserId}`;
+							} else {
+								return "Select a date to view injury report(s)";
+							}
+						})()}
 					</p>
 				</h1>
 				<div className="page-title--icon-cont"><CalendarOutlined /></div>

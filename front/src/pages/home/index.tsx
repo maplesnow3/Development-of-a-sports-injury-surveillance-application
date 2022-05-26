@@ -6,6 +6,7 @@ import {
   CalendarOutlined,
   FormOutlined,
   LockOutlined,
+  UnlockOutlined,
   UserOutlined,
   TeamOutlined
 } from '@ant-design/icons';
@@ -65,7 +66,22 @@ const Home = ()=>{
         </>
       )
     } else if (userType === "admin") {
-      return (<p>ADMIN HOME TODO</p>)
+      return (<>
+        <a className="anchor-block " href="#/admin_record_browser">
+          <div className="anchor-block--icon-cont"><TeamOutlined /></div>
+          <p className="anchor-block--text">View Reports</p>
+        </a>
+
+        <a className="anchor-block " href="#/reset-password_URL_TODO">
+          <div className="anchor-block--icon-cont"><UnlockOutlined /></div>
+          <p className="anchor-block--text">Reset User's Password TODO</p>
+        </a>
+
+        <a className="anchor-block anchor-block__full-size" href="#/change-password">
+          <div className="anchor-block--icon-cont"><LockOutlined /></div>
+          <p className="anchor-block--text">Change My Password</p>
+        </a>
+      </>)
     } else {
       return (<div>UNKNOWN USER_TYPE - Please logout and try again</div>)
     }
@@ -86,7 +102,6 @@ const Home = ()=>{
         <div className="home--cont">
           {homeMainContent}
         </div>
-
       </div>
 
       <NavBarBottom showLogout />

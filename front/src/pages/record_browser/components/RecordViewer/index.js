@@ -445,7 +445,11 @@ const useReport = () => {
 		}
 
 		if (!readSucceed) {
-			message.error("Failed to get specified report - please try later");
+			if (resFetched.hasOwnProperty("status") && resFetched.status === "failure") {
+				message.error("Failed to get specified report - " + resFetched.message || "please try laater");
+			} else {
+				message.error("Failed to get specified report - please try later");
+			}
 			setReport([]);
 		}
 	};

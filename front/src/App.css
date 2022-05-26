@@ -12,7 +12,7 @@ body {
 :root {
   --green-main: #1db860;
   --green-sub: #43c47b;
-  /* --green-dark: #0d9146; */
+  --green-dark: #0d9146;
   --green-light: #a9e7b4;
   /* --green-lighter: #cef1d5; */
   --red-main: #dd4343;
@@ -99,6 +99,15 @@ a,
   color: var(--blue-main);
 }
 
+/* Hide up/down arrows for number input */
+/* input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+} */
 
 /* Modify ant button to match antMobile style */
 .ant-btn {

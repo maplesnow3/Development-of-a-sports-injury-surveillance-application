@@ -141,7 +141,7 @@ def getFormById(request, form_id):
     if form_owner_id == None:
         return Response({
             "status": "failure",
-            "message": "Invalid form"
+            "message": "Invalid form ID"
         })
 
     if user_type == "admin":

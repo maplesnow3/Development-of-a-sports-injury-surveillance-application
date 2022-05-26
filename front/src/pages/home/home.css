@@ -16,8 +16,11 @@
     background-color: var(--green-main);
     color: var(--white-main);
 }
+.home--cont > .anchor-block:active {
+    background-color: var(--green-dark);
+}
 .home--cont > .anchor-block.anchor-block__full-size {
-    width: 100%;
+    width: calc( 100% - 12px );
 }
 .home--cont > .anchor-block .anchor-block--icon-cont {
     width: 90px;

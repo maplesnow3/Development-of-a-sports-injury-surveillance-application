@@ -6,7 +6,7 @@ import './index.css';
 
 const navBarBottom = (props) => {
 	return (
-		<div class="common--nav-bar">
+		<div className="common--nav-bar">
 			<Button fill="none" onClick={() => {
 				window.location.hash = "#/home"
 			}}>

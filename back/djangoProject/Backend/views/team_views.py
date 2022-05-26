@@ -235,9 +235,43 @@ def getTeamMembers(request, team_id_in):
     # 1. Requested by "coach"
     # 2. Coach is managing team `team_id`
 
+    # Fake data for testing without functional backend
     return Response({
-        "status": "failure",
-        "message": "API TODO getTeamMembers"
+        "status": "success",
+        "team_members": [
+            {
+                "user_id": 121,
+                "name": "Test name 1"
+            },
+            {
+                "user_id": 122,
+                "name": "Test name 2"
+            },
+            {
+                "user_id": 123,
+                "name": "Test name 3"
+            },
+            {
+                "user_id": 124,
+                "name": "Test name 4"
+            },
+            {
+                "user_id": 123,
+                "name": "Test name 5"
+            },
+            {
+                "user_id": 126,
+                "name": "Test name 6"
+            },
+            {
+                "user_id": 127,
+                "name": "Test name 7"
+            },
+            {
+                "user_id": 128,
+                "name": "Test name 8"
+            }
+        ]
     })
 
 
@@ -369,4 +403,45 @@ def getAllPlayers(request):
             "message": "Receives GET only"
         })
 
-    # TODO
+    # Fake data for testing without functional backend
+    return Response({
+        "status": "success",
+        "players": [
+            {
+                "user_id": 11,
+                "name": "Test user 11"
+            },
+            {
+                "user_id": 121,
+                "name": "Test name 1"
+            },
+            {
+                "user_id": 122,
+                "name": "Test name 2"
+            },
+            {
+                "user_id": 123,
+                "name": "Test name 3"
+            },
+            {
+                "user_id": 124,
+                "name": "Test name 4"
+            },
+            {
+                "user_id": 123,
+                "name": "Test name 5"
+            },
+            {
+                "user_id": 126,
+                "name": "Test name 6"
+            },
+            {
+                "user_id": 127,
+                "name": "Test name 7"
+            },
+            {
+                "user_id": 128,
+                "name": "Test name 8"
+            }
+        ]
+    })

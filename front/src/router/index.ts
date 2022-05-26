@@ -18,6 +18,9 @@ import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
 import ChangePassword from '../pages/changePassword';
 import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import PersonInformation from '../pages/personInformation';
+
+import AdminRecordBrowser from '../pages/admin_record_browser';
+
 const router:any = [
   {path:'/login',name:'login',element:Login},
   {path:'/logout',name:'login',element:Logout},
@@ -31,6 +34,8 @@ const router:any = [
   {path:'/home',name:'home',element:Home},
 
   {path:'/newform',name:'newform',element:NewForm},
+
+  {path:'/admin_record_browser',name:'admin_record_browser',element:AdminRecordBrowser},
 
   {path:'/record_browser/calendar',name:'record_browser',element:CalendarViewer},
   {path:'/record_browser/list',name:'record_browser',element:ListViewer},

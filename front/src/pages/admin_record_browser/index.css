@@ -1,0 +1,57 @@
+.admin-record-browser--cont {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+
+.admin-record-browser--direct-jump-section,
+.admin-record-browser--list-section {
+	max-width: var(--content-max-width);
+	margin: 0 auto;
+}
+.admin-record-browser--direct-jump-section {
+	margin-bottom: 40px;
+}
+
+
+.admin-record-browser--instruction-text {
+	font-size: 0.9em;
+	color: var(--black-sub);
+	font-style: italic;
+}
+
+
+.admin-record-browser--direct-jump {
+	margin-bottom: 8px;
+}
+.admin-record-browser--direct-jump .ant-input-affix-wrapper {
+	height: 40px;
+	width: calc( 100% - 70px );
+}
+.admin-record-browser--direct-jump .ant-btn {
+	height: 40px;
+	width: 70px;
+}
+
+
+.admin-record-browser--list-search {
+	margin-bottom: 8px;
+}
+.admin-record-browser--list-search .ant-input-affix-wrapper {
+	height: 40px;
+	width: calc( 100% - 50px );
+}
+.admin-record-browser--list-search .ant-btn {
+	height: 40px;
+	width: 50px;
+}
+
+
+.admin-record-browser--select-member-overlay .ant-btn.ant-btn-block {
+	margin-top: 16px;
+}
+.admin-record-browser--select-member-overlay hr {
+	border-color: var(--gray-sub);
+	margin-top: 32px;
+	margin-bottom: 0;
+}

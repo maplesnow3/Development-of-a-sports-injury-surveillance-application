@@ -25,7 +25,7 @@ const useTableDataSourceRaw = (setTableDataMethod, setTeamIdMethod) => {
 		const checkedTeamId = urlSearch.get("team_id") || null;
 		if (checkedTeamId === null) {
 			setMemberList([]);
-			alert("Please specify the report read");
+			alert("Please specify the team read");
 			return;
 		}
 
@@ -78,8 +78,6 @@ const TeamMemberManage = () => {
 
 	const showMemberOverlay = () => { setMemberOverlayVisible(true); }
 	const hideMemberOverlay = () => { setMemberOverlayVisible(false); }
-	// setshownOverlayMemberRecord(selectedRecord);
-	// setshownOverlayMemberRecord(memberOverlayPhRecord);
 
 
 	// Add member drawer vars
