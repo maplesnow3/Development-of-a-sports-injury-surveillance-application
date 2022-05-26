@@ -1,0 +1,221 @@
+.newform--form-cont {
+	margin: 0 4px;
+}
+
+.newform--form-cont .checkbox-level-2 {
+	margin-left: 2.5em;
+}
+
+.newform--instruction-text {
+	font-size: 0.85em;
+	color: var(--black-sub);
+	font-style: italic;
+	margin-bottom: 12px;
+}
+
+.newform--supportive-text {
+	font-size: 1.1em;
+	color: var(--black-sub);
+	margin-top: 6px;
+	margin-bottom: 0;
+}
+
+.newform--concussion-fill-prompt,
+.newform--warning-text {
+	color: var(--red-reder);
+}
+
+
+/* Collapse styling */
+.newform--form-cont .adm-collapse-panel-content > .adm-collapse-panel-content-inner > .adm-list-item > .adm-list-item-content > .adm-list-item-content-main {
+	padding-top: 0;
+}
+/* A hacky way to move "required" error message to the top, may not be apporpriate in all situations */
+.newform--form-cont .adm-list-item > .adm-list-item-content > .adm-list-item-content-main > .adm-list-item-description {
+	position: absolute;
+	top: -4px;
+	right: 0;
+	font-style: italic;
+}
+.newform--form-cont .adm-form .adm-list.adm-list {
+	border-bottom: none;
+}
+.newform--form-cont .adm-collapse-panel-content {
+	color: var(--black-sub);
+}
+
+/* Form items styling */
+.newform--form-cont .adm-form-item-label {
+	color: var(--black-main);
+	font-style: italic;
+	margin-top: 4px;
+	padding-left: 2px;
+}
+/* non italic for concussion form descriptions */
+.newform--form-cont .newform--concussion-form-item .adm-form-item-label {
+	color: var(--blue-dark);
+	font-style: normal;
+}
+.newform--form-cont .adm-space-vertical > .adm-space-item {
+	margin-bottom: 6px;
+}
+
+.newform--form-cont .adm-checkbox .adm-checkbox-icon {
+	width: 24px;
+	height: 24px;
+}
+.newform--form-cont .adm-checkbox.adm-checkbox-checked .adm-checkbox-icon,
+.newform--form-cont .adm-radio.adm-radio-checked .adm-radio-icon {
+	border-color: var(--green-main);
+	background-color: var(--green-main);
+}
+.newform--form-cont .adm-checkbox-content,
+.newform--form-cont .adm-radio-content {
+	font-size: 16px;
+	margin-right: 16px;
+}
+
+.newform--form-cont .adm-input .adm-input-element::placeholder {
+	font-style: italic;
+}
+/* Hide placeholder for disabled input */
+.newform--form-cont .adm-input.adm-input-disabled .adm-input-element::placeholder {
+	color: transparent;
+}
+.newform--form-cont .adm-input:not(.adm-input-disabled) .adm-input-element::placeholder {
+	color: var(--red-reder);
+}
+/* Don't turn red for non-other input fields */
+.newform--form-cont .adm-input.newform--input-not-for-other:not(.adm-input-disabled) .adm-input-element::placeholder {
+	color: var(--black-sub);
+}
+.newform--form-cont .adm-input:not(.adm-input-disabled) .adm-input-element:focus::placeholder {
+	color: var(--black-sub);
+}
+/* Give a gray bg for non-other input */
+.newform--form-cont .adm-input.newform--input-not-for-other:not(.adm-input-disabled) .adm-input-element:not(.adm-input-element:focus) {
+	background-color: var(--gray-sub);
+}
+
+
+
+.newform--form-panel-level-1,
+.newform--form-panel-level-1:not(.adm-list-item-disabled) .adm-list-item-content-arrow {
+	color: var(--black-main);
+}
+.newform--form-panel-level-2,
+.newform--form-panel-level-2:not(.adm-list-item-disabled) .adm-list-item-content-arrow {
+	color: var(--black-sub);
+}
+
+
+
+
+/* // Radio{
+
+//   --icon-size: '5px';
+//   --font-size: '12px';
+//   --gap: '3px';
+// }
+// .questionform{
+//   width: 100%;
+// }
+// .new_form{
+//   text-align: left;
+//   width: 100%;
+
+//   .checkbox-level-2 { margin-left: 2em; }
+
+//   .Injury Form{
+//     text-align: left;
+//     font-size:150%;
+//     font-weight:200;
+//     p{
+//       text-align: left;
+//       font-size:150%;
+//       font-weight:700;
+//     }
+//   }
+//   .top_bar{
+//     width: 100%;
+//     height: 40px;
+//     line-height: 40px;
+//     position: relative;
+//     background-color: #1DB860;
+//     color: white;
+//     font-size:200%;
+//     font-weight:500;
+//     text-align: center;
+
+//   }
+//   .form_table{
+//     width: 100%;
+//     border-collapse: separate;
+//     border-spacing: 0px;
+//     .table_title{
+//       height: 40px;
+//       line-height: 40px;
+//       padding: 0 10px;
+//       font-size:100%;
+//       font-weight:700;
+//       text-align: left;
+//     }
+//     th,.items{
+//       background-color: #e4e7e5;
+//     }
+
+//   }
+//   .injured_form_table{
+//     width: 100%;
+//     border-collapse: separate;
+//     border-spacing: 0px;
+//     .table_title{
+//       height: 40px;
+//       line-height: 40px;
+//       padding: 0 10px;
+//       font-size:100%;
+//       font-weight:700;
+//       text-align: left;
+//     }
+//     th,.items{
+//       background-color: #e4e7e5;
+//     }
+
+//   }
+
+// }
+// #col_1,#col_3,#col_4,#col_5{
+//   width: 22%;
+// }
+// #col_2{
+//   width: 11%;
+// }
+
+// #fellRange{
+//   width: 90%;
+// }
+// #rangeReason{
+//   width: 95%;
+//   height: 80px;
+// }
+// #submit{
+//   width: 30%;
+//   height: 40px;
+//   text-align: center;
+//   line-height: 0;
+//   margin-top: 2px;
+//   font-weight: 700;
+//   color: white;
+//   background-color: #1DB860;
+//   border-color: #1DB860;
+//   display: inline-block;
+// }
+// .left{
+//   text-align: left;
+//   padding: 0 10px;
+// }
+// textarea{
+//   width: 90%;
+// }
+
+ */

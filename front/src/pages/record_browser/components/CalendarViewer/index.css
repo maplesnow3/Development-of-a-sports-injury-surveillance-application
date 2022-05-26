@@ -21,6 +21,10 @@
 .calendar-viewer--date-range-section button.ant-btn { width: 70px; }
 
 
+/* Calendar dropdown current selected one bg */
+.calendar-viewer--calendar-section .ant-select-item-option-selected:not(.ant-select-item-option-disabled) {
+  background-color: var(--green-light);
+}
 /* Hide calendar month/year switch */
 .calendar-viewer--calendar-section .ant-picker-calendar .ant-picker-calendar-mode-switch {
   display: none;

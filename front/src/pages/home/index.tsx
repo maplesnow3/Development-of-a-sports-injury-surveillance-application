@@ -29,7 +29,7 @@ const Home = ()=>{
     if (userType === "player") {
       return (
         <>
-          <a className="anchor-block" href="#/record_browser/calendar">
+          <a className="anchor-block" href="#/record_browser/calendar?user_id=-1">
             <div className="anchor-block--icon-cont"><CalendarOutlined /></div>
             <p className="anchor-block--text">View Report</p>
           </a>
@@ -77,7 +77,7 @@ const Home = ()=>{
       <div className="common--page-title common--page-title__large">
         <h1>
           Home
-          <p className="common--page-title-sub">Please select desired functions below</p>
+          <p className="common--page-title-sub">Please select a desired function below</p>
         </h1>
         <div className="page-title--icon-cont"></div>
       </div>

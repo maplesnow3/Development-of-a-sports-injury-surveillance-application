@@ -41,6 +41,7 @@
 	margin-top: 16px;
 }
 .team-members--select-member-overlay hr {
-	margin-top: 16px;
+	border-color: var(--gray-sub);
+	margin-top: 32px;
 	margin-bottom: 0;
 }

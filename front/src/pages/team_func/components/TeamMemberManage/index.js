@@ -258,7 +258,7 @@ const TeamMemberManage = () => {
 			>
 				<Button block size="middle" onClick={() => {
 					// Jump to add new report for the user
-					window.location.hash = `#/newform?user_id=${shownOverlayMemberRecord.user_id}`;
+					window.location.hash = `#/newform?user_id=${shownOverlayMemberRecord.user_id}&name=${encodeURIComponent(shownOverlayMemberRecord.name)}`;
 					hideMemberOverlay();
 					setshownOverlayMemberRecord(memberOverlayPhRecord);
 				}}>Create a new injury report</Button>

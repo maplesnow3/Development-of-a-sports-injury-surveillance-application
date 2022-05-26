@@ -13,13 +13,19 @@ body {
   --green-main: #1db860;
   --green-sub: #43c47b;
   /* --green-dark: #0d9146; */
+  --green-light: #a9e7b4;
+  /* --green-lighter: #cef1d5; */
   --red-main: #dd4343;
+  --red-reder: red;
   --white-main: white;
   --white-sub: #edfdf4;
+  --black-main: black;
   --black-sub: #606060;
-  --gray-sub: #eaeaea;
+  --gray-main: #eaeaea;
+  --gray-sub: #f0f0f0;
   --blue-main: #0f81ec;
   /* --blue-sub: #4b9ce7; */
+  --blue-dark: #164d80;
 }
 
 
@@ -58,7 +64,7 @@ body {
 .common--page-title > h1 > .common--page-title-sub {
   margin: 0;
   padding: 0;
-  font-size: 12px;
+  font-size: 14px;
   color: var(--white-sub);
 }
 .common--page-title > h1 > .common--page-title-sub:empty { display: none; }
