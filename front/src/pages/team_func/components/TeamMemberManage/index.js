@@ -272,8 +272,7 @@ const TeamMemberManage = () => {
 				<hr />
 
 				<Button block danger onClick={() => {
-
-					showRemoveOneModal(); // TODO
+					showRemoveOneModal();
 				}}>Remove from your team</Button>
 			</Drawer>
 

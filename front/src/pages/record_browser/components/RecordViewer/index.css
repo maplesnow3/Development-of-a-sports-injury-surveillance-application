@@ -1,7 +1,16 @@
-.title-div,
-.report-div,
-.nav-div {
-  width: 350px;
-  margin: 0 auto;
-  padding-top: 20px;
+.record-viewer--instruction-text {
+  font-size: 0.85em;
+	color: var(--black-sub);
+  font-style: italic;
+  margin-top: 8px;
+}
+
+.record-viewer--details-section {
+  max-width: var(--content-max-width);
+	margin: 0 auto 16px;
+}
+
+/* Hide empty table head */
+.record-viewer--details-section .ant-table-thead {
+  display: none;
 }

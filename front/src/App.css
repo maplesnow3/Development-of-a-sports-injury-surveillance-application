@@ -11,11 +11,15 @@ body {
 
 :root {
   --green-main: #1db860;
+  --green-sub: #43c47b;
+  /* --green-dark: #0d9146; */
   --red-main: #dd4343;
   --white-main: white;
   --white-sub: #edfdf4;
   --black-sub: #606060;
-
+  --gray-sub: #eaeaea;
+  --blue-main: #0f81ec;
+  /* --blue-sub: #4b9ce7; */
 }
 
 
@@ -83,6 +87,12 @@ body {
 }
 
 
+/* Anchor color global */
+a,
+.ant-pagination-item-active a {
+  color: var(--blue-main);
+}
+
 
 /* Modify ant button to match antMobile style */
 .ant-btn {
@@ -93,8 +103,9 @@ body {
 /* Button color global */
 .ant-btn.ant-btn-primary,
 .adm-button.adm-button-success {
-  background-color: var(--green-main);
+  background-color: var(--green-sub);
   color: var(--white-main);
+  border: none;
 }
 .ant-btn.ant-btn-dangerous,
 .ant-btn.ant-btn-dangerous:hover,
@@ -102,4 +113,35 @@ body {
 .adm-button.adm-button-danger {
   background-color: var(--red-main);
   color: var(--white-main);
+}
+
+
+/* RangePicker shows only one month for dropdown */
+.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-next-btn,
+.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-super-next-btn {
+  visibility: visible !important;
+}
+.ant-picker-panels > .ant-picker-panel:not(.ant-picker-panel:first-child) {
+  display: none !important;
+}
+.ant-picker-panel-container, .ant-picker-footer {
+  width: 280px !important;
+}
+.ant-picker-footer-extra > div {
+  flex-wrap: wrap !important;
+}
+
+
+/* Larger table controllers for middle Table */
+.ant-pagination.mini {
+  font-size: 18px;
+}
+.ant-pagination.mini .ant-pagination-prev,
+.ant-pagination.mini .ant-pagination-next,
+.ant-pagination.mini .ant-pagination-item {
+  width: 32px;
+  height: 32px;
+}
+.ant-pagination.mini .ant-pagination-item a {
+  line-height: 30px;
 }

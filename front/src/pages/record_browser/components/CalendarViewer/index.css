@@ -1,69 +1,51 @@
-@import '~antd/dist/antd.css';
 
-.title-div,
-.range-div,
-.calendar-div,
-.nav-div {
-  width: 300px;
-  margin: 0 auto;
-  padding-top: 20px;
+.calendar-viewer--date-range-section,
+.calendar-viewer--calendar-section {
+  max-width: var(--content-max-width);
+	margin: 0 auto 16px;
+}
+
+.calendar-viewer--instruction-text {
+  font-size: 0.85em;
+	color: var(--black-sub);
+  font-style: italic;
+  margin-bottom: 4px;
 }
 
 
-.title-div {
-  display: flex;
-  align-items: center;
+.calendar-viewer--date-range-section .ant-picker-range {
+  width: calc(100% - 70px);
+  margin-right: 0;
+  height: 40px;
 }
-.title-div > * { margin: 30px; }
-.title--icon svg { transform:scale(2); }
+.calendar-viewer--date-range-section button.ant-btn { width: 70px; }
 
 
-.range-div .ant-picker-range {
-  width: calc(100% - 80px);
-  margin-right: 10px;
-}
-.range-div button.ant-btn { width: 70px; }
-
-/* Show only one month for dropdown */
-/* TODO: workaround for avoiding using !important */
-.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-next-btn,
-.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-super-next-btn {
-  visibility: visible !important;
-}
-.ant-picker-panels > .ant-picker-panel:not(.ant-picker-panel:first-child) {
-  display: none !important;
-}
-.ant-picker-panel-container, .ant-picker-footer {
-  width: 280px !important;
-}
-.ant-picker-footer-extra > div {
-  flex-wrap: wrap !important;
-}
-
-
-.calendar-div .ant-picker-calendar .ant-picker-calendar-mode-switch {
+/* Hide calendar month/year switch */
+.calendar-viewer--calendar-section .ant-picker-calendar .ant-picker-calendar-mode-switch {
   display: none;
 }
-/* Un-highlight today since it is meanless*/
-.calendar-div .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
+/* Un-highlight calendar today since it is meanless */
+.calendar-viewer--calendar-section .ant-picker-cell-in-view.ant-picker-cell-selected .ant-picker-cell-inner {
   color: unset;
   background: unset;
 }
-
-.nav-div {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+/* Grayer disabled dates with original style removed */
+.calendar-viewer--calendar-section .ant-picker-cell.ant-picker-cell-disabled {
+  background-color: var(--white-main);
 }
-.nav--icon {
-  margin: 10px;
+.calendar-viewer--calendar-section .ant-picker-cell.ant-picker-cell-disabled::before {
+  background-color: transparent;
 }
-.nav--icon svg { transform:scale(2); }
-
-
-
-
-
-
-
-
+.calendar-viewer--calendar-section .ant-picker-cell:hover:not(.ant-picker-cell-in-view) .ant-picker-cell-inner,
+.calendar-viewer--calendar-section .ant-picker-cell:hover:not(.ant-picker-cell-selected):not(.ant-picker-cell-range-start):not(.ant-picker-cell-range-end):not(.ant-picker-cell-range-hover-start):not(.ant-picker-cell-range-hover-end) .ant-picker-cell-inner {
+  background: transparent;
+}
+/* More visible available dates */
+.calendar-viewer--calendar-section .ant-picker-cell:not(.ant-picker-cell-disabled) {
+  background-color: var(--green-sub);
+  color: var(--white-main);
+}
+.calendar-viewer--calendar-section .ant-picker-cell:not(.ant-picker-cell-disabled):hover {
+  background-color: var(--green-main);
+}

@@ -1,11 +1,9 @@
 import { Table, message } from "antd"
-import {
-	CalendarOutline,
-	LeftOutline
-} from 'antd-mobile-icons';
+import { CalendarOutlined, UnorderedListOutlined } from '@ant-design/icons';
 import moment from 'moment';
 import React, { useEffect, useState } from 'react';
 
+import NavBarBottom from "../../../part-navBarBottom"
 import './index.css';
 
 
@@ -37,7 +35,6 @@ const useRecordList = () => {
 			}
 		})();
 
-		// TODO: use proper API for getting date list
 		const res = await fetch(
 			`/api/injury_form/get_dates/${checkedUserId}` +
 			`/from/${checkedDateFrom}/to/${checkedDateTo}`
@@ -85,10 +82,11 @@ const ListViewer = () => {
 
 	const tableColumns = [
 		{
-			title: 'Report ID',
+			title: 'ID',
 			dataIndex: 'report_id',
 			key: 'report_id',
 			render: (text) => (<a>{text}</a>),
+			width: 50
 		},
 		{
 			title: 'Date & Time',
@@ -99,40 +97,56 @@ const ListViewer = () => {
 	];
 
 	return (
-		<div>
-			<div className="title-div">
-				<p>Select a date to view injury report(s)</p>
-				<span className="title--icon">
-					<CalendarOutline />
-				</span>
-			</div>
+		<>
+			<div className="common--page-title">
+				<h1>
+					Report List
+					<p className="common--page-title-sub">{(() => {
+						let todayString = moment().format("YYYY-MM-DD");
+						// A fake domain is given for successfully construct URL object
+						let urlSearch =
+							(new URL("http://localhost" + window.location.hash.slice(1))).searchParams;
 
-			<div className="record-table-div">
-				<p>Click report below for details:</p>
-				<Table
-					dataSource={dataSource}
-					columns={tableColumns}
-					onRow={(record, index) => {
-						return {
-							onClick: (ev) => {
-								window.location.hash = `#/record_browser/view_record?report_id=${record.report_id}`;
+						// Parse checked params
+						let checkedDateFrom = urlSearch.get("date_from") || todayString;
+						let checkedDateTo = (() => {
+							if (checkedDateFrom === todayString) {
+								return todayString
+							} else {
+								return (urlSearch.get("date_to") || todayString);
 							}
+						})();
+
+						if (checkedDateFrom === checkedDateTo) {
+							return checkedDateFrom;
+						} else {
+							return `${checkedDateFrom} ~ ${checkedDateTo}`
 						}
-					}}
-				/>
+					})()}</p>
+				</h1>
+				<div className="page-title--icon-cont"><UnorderedListOutlined /></div>
 			</div>
 
-			<div className="nav-div">
-				<div className="nav--icon">
-					<a href="/front/index.html/#/home">
-						<svg viewBox="64 64 896 896" focusable="false" data-icon="home" width="1em" height="1em" fill="currentColor" aria-hidden="true"><path d="M946.5 505L560.1 118.8l-25.9-25.9a31.5 31.5 0 00-44.4 0L77.5 505a63.9 63.9 0 00-18.8 46c.4 35.2 29.7 63.3 64.9 63.3h42.5V940h691.8V614.3h43.4c17.1 0 33.2-6.7 45.3-18.8a63.6 63.6 0 0018.7-45.3c0-17-6.7-33.1-18.8-45.2zM568 868H456V664h112v204zm217.9-325.7V868H632V640c0-22.1-17.9-40-40-40H432c-22.1 0-40 17.9-40 40v228H238.1V542.3h-96l370-369.7 23.1 23.1L882 542.3h-96.1z"></path></svg>
-					</a>
-				</div>
-				<div className="nav--icon">
-					<a href="javascript:history.back();"><LeftOutline /></a>
+			<div className="common--page-main">
+				<div className="list-viewer--list-section">
+					<p className="list-viewer--instruction-text">Click report below for details:</p>
+					<Table
+						dataSource={dataSource}
+						columns={tableColumns}
+						onRow={(record, index) => {
+							return {
+								onClick: (ev) => {
+									window.location.hash = `#/record_browser/view_record?report_id=${record.report_id}`;
+								}
+							}
+						}}
+						size="middle"
+					/>
 				</div>
 			</div>
-		</div>
+
+			<NavBarBottom />
+		</>
 	);
 };
 
