@@ -20,11 +20,10 @@ const Home = ()=>{
   if(!userType){
     Toast.show({
       icon: 'fail',
-      content: 'please log in',
+      content: 'Please log in',
     })
-    // window.location.hash = '#/login'
-    // window.location.reload();
-    window.location.hash = `#/reload?to=${encodeURIComponent("/login")}`
+    window.location.hash = '#/login'
+    window.location.reload();
   }
 
   let homeMainContent = (() => {
@@ -84,7 +83,7 @@ const Home = ()=>{
         </a>
       </>)
     } else {
-      return (<div>UNKNOWN USER_TYPE - Please logout and try again</div>)
+      return (<div>UNKNOWN USER_TYPE - Please <a href={window.location.pathname + "#/logout"}>logout</a> and try again</div>)
     }
   })();
 

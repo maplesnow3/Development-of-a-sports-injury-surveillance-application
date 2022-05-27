@@ -512,8 +512,8 @@ const RecordViewer = () => {
 			</div>
 
 			<div className="common--page-main">
-				<p className="record-viewer--instruction-text">Submitted report details:</p>
 				<div className="record-viewer--details-section">
+					<p className="record-viewer--instruction-text">Submitted report details:</p>
 					<Table dataSource={dataSource} columns={tableColumns} />
 				</div>
 			</div>

@@ -12,12 +12,11 @@ const PersonInformation = ()=>{
   if(!userId){
     Toast.show({
       icon: 'fail',
-      content: 'please log in',
+      content: 'Please log in',
     })
     // window.open('#/login','__self')
-    // window.location.hash = '#/login'
-    // window.location.reload();
-    window.location.hash = `#/reload?to=${encodeURIComponent("/login")}`
+    window.location.hash = '#/login'
+    window.location.reload();
   }
 
   const navigate = useNavigate();
