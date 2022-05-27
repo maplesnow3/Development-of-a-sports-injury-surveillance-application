@@ -69,20 +69,16 @@ URL path for accessing implemented APIs will be list here for checking
 
 - *Get members of team*
 	- `/api/team/members/get/<team_id>` (GET only)
-	- TODO
 - *Add members into a team*
 	- `/api/team/members/add` (POST only)
-	- TODO
 - *Add members into a team*
 	- `/api/team/members/remove` (POST only)
-	- TODO
 
 <br>
 
 - *Admin reset password for a user:*
 	- `/api/user/reset_password` (POST only)
-	- TODO - mock done
-		- See `pw_reset_mock_test.html` for sample with mock
+	- See `pw_reset_mock_test.html` for old sample **with mock**
 	- In:
 		```json
 		{ "account": "account@email.addr" }
