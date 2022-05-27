@@ -92,7 +92,6 @@ URL path for accessing implemented APIs will be list here for checking
 		```
 - *Admin get all players in database:*
 	- `/api/team/get_all_players` (GET only)
-	- TODO
 	- In: None
 	- Out:
 		```json

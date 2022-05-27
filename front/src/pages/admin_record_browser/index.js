@@ -13,7 +13,6 @@ import './index.css';
 const useTableDataSourceRaw = (setTableDataMethod) => {
 	const [memberList, setMemberList] = useState([]);
 	const getMemberList = async () => {
-		// TODO: test with API accessible
 		const res = await fetch(`/api/team/get_all_players`);
 		const resFetched = await res.json();
 

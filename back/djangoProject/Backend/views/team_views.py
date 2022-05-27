@@ -466,45 +466,39 @@ def getAllPlayers(request):
             "message": "Receives GET only"
         })
 
-    # Fake data for testing without functional backend
-    return Response({
-        "status": "success",
-        "players": [
-            {
-                "user_id": 11,
-                "name": "Test user 11"
-            },
-            {
-                "user_id": 121,
-                "name": "Test name 1"
-            },
-            {
-                "user_id": 122,
-                "name": "Test name 2"
-            },
-            {
-                "user_id": 123,
-                "name": "Test name 3"
-            },
-            {
-                "user_id": 124,
-                "name": "Test name 4"
-            },
-            {
-                "user_id": 123,
-                "name": "Test name 5"
-            },
-            {
-                "user_id": 126,
-                "name": "Test name 6"
-            },
-            {
-                "user_id": 127,
-                "name": "Test name 7"
-            },
-            {
-                "user_id": 128,
-                "name": "Test name 8"
-            }
-        ]
-    })
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    # Access check - admin only
+    user_type = request.session["user_type"]
+    if user_type != "admin":
+        return Response({
+            "status": "failure",
+            "message": "API not available for the user"
+        })
+
+    result = "Fail"
+    try:
+        result = database.getAllAth()
+    except Exception as e:
+        print(e)
+    finally:
+        print(result)
+        if result == "Fail":
+            return Response({
+                "status": "failure",
+                "message": "query failed"
+            })
+        elif result == None:
+            return Response({
+                "status": "success",
+                "players": []
+            })
+        else:
+            return Response({
+                "status": "success",
+                "players": result
+            })
