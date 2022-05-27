@@ -9,7 +9,7 @@ const Login = ()=>{
   const navigator = useNavigate();
   const loginFun = async (data:any)=>{
     let res:any = await login({account:data.email,password:data.password});
-    if(res.status=="failure" && res.message !== "Already logged in"){
+    if(res.status=="failure"){
       Toast.show({
         icon: 'fail',
         content: res.message,
@@ -21,6 +21,12 @@ const Login = ()=>{
       navigator('/home')
     }
   }
+
+  if(Cookies.get('user_id') && Cookies.get('user_id')){
+    window.location.hash = '#/home'
+    window.location.reload();
+  }
+
   return (
     <div className="login--page-cont">
 
