@@ -28,12 +28,6 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
       setData(temp)
       setPhone(phone);
       setAddress(address);
-    }else if(res.status==='failure' && res.message === "Not logged in"){
-      // navigate('/login')
-      Toast.show({
-        icon: 'fail',
-        content: res.message,
-      })
     }else{
       Toast.show({
         icon: 'fail',
@@ -57,9 +51,9 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
   )
 }
 
-export const UserIdInviteCode = ()=>{
+export const UserIdInviteCode = ({changeAccessCode})=>{
   const [data,setData] = useState([])
-
+  const [accessCode,setAccessCode] = useState('')
   const getAccessCodeFun = async ()=>{
     const userId = Cookies.get('user_id');
 
@@ -69,6 +63,7 @@ export const UserIdInviteCode = ()=>{
         {key:'User id',value:userId},
         {key:'Access code',value:res.code}
       ]
+      setAccessCode(res.code)
       setData(data)
     }else{
       Toast.show({
@@ -85,7 +80,8 @@ export const UserIdInviteCode = ()=>{
     <div className='user-id-invite-code'>
        <Form className='info-form' layout='horizontal'>
       {data.map(item=>(<Form.Item style={{fontSize:'14px'}} key={item.key}  label={item.key}>
-        <Input value={item.value} disabled />
+        {item.key === 'User id' && <Input value={item.value} disabled />}
+        {item.key === 'Access code' && <Input onChange={(e)=>{changeAccessCode(e);setAccessCode(e);}} value={accessCode} />}
       </Form.Item>)
       )}
     </Form>

@@ -1,12 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {Form,Input,Button,Toast} from 'antd-mobile';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate,useLocation} from 'react-router-dom';
+import {registry} from '../../../../api';
 const CreateAccount = ()=>{
   const navigate = useNavigate();
+  const location = useLocation();
+  const {type} = location.state||{type:null};
   return (<div className='create-account'>
       <Form 
-        onFinish={(values)=>{
+        onFinish={async (values)=>{
           const {email,password,rePassword} = values;
+          if(type==='coach'){
+            console.log(124);
+            const res = await registry({
+              email,
+              password,
+              usertype: type,
+            })
+            
+              Toast.show({
+                icon: res.status==='success'?"success":'fail',
+                content: res.status==='success'?'registry successfully!':res.message,
+              })
+              res.status==='success' && navigate('/login');
+            return
+          }
           if(password !== rePassword){
             Toast.show({
               icon: 'fail',
@@ -18,7 +36,7 @@ const CreateAccount = ()=>{
         }}
         footer={
           <Button style={{backgroundColor:'#1DB860'}} block type='submit' color='primary' size='large'>
-            Continue
+            {type==='coach'?'Submit':'Continue'}
           </Button>
         }>
         <Form.Item

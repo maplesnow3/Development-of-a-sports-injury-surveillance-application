@@ -7,8 +7,8 @@ import Cookies from 'js-cookie'
 import './index.scss'
 const Login = ()=>{
   const navigator = useNavigate();
-  const loginFun = async (data:any)=>{
-    let res:any = await login({account:data.email,password:data.password});
+  const loginFun = async (data)=>{
+    let res = await login({account:data.email,password:data.password});
     if(res.status=="failure" && res.message !== "Already logged in"){
       Toast.show({
         icon: 'fail',
@@ -16,8 +16,8 @@ const Login = ()=>{
       })
       return
     }else{
-      Cookies.set('user_id',res.user_id  || "", {expires: 14});
-      Cookies.set('user_type',res.user_type || "", {expires: 14});
+      Cookies.set('user_id',res.user_id  || "");
+      Cookies.set('user_type',res.user_type || "") ;
       navigator('/home')
     }
   }
@@ -27,6 +27,7 @@ const Login = ()=>{
         <img src={require('../../image/logo.png')} alt="" />
       </div>
       <div className="login-title">Injury Survelliance Application</div>
+      <div style={{textAlign:'center',fontSize:'24px',color:'#fff',fontWeight:'600'}}>admin</div>
       <Form
       onFinish={(values)=>{
         console.log(values);
@@ -60,16 +61,6 @@ const Login = ()=>{
             <Input placeholder='Enter Password' clearable type='password' />
           </Form.Item>
         </Form>
-        <div className='no-account'>
-          <p>Don`t have an account?</p>
-          <span onClick={()=>{navigator('/registry')}}>Register</span>
-          <br/>
-          <span onClick={()=>{navigator('/registry',{state:{type:'coach'}})}}>Register as a coach</span>
-        </div>
-        <div className='coach-account'>
-          <p>Are you a Coach? Sign in <span>Here</span></p>
-
-        </div>
     </div>
   )
 }

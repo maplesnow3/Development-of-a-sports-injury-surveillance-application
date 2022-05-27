@@ -11,6 +11,11 @@ const http = axios.create({
 })
 // http.defaults.withCredentials = true
 http.interceptors.response.use((response)=>{
+  console.log(response.data);
+  if(response.data.message === "Not logged in"){
+    window.open('#/login','_self')
+    return
+  }
   return response.data;
 },(error)=>{
   return Promise.reject(error);
@@ -54,6 +59,22 @@ export const getBaseline = (id:any)=>{
 export const updatePersonInfo = (data:any)=>{
   return http({
     url:'api/user/personal_info/set',
+    method:'POST',
+    data
+  })
+}
+
+export const setAccessCodeApi = (data:{user_id:string,code:string})=>{
+  return http({
+    url:'api/user/access_code/set',
+    method:'POST',
+    data
+  })
+}
+
+export const resetPassword = (data:any)=>{
+  return http({
+    url:'api/user/reset_password',
     method:'POST',
     data
   })

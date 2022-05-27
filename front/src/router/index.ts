@@ -13,6 +13,9 @@ import ListViewer from '../pages/record_browser/components/ListViewer';
 import RecordViewer from '../pages/record_browser/components/RecordViewer';
 import TeamManage from '../pages/team_func/components/TeamManage';
 import NewForm from '../pages/newfrom'
+// import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
+import AdminLogin from '../pages/login/adminLogin'
+import ResetPassword from '../pages/resetPassword'
 import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
 
 import ChangePassword from '../pages/changePassword';
@@ -44,7 +47,9 @@ const router:any = [
   {path:'/team_func/members',name:'team_func',element:TeamMemberManage},
   {path:'/change-password',name:'ChangePassword',element:ChangePassword},
   {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
-  {path:'/person-information',name:'PersonInformation',element:PersonInformation}
+  {path:'/person-information',name:'PersonInformation',element:PersonInformation},
+  {path:'/admin-login',name:'AdminLogin',element:AdminLogin},
+  {path:'reset-password',name:'ResetPassword',element:ResetPassword}
 ]
 
 export default router;
