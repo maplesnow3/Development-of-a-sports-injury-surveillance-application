@@ -834,6 +834,84 @@ def coachIsManagingPlayer(coachUserId, athUserId):
         return False
 
 '''
+Check whether the given team is managed by the given coach user
+'''
+def coachIsManagingTeam(teamId, coachUserId):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        curs.execute("Select * from Manage where teamId = %r and userId = %r"
+                     %(teamId, coachUserId))
+        row = curs.fetchone()
+        if row is not None:
+            return True
+        else:
+            return False
+
+    except mariadb.Error as e:
+        print(e)
+        return False
+
+'''
+Get all the player users 
+'''
+def getAllAth():
+    conn = openConnection()
+    ath=[]
+    try:
+        curs = conn.cursor()
+        curs.execute("Select userId from User where type = 'player'")
+        nr = 0
+        row = curs.fetchone()
+        while row is not None:
+            nr += 1
+            ath.append([str(row[0]), getAthName(str(row[0]))])
+            row = curs.fetchone()
+
+        if nr == 0:
+            return None
+        curs.close()
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+    ath_list = [{
+        "user_id": row[0],
+        "name": row[1]
+    } for row in ath]
+    return ath_list
+
+'''
+Reset the password for a given user
+'''
+def setPwTo(account, newPw):
+    conn = openConnection()
+    try:
+        curs = conn.cursor()
+        # Check whether the given user exists
+        curs.execute(
+            "SELECT * FROM User WHERE account=%r"
+            % (account))
+        check = curs.fetchone()
+        if check is None:
+            # User doesn't exist, return "NotExist"
+            return "NotExist"
+        else:
+            # Correct, update the password with the new one and return Success
+            curs.execute(
+                "Update User Set password=%r Where account=%r"
+                % (newPw, account))
+            conn.commit()
+
+        curs.close()
+        return "Success"
+
+    except mariadb.Error as e:
+        print(e)
+        return "Fail"
+
+'''
 Sub-functions
 '''
 def getAthid(userid):
