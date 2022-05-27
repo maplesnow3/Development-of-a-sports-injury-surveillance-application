@@ -19,7 +19,7 @@ urlpatterns = [
     path('user/access_code/set', user_views.setAccessCodeForSelf, name='set_access_code'),
     #   - Admin only func
     #     TODO
-    # path('user/reset_password', user_views.resetUserPassword, name='reset_password'),
+    path('user/reset_password', user_views.resetUserPassword, name='reset_password'),
     # injury form functions
     path('injury_form/new', injury_views.createNewForm, name='create_new_form'),
     path('injury_form/get/<str:form_id>', injury_views.getFormById, name='get_form_by_id'),
@@ -34,5 +34,5 @@ urlpatterns = [
     path('team/members/remove', team_views.removeTeamMembers, name='remove_teams_members'),
     #   - Admin only func
     #     TODO
-    # path('team/get_all_players', team_views.getAllPlayers, name='get_all_players'),
+    path('team/get_all_players', team_views.getAllPlayers, name='get_all_players'),
 ]

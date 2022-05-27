@@ -81,7 +81,8 @@ URL path for accessing implemented APIs will be list here for checking
 
 - *Admin reset password for a user:*
 	- `/api/user/reset_password` (POST only)
-	- TODO
+	- TODO - mock done
+		- See `pw_reset_mock_test.html` for sample with mock
 	- In:
 		```json
 		{ "account": "account@email.addr" }

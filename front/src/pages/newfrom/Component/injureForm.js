@@ -28,10 +28,25 @@ const InjureForm = () => {
    let [specialistPhysicianTypeDisable, setSpecialistPhysicianTypeDisable] = useState(true)
    let [referralToOtherDisable, setReferralToOtherDisable] = useState(true)
 
+   const inputRuleChooseOne = { required: true, message: "You haven't chosen anything here" };
+   const inputRuleChooseAtLeastOne = { required: true, message: "You haven't chosen anything here" };
+
    return (
-      <div>
+      <>
+         <p className="newform--instruction-text">
+            Tip: You can tap the section titles to fold them!
+         </p>
+
          <Form
             name='form'
+            onFinishFailed={async (f) => {
+               // console.log(f);
+               message.error(
+                  f.errorFields <= 1 ?
+                  "Please fill all required(*) field" :
+                  "Please fill all required(*) fields"
+               )
+            }}
             onFinish={async (values) => {
                const {
                   injuredBodyPart, injuryOccurrence, nature_typeOfInjury, nature_typeOfInjuryOther, removalFromField,
@@ -106,7 +121,6 @@ const InjureForm = () => {
                   formData["mentalActivity"] = Y_N_2 || false;
                   formData["percentOfFeel"] = range || 0;
                   formData["why"] = rangeReason || "";
-
                }
                console.log(formData)
                // console.log(values)
@@ -135,13 +149,15 @@ const InjureForm = () => {
 
             }}
             footer={
-               <Button style={{ backgroundColor: '#1DB860' }} block type='submit' color='primary' size='large'>
-                  Submit the form
+               <Button block type='submit' color='success' size='large'>
+                  Submit
                </Button>
             }
          >
             <Collapse defaultActiveKey='1' accordion>
-               <Collapse.Panel key='1' title='Match or Training Injury Form'>
+               <Collapse.Panel key='1' title='Match or Training Injury Form'
+                  className="newform--form-panel-level-1"
+               >
 
                   <Collapse defaultActiveKey={(() => {
                      let actived = []
@@ -150,10 +166,12 @@ const InjureForm = () => {
                      }
                      return actived;
                   })()}>
-                     <Collapse.Panel key='1' title='1. Injured Body Part'>
+                     <Collapse.Panel key='1' title='1. Injured Body Part'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='injuredBodyPart' label='Please choose at least one:'
                            rules={[
-                              { required: true, message: 'Please choose at least one' },
+                              inputRuleChooseAtLeastOne,
                            ]}
                         >
                            <Checkbox.Group>
@@ -212,9 +230,11 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='2' title='2. Injury Occurrence'>
+                     <Collapse.Panel key='2' title='2. Injury Occurrence'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='injuryOccurrence' label='Please choose at least one:' rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           inputRuleChooseAtLeastOne,
                         ]}>
                            <Checkbox.Group>
                               <Space direction='vertical'>
@@ -228,9 +248,11 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='3' title='3. Nature / Type of Injury'>
+                     <Collapse.Panel key='3' title='3. Nature / Type of Injury'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='nature_typeOfInjury' label='Please choose at least one:' rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           inputRuleChooseAtLeastOne,
                         ]}>
                            <Checkbox.Group>
                               <Space direction='vertical'>
@@ -246,7 +268,9 @@ const InjureForm = () => {
                                           setConcuFormPromptStyle({ display: "none" });
                                     }
                                  }>Concussion</Checkbox>
-                                 <p className="checkbox-level-2" style={concuFormPromptStyle}>
+                                 <p className="checkbox-level-2 newform--concussion-fill-prompt"
+                                    style={concuFormPromptStyle}
+                                 >
                                     Please fill the concussion form in the end
                                  </p>
                                  <Checkbox value='Dental injury'>Dental injury</Checkbox>
@@ -272,13 +296,15 @@ const InjureForm = () => {
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='nature_typeOfInjuryOther'>
-                           <Input disabled={nature_typeOfInjuryOtherDisable} placeholder="Other - Please specify details" />
+                           <Input disabled={nature_typeOfInjuryOtherDisable} placeholder="Other - specify details here..." />
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='4' title='4. Removal from Field'>
+                     <Collapse.Panel key='4' title='4. Removal from Field'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='removalFromField' label='Please choose one' rules={[
-                           { required: true, message: 'Please choose one' },
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group>
                               <Space direction='vertical'>
@@ -291,9 +317,11 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='5' title='5. Action Following Injury'>
+                     <Collapse.Panel key='5' title='5. Action Following Injury'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='actionsFollowingInjury' label='Please choose one' rules={[
-                           { required: true, message: 'Please choose one' },
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group>
                               <Space direction='vertical'>
@@ -305,9 +333,11 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='6' title='6. Mechanism of Injury'>
+                     <Collapse.Panel key='6' title='6. Mechanism of Injury'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='mechanismOfInjury' label='Please choose at least one:' rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           inputRuleChooseAtLeastOne,
                         ]}>
                            <Checkbox.Group>
                               <Space direction='vertical'>
@@ -347,11 +377,13 @@ const InjureForm = () => {
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='mechanismOfInjuryOther'>
-                           <Input disabled={mechanismOfInjuryOtherDisable} placeholder="Other - Please specify details" />
+                           <Input disabled={mechanismOfInjuryOtherDisable} placeholder="Other - specify details here..." />
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='7' title='7. Protective Equipment Worn'>
+                     <Collapse.Panel key='7' title='7. Protective Equipment Worn'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='protectiveEquipmentWorn' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
@@ -367,19 +399,21 @@ const InjureForm = () => {
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='protectiveEquipmentWornOther'>
-                           <Input disabled={protectiveEquipmentWornOtherDisable} placeholder="Other - Please specify details" />
+                           <Input disabled={protectiveEquipmentWornOtherDisable} placeholder="Other - specify details here..." />
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='8' title='8. Contributing Factors'>
+                     <Collapse.Panel key='8' title='8. Contributing Factors'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='contributingFactors' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
-                                 <p>Weather is...</p>
+                                 <p className="newform--supportive-text">Weather is...</p>
                                  <Checkbox value='Weather: wet'>Wet</Checkbox>
                                  <Checkbox value='Weather: hot'>Hot</Checkbox>
                                  <Checkbox value='Weather: windy'>Windy</Checkbox>
-                                 <p>Ground is...</p>
+                                 <p className="newform--supportive-text">Ground is...</p>
                                  <Checkbox value='Ground: hard'>Hard</Checkbox>
                                  <Checkbox value='Ground: soft'>Soft</Checkbox>
                                  <Checkbox value='Ground: muddy'>Muddy</Checkbox>
@@ -388,15 +422,19 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='9' title='9. Provisional Injury Diagnosis'>
-                        <Form.Item name='provisionalInjuryDiagnosis' label='Fill below if possible...'>
-                           <Input placeholder="Diagnosis..." />
+                     <Collapse.Panel key='9' title='9. Provisional Injury Diagnosis'
+                        className="newform--form-panel-level-2"
+                     >
+                        <Form.Item name='provisionalInjuryDiagnosis' label='Fill below if possible:'>
+                           <Input className="newform--input-not-for-other" placeholder="Enter diagnosis here..." />
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='10' title='10. Injury Presentation'>
+                     <Collapse.Panel key='10' title='10. Injury Presentation'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='injuryPresentation' label='Please choose one' rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           inputRuleChooseAtLeastOne,
                         ]}>
                            <Radio.Group>
                               <Space direction='vertical'>
@@ -410,7 +448,9 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='11' title='11. Initial Treatment'>
+                     <Collapse.Panel key='11' title='11. Initial Treatment'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='initialTreatment' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
@@ -428,11 +468,13 @@ const InjureForm = () => {
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='initialTreatmentOther'>
-                           <Input disabled={initialTreatmentOtherDisable} placeholder="Other - Please specify details" />
+                           <Input disabled={initialTreatmentOtherDisable} placeholder="Other - specify details here..." />
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='12' title='12. Initial Treating Person '>
+                     <Collapse.Panel key='12' title='12. Initial Treating Person'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='initialTreatingPerson' label="Choose if applicable:">
                            <Checkbox.Group>
                               <Space direction='vertical'>
@@ -450,13 +492,15 @@ const InjureForm = () => {
                            </Checkbox.Group>
                         </Form.Item>
                         <Form.Item name='initialTreatingPersonOther'>
-                           <Input disabled={initialTreatingPersonOtherDisable} placeholder="Other - Please specify details" />
+                           <Input disabled={initialTreatingPersonOtherDisable} placeholder="Other - specify details here..." />
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='13' title='13. Referral to'>
+                     <Collapse.Panel key='13' title='13. Referral to'
+                        className="newform--form-panel-level-2"
+                     >
                         <Form.Item name='referralTo' label='Please choose at least one:' rules={[
-                           { required: true, message: 'Please choose at least one' },
+                           inputRuleChooseAtLeastOne,
                         ]}>
                            <Checkbox.Group>
                               <Space direction='vertical'>
@@ -477,27 +521,33 @@ const InjureForm = () => {
                            <Input disabled={specialistPhysicianTypeDisable} placeholder="Please specify type" />
                         </Form.Item> */}
                         <Form.Item name='referralToOther'>
-                           <Input disabled={referralToOtherDisable} placeholder="Other - Please specify details" />
+                           <Input disabled={referralToOtherDisable} placeholder="Other - specify details here..." />
                         </Form.Item>
                      </Collapse.Panel>
                   </Collapse>
                </Collapse.Panel>
 
-               <Collapse.Panel key='2' title='Concussion Form' disabled={concuFormDisabled}>
+               <Collapse.Panel key='2' title='Concussion Form'
+                  disabled={concuFormDisabled}
+                  className="newform--form-panel-level-1"
+               >
 
                   <Collapse defaultActiveKey={['1', '2', '3']}>
-                     <Collapse.Panel key='1' title='1. Questions'>
-                        <p style={{ color: "red" }}>
+                     <Collapse.Panel key='1' title='1. Questions'
+                        className="newform--form-panel-level-2"
+                     >
+                        <p className="newform--warning-text">
                            Structural Head or Neck Injury: an ambulance must be
                            called for immediate transfer to hospital if YES:
                         </p>
 
                         <Form.Item name='q1'
+                           className="newform--concussion-form-item"
                            label="1. Are there clinical features of a potentially serious or structural head and/or neck injury, including
                               prolonged loss of consciousness (&lt;1 minute) requiring urgent and emergency hospital transfer?"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}
                         >
                            <Radio.Group name="q1" >
@@ -508,16 +558,17 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <p style={{ color: "red" }}>
+                        <p className="form--warning-text">
                            Immediate removal from play if YES for following questions:
                         </p>
 
                         <Form.Item name='q2'
+                           className="newform--concussion-form-item"
                            label="2. Loss of consciousness (or prolonged loss of
                               movement of &lt; 1 – 2 seconds) or not responding appropriately to people"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="q2" >
                               <Space direction='vertical'>
@@ -529,11 +580,12 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q3'
+                           className="newform--concussion-form-item"
                            label="3. No protective action in fall to ground
                               (not bracing for impact/ floppy or stiff)"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="q3" >
                               <Space direction='vertical'>
@@ -545,10 +597,11 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q4'
+                           className="newform--concussion-form-item"
                            label="4. Impact seizure/convulsion/fit (stiffening or shaking of arms and/or legs on impact)"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="q4" >
                               <Space direction='vertical'>
@@ -560,10 +613,11 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q5'
+                           className="newform--concussion-form-item"
                            label="5. Confusion or disorientation"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="q5" >
                               <Space direction='vertical'>
@@ -575,10 +629,11 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q6'
+                           className="newform--concussion-form-item"
                            label="6. Memory impairment (e.g. fails Maddocks questions – refer to CRT5)"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="q6" >
                               <Space direction='vertical'>
@@ -590,11 +645,12 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q7'
+                           className="newform--concussion-form-item"
                            label="7. Balance disturbance or Clumsy (loss of control over movements) or slow to get up
                            following a possible head injury (10-15 s)"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="q7" >
                               <Space direction='vertical'>
@@ -606,10 +662,11 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q8'
+                           className="newform--concussion-form-item"
                            label="8. Player reports or displays any other concussion symptoms (refer to CRT5)"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name='q8'>
                               <Space direction='vertical'>
@@ -621,11 +678,12 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q9'
+                           className="newform--concussion-form-item"
                            label="9. Dazed or blank/vacant stare or not their normal selves/not reacting appropriately
                            to surroundings"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name='q9'>
                               <Space direction='vertical'>
@@ -637,10 +695,11 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q10'
+                           className="newform--concussion-form-item"
                            label="10. Unusual or atypical behaviour for the player"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name='q10'>
                               <Space direction='vertical'>
@@ -652,10 +711,11 @@ const InjureForm = () => {
                         </Form.Item>
 
                         <Form.Item name='q11'
+                           className="newform--concussion-form-item"
                            label="11. Loss of responsiveness (player motionless for 2-3 seconds or until support staff arrives)"
                            initialValue={0}
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name='q11'>
                               <Space direction='vertical'>
@@ -667,12 +727,16 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='2' title='2. Concussion Symptoms Description'>
+                     <Collapse.Panel key='2' title='2. Concussion Symptoms Description'
+                        className="newform--form-panel-level-2"
+                     >
                         <p>
                            (Rate: None - 0; Mild - 1/2; Moderate - 3/4; Severe - 5/6)
                         </p>
-                        <Form.Item name='headache' label="1. Headache" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='headache' label="1. Headache" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="headache" >
                               <Radio value={0}>0</Radio>
@@ -685,8 +749,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='pressureInHead' label="2. pressureInHead" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='pressureInHead' label="2. “Pressure in head”" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="pressureInHead" >
                               <Radio value={0}>0</Radio>
@@ -699,8 +765,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='neckPain' label="3. neckPain" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='neckPain' label="3. Neck Pain" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="neckPain" >
                               <Radio value={0}>0</Radio>
@@ -714,8 +782,10 @@ const InjureForm = () => {
                         </Form.Item>
 
 
-                        <Form.Item name='NauseaOrVomiting' label="NauseaOrVomiting" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='NauseaOrVomiting' label="Nausea or vomiting" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="NauseaOrVomiting" >
                               <Radio value={0}>0</Radio>
@@ -729,8 +799,10 @@ const InjureForm = () => {
                         </Form.Item>
 
 
-                        <Form.Item name='dizziness' label="dizziness" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='dizziness' label="Dizziness" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="dizziness" >
                               <Radio value={0}>0</Radio>
@@ -742,8 +814,10 @@ const InjureForm = () => {
                               <Radio value={6}>6</Radio>
                            </Radio.Group></Form.Item>
 
-                        <Form.Item name='blurredVision' label="blurredVision" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='blurredVision' label="Blurred vision" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="blurredVision" >
                               <Radio value={0}>0</Radio>
@@ -755,8 +829,10 @@ const InjureForm = () => {
                               <Radio value={6}>6</Radio>
                            </Radio.Group></Form.Item>
 
-                        <Form.Item name='balanceProblems' label="balanceProblems" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='balanceProblems' label="Balance problems" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="balanceProblems" >
                               <Radio value={0}>0</Radio>
@@ -768,8 +844,10 @@ const InjureForm = () => {
                               <Radio value={6}>6</Radio>
                            </Radio.Group></Form.Item>
 
-                        <Form.Item name='sensitivityToLight' label="sensitivityToLight" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='sensitivityToLight' label="Sensitivity to light" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="sensitivityToLight" >
                               <Radio value={0}>0</Radio>
@@ -782,8 +860,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='sensitivityToNoise' label="sensitivityToNoise" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='sensitivityToNoise' label="Sensitivity to noise" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="sensitivityToNoise" >
                               <Radio value={0}>0</Radio>
@@ -796,8 +876,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='feelingSlowedDown' label="feelingSlowedDown" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='feelingSlowedDown' label="Feeling slowed down" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="feelingSlowedDown" >
                               <Radio value={0}>0</Radio>
@@ -810,8 +892,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='feelingLikeInAFog' label="feelingLikeInAFog" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='feelingLikeInAFog' label="Feeling like “in a fog“" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="feelingLikeInAFog" >
                               <Radio value={0}>0</Radio>
@@ -824,8 +908,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='dontFeelRight' label="dontFeelRight" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='dontFeelRight' label="“Don’t feel right”" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="dontFeelRight" >
                               <Radio value={0}>0</Radio>
@@ -838,8 +924,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='difficultyConcentrating' label="difficultyConcentrating" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='difficultyConcentrating' label="Difficulty concentrating" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="difficultyConcentrating" >
                               <Radio value={0}>0</Radio>
@@ -852,8 +940,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='difficultyRemembering' label="difficultyRemembering" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='difficultyRemembering' label="Difficulty remembering" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="difficultyRemembering" >
                               <Radio value={0}>0</Radio>
@@ -866,8 +956,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='fatigueOrLowEnergy' label="fatigueOrLowEnergy" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='fatigueOrLowEnergy' label="Fatigue or low energy" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="fatigueOrLowEnergy" >
                               <Radio value={0}>0</Radio>
@@ -880,8 +972,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='confusion' label="confusion" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='confusion' label="Confusion" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="confusion" >
                               <Radio value={0}>0</Radio>
@@ -894,8 +988,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='drowsiness' label="drowsiness" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='drowsiness' label="Drowsiness" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="drowsiness" >
                               <Radio value={0}>0</Radio>
@@ -908,8 +1004,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='moreEmotional' label="moreEmotional" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='moreEmotional' label="More emotional" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="moreEmotional" >
                               <Radio value={0}>0</Radio>
@@ -922,8 +1020,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='irritability' label="irritability" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='irritability' label="Irritability" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="irritability" >
                               <Radio value={0}>0</Radio>
@@ -936,8 +1036,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='sadness' label="sadness" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='sadness' label="Sadness" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="sadness" >
                               <Radio value={0}>0</Radio>
@@ -950,8 +1052,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='nervousOrAnxious' label="nervousOrAnxious" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='nervousOrAnxious' label="Nervous or Anxious" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="nervousOrAnxious" >
                               <Radio value={0}>0</Radio>
@@ -964,8 +1068,10 @@ const InjureForm = () => {
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='troubleFallingAsleep' label="troubleFallingAsleep" initialValue={0} rules={[
-                           { required: true, message: 'Please choose one' },
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='troubleFallingAsleep' label="Trouble falling asleep" initialValue={0} rules={[
+                           inputRuleChooseOne,
                         ]}>
                            <Radio.Group name="troubleFallingAsleep" >
                               <Radio value={0}>0</Radio>
@@ -979,38 +1085,48 @@ const InjureForm = () => {
                         </Form.Item>
                      </Collapse.Panel>
 
-                     <Collapse.Panel key='3' title='3. Miscellaneous'>
-                        <Form.Item name='Y_N_1' value={false}
+                     <Collapse.Panel key='3' title='3. Miscellaneous'
+                        className="newform--form-panel-level-2"
+                     >
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='Y_N_1' value={false}
                            label="Do your symptoms get worse with physical activity?"
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="Y_N_1">
-                              <Radio value={true}>yes</Radio>
-                              <Radio value={false}>no</Radio>
+                              <Radio value={true}>Yes</Radio>
+                              <Radio value={false}>No</Radio>
                            </Radio.Group></Form.Item>
 
-                        <Form.Item name='Y_N_2' value={false}
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='Y_N_2' value={false}
                            label="Do your symptoms get worse with mental activity?"
                            rules={[
-                              { required: true, message: 'Please choose one' },
+                              inputRuleChooseOne,
                            ]}>
                            <Radio.Group name="Y_N_2" >
-                              <Radio value={true}>yes</Radio>
-                              <Radio value={false}>no</Radio>
+                              <Radio value={true}>Yes</Radio>
+                              <Radio value={false}>No</Radio>
                            </Radio.Group>
                         </Form.Item>
 
-                        <Form.Item name='range'
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='range'
                            label="If 100% is feeling perfectly normal, what percent of normal do you feel?"
                         >
-                           <Input type="number" min={0} max={100} defaultValue={100} />
+                           <Input className="newform--input-not-for-other" type="number" min={0} max={100} defaultValue={100} />
                         </Form.Item>
 
-                        <Form.Item name='rangeReason'
+                        <Form.Item
+                           className="newform--concussion-form-item"
+                           name='rangeReason'
                            label="If not 100%, why?"
                         >
-                           <Input type="text" placeholder="Reason..." />
+                           <Input className="newform--input-not-for-other" type="text" placeholder="Reason..." />
                         </Form.Item>
                      </Collapse.Panel>
                   </Collapse>
@@ -1018,7 +1134,7 @@ const InjureForm = () => {
                </Collapse.Panel>
             </Collapse>
          </Form>
-      </div >
+      </>
    )
 }
 export default InjureForm;

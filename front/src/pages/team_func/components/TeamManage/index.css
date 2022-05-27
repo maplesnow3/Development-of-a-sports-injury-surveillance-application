@@ -1,19 +1,24 @@
-@import '~antd/dist/antd.css';
 
-.title-div,
-.team-table-div,
-.team-button-div,
-.nav-div {
-  width: 300px;
-  margin: 0 auto;
-  padding-top: 20px;
+
+.teams--list-section,
+.teams--button-cont {
+	max-width: var(--content-max-width);
+	margin: 0 auto 8px;
 }
 
-.team-button-div button {
-  width: 100%;
+
+.teams--instruction-text {
+	font-size: 0.85em;
+	color: var(--black-sub);
+	font-style: italic;
 }
 
-button.team-create-confirm {
-  width: 100%;
+
+.teams--button-cont .ant-btn {
+	margin: 0 16px 16px;
+	width: calc( 100% - 32px );
+}
+
+.teams--create-confirm-btn {
   margin-top: 20px;
 }

@@ -14,11 +14,16 @@ import RecordViewer from '../pages/record_browser/components/RecordViewer';
 import TeamManage from '../pages/team_func/components/TeamManage';
 import NewForm from '../pages/newfrom'
 // import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
+import AdminLogin from '../pages/login/adminLogin'
+import ResetPassword from '../pages/resetPassword'
+import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
+
 import ChangePassword from '../pages/changePassword';
 import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import PersonInformation from '../pages/personInformation';
-import AdminLogin from '../pages/login/adminLogin'
-import ResetPassword from '../pages/resetPassword'
+
+import AdminRecordBrowser from '../pages/admin_record_browser';
+
 const router:any = [
   {path:'/login',name:'login',element:Login},
   {path:'/logout',name:'login',element:Logout},
@@ -33,11 +38,13 @@ const router:any = [
 
   {path:'/newform',name:'newform',element:NewForm},
 
+  {path:'/admin_record_browser',name:'admin_record_browser',element:AdminRecordBrowser},
+
   {path:'/record_browser/calendar',name:'record_browser',element:CalendarViewer},
   {path:'/record_browser/list',name:'record_browser',element:ListViewer},
   {path:'/record_browser/view_record',name:'record_browser',element:RecordViewer},
   {path:'/team_func/teams',name:'team_func',element:TeamManage},
-  // {path:'/team_func/members',name:'team_func',element:TeamMemberManage},
+  {path:'/team_func/members',name:'team_func',element:TeamMemberManage},
   {path:'/change-password',name:'ChangePassword',element:ChangePassword},
   {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
   {path:'/person-information',name:'PersonInformation',element:PersonInformation},

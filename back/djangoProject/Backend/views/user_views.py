@@ -1,4 +1,5 @@
 import json
+import random
 
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
@@ -245,7 +246,7 @@ def changeUserSelfPassword(request):
 @api_view(['POST'])
 def resetUserPassword(request):
     """
-    ADMIN FUNC
+    ADMIN FUNC - unfinished
     """
     if request.method != 'POST':
         return Response({
@@ -253,7 +254,63 @@ def resetUserPassword(request):
             "message": "Receives POST only"
         })
 
-    # TODO
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
+
+    # Access check - admin only
+    user_type = request.session["user_type"]
+    if user_type != "admin":
+        return Response({
+            "status": "failure",
+            "message": "API not available for the user"
+        })
+
+    try:
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+
+        target_account = request_dict.get('account')
+        if target_account == None or target_account == "":
+            return Response({
+                "status": "failure",
+                "message": "Account is not given"
+            })
+
+        try:
+            # Generate a new temp password
+            new_pw_plaintext = "".join(random.sample("0123456789abcdefghijklmnopqrstuvwxyz",10))
+            # TODO: Hash before save
+            new_pw_saved = new_pw_plaintext
+            # TODO: Mock result - INSERT DB METHOD
+            result = "Success" #database.setPwTo(target_account, new_pw_saved)
+        except Exception as e:
+            print(e)
+        finally:
+            if result == "Fail":
+                return Response({
+                    "status": "failure",
+                    "message": "Failed to reset"
+                })
+            elif result == "Success":
+                return Response({
+                    "status": "success",
+                    "new_password": new_pw_plaintext
+                })
+            else:
+                return Response({
+                    "status": "failure",
+                    "message": "Failed to reset - unidentified error"
+                })
+
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
 
 
 @api_view(['GET'])
@@ -493,8 +550,9 @@ def getAccessCodeByUserId(request, code_user_id_in):
             pass
         elif user_type == "player" and code_user_id == user_id:
             pass
-        elif user_type == "coach" and database.coachIsManagingPlayer(user_id, code_user_id):
-            pass
+        # DISABLED: coach should not be able to view the code
+        # elif user_type == "coach" and database.coachIsManagingPlayer(user_id, code_user_id):
+        #     pass
         else:
             return Response({
                 "status": "failure",

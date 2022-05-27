@@ -1,9 +1,10 @@
-@import '~antd/dist/antd.css';
+.list-viewer--list-section {
+  max-width: var(--content-max-width);
+	margin: 0 auto 16px;
+}
 
-.title-div,
-.record-table-div,
-.nav-div {
-  width: 300px;
-  margin: 0 auto;
-  padding-top: 20px;
+.list-viewer--instruction-text {
+  font-size: 0.85em;
+	color: var(--black-sub);
+  font-style: italic;
 }

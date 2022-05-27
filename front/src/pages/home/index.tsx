@@ -1,11 +1,18 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import {Form,Input,Button,Toast} from 'antd-mobile';
-import { MailOutline,LockFill   } from 'antd-mobile-icons'
-import './home.scss'
-import ChangePassword from '../changePassword';
-import { CalendarOutlined, StarFilled,FormOutlined, LockOutlined,UserOutlined,LogoutOutlined } from '@ant-design/icons';
+import NavBarBottom from "../part-navBarBottom"
+import {
+  CalendarOutlined,
+  FormOutlined,
+  LockOutlined,
+  UnlockOutlined,
+  UserOutlined,
+  TeamOutlined
+} from '@ant-design/icons';
 import Cookies from 'js-cookie'
+
+import './home.css'
 
 const Home = ()=>{
   const navigator = useNavigate()
@@ -15,66 +22,92 @@ const Home = ()=>{
       icon: 'fail',
       content: 'please log in',
     })
-    // window.open('#/login','__self')
     window.location.hash = '#/login'
     window.location.reload();
   }
 
-  if (userType === "player") {
-    return (
-      <div className='home'>
-          <meta name="viewport" content="height= device-height, width=device-width, initial-scale=1"></meta>
-        <div className= 'title'><br></br><br></br>  Welcome to Home
-        </div>
-        <div className = 'container'>
-          <div className = 'home-indi-one'><a href="#/record_browser/calendar" title="View  Report"><CalendarOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
-          <p>View Report</p>
-          </div>
-          <div className = 'home-indi-two'><a href="#/newform"  title="New Form"><FormOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
-          <p>New Form</p>
-          </div>
-          <div className = 'home-indi-three'><a href="#/change-password" title="Change Password"><LockOutlined style={{ marginTop:20, fontSize: '1000%', color: '#fff'}}/></a>
-          <p>Change Password</p>
-          </div>
-          <div className = 'home-indi-four'><a href="#/person-information"  title="Personal Info" ><UserOutlined style={{ textAlign:'center',marginTop:20, fontSize: '1000%', color: '#fff' }}/></a>
-          <p>Personal Info</p>
-          </div>
-        </div>
-        <div className = 'bottom'>
-          <a href="#/logout"  className = 'home-logout' ><LogoutOutlined style={{ textAlign:'center',marginTop:16,marginRight:15, fontSize: '400%', color: '#fff' }}/></a>
+  let homeMainContent = (() => {
+    if (userType === "player") {
+      return (
+        <>
+          <a className="anchor-block" href="#/record_browser/calendar?user_id=-1">
+            <div className="anchor-block--icon-cont"><CalendarOutlined /></div>
+            <p className="anchor-block--text">View Report</p>
+          </a>
+
+          <a className="anchor-block" href="#/newform">
+            <div className="anchor-block--icon-cont"><FormOutlined /></div>
+            <p className="anchor-block--text">Create New Form</p>
+          </a>
+
+          <a className="anchor-block" href="#/change-password">
+            <div className="anchor-block--icon-cont"><LockOutlined /></div>
+            <p className="anchor-block--text">Change Password</p>
+          </a>
+
+          <a className="anchor-block" href="#/person-information">
+            <div className="anchor-block--icon-cont"><UserOutlined /></div>
+            <p className="anchor-block--text">Personal Info</p>
+          </a>
+        </>
+      )
+    } else if (userType === "coach") {
+      return (
+        <>
+          <a className="anchor-block anchor-block__full-size" href="#/team_func/teams">
+            <div className="anchor-block--icon-cont"><TeamOutlined /></div>
+            <p className="anchor-block--text">Team Management</p>
+          </a>
+
+          <a className="anchor-block anchor-block__full-size" href="#/change-password">
+            <div className="anchor-block--icon-cont"><LockOutlined /></div>
+            <p className="anchor-block--text">Change Password</p>
+          </a>
+        </>
+      )
+    } else if (userType === "admin") {
+      return (<>
+        <a className="anchor-block " href="#/admin_record_browser">
+          <div className="anchor-block--icon-cont"><TeamOutlined /></div>
+          <p className="anchor-block--text">View Reports</p>
+        </a>
+
+        <a className="anchor-block " href="#/reset-password_URL_TODO">
+          <div className="anchor-block--icon-cont"><UnlockOutlined /></div>
+          <p className="anchor-block--text">Reset User's Password TODO</p>
+        </a>
+
+        <a className="anchor-block anchor-block__full-size" href="#/change-password">
+          <div className="anchor-block--icon-cont"><LockOutlined /></div>
+          <p className="anchor-block--text">Change My Password</p>
+        </a>
+      </>)
+    } else {
+      return (<div>UNKNOWN USER_TYPE - Please logout and try again</div>)
+    }
+  })();
+
+
+  return (
+    <>
+      <div className="common--page-title common--page-title__large">
+        <h1>
+          Home
+          <p className="common--page-title-sub">Please select a desired function below</p>
+        </h1>
+        <div className="page-title--icon-cont"></div>
+      </div>
+
+      <div className="common--page-main common--page-main__large-title">
+        <div className="home--cont">
+          {homeMainContent}
         </div>
       </div>
-    )
-  } else if (userType === "coach") {
-    return (
-      <div className='home'>
-        <meta name="viewport" content="height= device-height, width=device-width, initial-scale=1"></meta>
-        <div className='title'><br></br><br></br>  Welcome to Home
-      </div>
-        <div className='container'>
-          <div className='home-indi-one'><a href="#/record_browser/calendar" title="View  Report"><CalendarOutlined style={{ marginTop: 20, fontSize: '1000%', color: '#fff' }} /></a>
-            <p>COACH HOME TODO</p>
-          </div>
-          <div className='home-indi-two'><a href="#/newform" title="New Form"><FormOutlined style={{ marginTop: 20, fontSize: '1000%', color: '#fff' }} /></a>
-            <p>COACH HOME TODO</p>
-          </div>
-          <div className='home-indi-three'><a href="#/change-password" title="Change Password"><LockOutlined style={{ marginTop: 20, fontSize: '1000%', color: '#fff' }} /></a>
-            <p>Change Password</p>
-          </div>
-          <div className='home-indi-four'><a href="#/person-information" title="Personal Info" ><UserOutlined style={{ textAlign: 'center', marginTop: 20, fontSize: '1000%', color: '#fff' }} /></a>
-            <p>COACH HOME TODO</p>
-          </div>
-        </div>
-        <div className='bottom'>
-          <a href="#/logout" className='home-logout' ><LogoutOutlined style={{ textAlign: 'center', marginTop: 16, marginRight: 15, fontSize: '400%', color: '#fff' }} /></a>
-        </div>
-      </div>
-    )
-  } else if (userType === "admin") {
-    return (<p>ADMIN HOME TODO</p>)
-  } else {
-    return (<div>UNKNOWN USER_TYPE</div>)
-  }
+
+      <NavBarBottom showLogout />
+    </>
+  )
+
 
 
 }

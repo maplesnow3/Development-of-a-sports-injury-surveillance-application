@@ -1,38 +1,162 @@
-c.App {
-  text-align: center;
+@import '~antd/dist/antd.css';
+
+body {
+  margin: 0;
+  padding: 0;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+#root {
+  font-size: initial;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+:root {
+  --green-main: #1db860;
+  --green-sub: #43c47b;
+  --green-dark: #0d9146;
+  --green-light: #a9e7b4;
+  /* --green-lighter: #cef1d5; */
+  --red-main: #dd4343;
+  --red-reder: red;
+  --white-main: white;
+  --white-sub: #edfdf4;
+  --black-main: black;
+  --black-sub: #606060;
+  --gray-main: #eaeaea;
+  --gray-sub: #f0f0f0;
+  --blue-main: #0f81ec;
+  /* --blue-sub: #4b9ce7; */
+  --blue-dark: #164d80;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+
+:root {
+  --common--page-title--height: 80px;
+  --common--page-title--height__large: 160px;
+
+  --content-max-width: 400px;
+}
+
+
+.common--page-title {
+  position: fixed;
+  top: 0;
+	box-sizing: border-box;
+	margin: 0;
+  padding: 4px 12px;
+  width: 100%;
+  height: var(--common--page-title--height);
+  overflow: hidden;
+  background-color: var(--green-main);
+
   display: flex;
-  flex-direction: column;
+  justify-content: space-around;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+}
+.common--page-title.common--page-title__large {
+  height: var(--common--page-title--height__large);
+}
+.common--page-title > h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 24px;
+  color: var(--white-main);
+}
+.common--page-title > h1 > .common--page-title-sub {
+  margin: 0;
+  padding: 0;
+  font-size: 14px;
+  color: var(--white-sub);
+}
+.common--page-title > h1 > .common--page-title-sub:empty { display: none; }
+.common--page-title > .page-title--icon-cont svg {
+  transform: scale(3);
+  color: var(--white-sub);
 }
 
-.App-link {
-  color: #61dafb;
+
+.common--page-main {
+  position: fixed;
+  top: 0;
+  box-sizing: border-box;
+  margin-top: var(--common--page-title--height);
+  margin-bottom: var(--common--nav-bar--height);
+  margin-left: auto;
+  margin-right: auto;
+  padding: 8px;
+  width: 100%;
+  height: calc( 100% - var(--common--page-title--height) - var(--common--nav-bar--height) );
+
+  overflow: auto;
+}
+.common--page-main.common--page-main__large-title {
+  margin-top: var(--common--page-title--height__large);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+
+/* Anchor color global */
+a,
+.ant-pagination-item-active a {
+  color: var(--blue-main);
+}
+
+/* Hide up/down arrows for number input */
+/* input[type=number]::-webkit-outer-spin-button,
+input[type=number]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type=number] {
+  -moz-appearance: textfield;
+} */
+
+/* Modify ant button to match antMobile style */
+.ant-btn {
+  height: 40px;
+  font-size: 17px;
+}
+
+/* Button color global */
+.ant-btn.ant-btn-primary,
+.adm-button.adm-button-success {
+  background-color: var(--green-sub);
+  color: var(--white-main);
+  border: none;
+}
+.ant-btn.ant-btn-dangerous,
+.ant-btn.ant-btn-dangerous:hover,
+.ant-btn.ant-btn-dangerous:active,
+.adm-button.adm-button-danger {
+  background-color: var(--red-main);
+  color: var(--white-main);
+}
+
+
+/* RangePicker shows only one month for dropdown */
+.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-next-btn,
+.ant-picker-panels > .ant-picker-panel:first-child button.ant-picker-header-super-next-btn {
+  visibility: visible !important;
+}
+.ant-picker-panels > .ant-picker-panel:not(.ant-picker-panel:first-child) {
+  display: none !important;
+}
+.ant-picker-panel-container, .ant-picker-footer {
+  width: 280px !important;
+}
+.ant-picker-footer-extra > div {
+  flex-wrap: wrap !important;
+}
+
+
+/* Larger table controllers for middle Table */
+.ant-pagination.mini {
+  font-size: 18px;
+}
+.ant-pagination.mini .ant-pagination-prev,
+.ant-pagination.mini .ant-pagination-next,
+.ant-pagination.mini .ant-pagination-item {
+  width: 32px;
+  height: 32px;
+}
+.ant-pagination.mini .ant-pagination-item a {
+  line-height: 30px;
 }
