@@ -1,5 +1,6 @@
 import json
 import random
+import bcrypt
 
 from django.http import HttpResponse
 from rest_framework.decorators import api_view
@@ -283,7 +284,10 @@ def resetUserPassword(request):
             # Generate a new temp password
             new_pw_plaintext = "".join(random.sample("0123456789abcdefghijklmnopqrstuvwxyz",10))
             # TODO: Hash before save
-            new_pw_saved = new_pw_plaintext
+            new_pw_saved = bcrypt.hashpw(
+                new_pw_plaintext.encode(encoding = 'UTF-8', errors = 'strict'),
+                b'$2a$06$AGM/cv8Hw/w4bkj8PJsM0.'
+            )
             # TODO: Mock result - INSERT DB METHOD
             result = "Success" #database.setPwTo(target_account, new_pw_saved)
         except Exception as e:
