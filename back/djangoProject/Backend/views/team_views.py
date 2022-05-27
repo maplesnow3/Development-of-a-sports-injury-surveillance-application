@@ -199,30 +199,6 @@ def getAllTeams(request):
 def getTeamMembers(request, team_id_in):
     """
     Get all members of specified team
-
-    INPUT:
-    - `team_id_in` (str, from function param)
-
-    OUTPUT (SUCCESS):
-    ```
-    {
-        "status": "success",
-        "team_members": [
-            {
-                "user_id": 123,
-                "name": "First Last"
-            },
-            {...}
-        ]
-    }
-    ```
-
-    OUTPUT (FAILURE):
-    ```
-    {"status": "failure", "message": "Failure reason message"}
-    ```
-
-    **Always return something**
     """
     if request.method != 'GET':
         return Response({
@@ -230,49 +206,60 @@ def getTeamMembers(request, team_id_in):
             "message": "Receives GET only"
         })
 
-    # TODO
-    # Check:
-    # 1. Requested by "coach"
-    # 2. Coach is managing team `team_id`
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
 
-    # Fake data for testing without functional backend
-    return Response({
-        "status": "success",
-        "team_members": [
-            {
-                "user_id": 121,
-                "name": "Test name 1"
-            },
-            {
-                "user_id": 122,
-                "name": "Test name 2"
-            },
-            {
-                "user_id": 123,
-                "name": "Test name 3"
-            },
-            {
-                "user_id": 124,
-                "name": "Test name 4"
-            },
-            {
-                "user_id": 123,
-                "name": "Test name 5"
-            },
-            {
-                "user_id": 126,
-                "name": "Test name 6"
-            },
-            {
-                "user_id": 127,
-                "name": "Test name 7"
-            },
-            {
-                "user_id": 128,
-                "name": "Test name 8"
-            }
-        ]
-    })
+    # Check usertype limit
+    user_id = request.session["user_id"]
+    user_type = request.session["user_type"]
+    if user_type == "player" or user_type == "admin":
+        return Response({
+            "status": "failure",
+            "message": "Function not allowed"
+        })
+    elif user_type == "coach":
+        pass
+    else:
+        return Response({
+            "status": "failure",
+            "message": "Undefined user type"
+        })
+    # Check whether coach is managing team `team_id`
+    if database.coachIsManagingTeam(team_id_in, user_id):
+        pass
+    else:
+        return Response({
+            "status": "failure",
+            "message": "Team member list unavailable"
+        })
+    # Get team member list
+    try:
+        result = "Fail"
+        try:
+            result = database.viewTeamMember(team_id_in)
+        except Exception as e:
+            print(e)
+        finally:
+            if result == "Fail" or result == None:
+                return Response({
+                    "status": "failure",
+                    "message": "Cannot find team member list"
+                })
+            else:
+                return Response({
+                    "status": "success",
+                    "team_members": result
+                })
+
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
 
 
 @api_view(['POST'])
@@ -291,33 +278,6 @@ def addTeamMembers(request):
             {...}
         ]
     }
-
-    OUTPUT (SUCCESS):
-    ```
-    {"status": "success"}
-    ```
-
-    OUTPUT (Some members are not added):
-    ```
-    {
-        "status": "failure",
-        "message": "Not all members are added",
-        "failed_members": [
-            {
-                "user_id": 123,
-                "access_code": "AcCeSsCoDe"
-            },
-            {...}
-        ]
-    }
-    ```
-
-    OUTPUT (Other FAILURE):
-    ```
-    {"status": "failure", "message": "Failure reason message"}
-    ```
-
-    **Always return something**
     """
 
     if request.method != 'POST':
@@ -326,15 +286,78 @@ def addTeamMembers(request):
             "message": "Receives POST only"
         })
 
-    # TODO
-    # Check:
-    # 1. Requested by "coach"
-    # 2. Coach is managing team `team_id`
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
 
-    return Response({
-        "status": "failure",
-        "message": "API TODO addTeamMembers"
-    })
+    try:
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+
+        # Check usertype limit
+        user_id = request.session["user_id"]
+        user_type = request.session["user_type"]
+        if user_type == "player" or user_type == "admin":
+            return Response({
+                "status": "failure",
+                "message": "Function not allowed"
+            })
+        elif user_type == "coach":
+            pass
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Undefined user type"
+            })
+
+        team_id_in = request_dict.get('team_id')
+        add_members = request_dict.get('add_members')
+        if team_id_in is None or team_id_in == "":
+            return Response({
+                "status": "failure",
+                "message": "Empty team id"
+            })
+        # Check whether coach is managing team `team_id`
+        if database.coachIsManagingTeam(team_id_in, user_id):
+            pass
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Function not allowed"
+            })
+        result = "Fail"
+        fails=0
+        try:
+            fail_members=[]
+            for member in add_members:
+                result = database.addTeamMember(team_id_in, member.get('user_id'), member.get('access_code'))
+                if result != "Success":
+                    fail_members.append(member)
+                    fails=fails+1
+
+        except Exception as e:
+            print(e)
+        finally:
+            if fails > 0:
+                return Response({
+                    "status": "failure",
+                    "message": "Not all members are added",
+                    "failed_members": fail_members
+                })
+
+        return Response({
+            "status": "success"
+        })
+
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
+
 
 
 @api_view(['POST'])
@@ -350,29 +373,6 @@ def removeTeamMembers(request):
             {...}
         ]
     }
-
-    OUTPUT (SUCCESS):
-    ```
-    {"status": "success"}
-    ```
-
-    OUTPUT (Some members are not removed):
-    ```
-    {
-        "status": "failure",
-        "message": "Not all members are removed",
-        "failed_members": [
-            { "user_id": 123 },
-            {...}
-        ]
-    }
-    ```
-
-    OUTPUT (Other FAILURE):
-    ```
-    {"status": "failure", "message": "Failure reason message"}
-    ```
-
     **Always return something**
     """
     if request.method != 'POST':
@@ -381,15 +381,73 @@ def removeTeamMembers(request):
             "message": "Receives POST only"
         })
 
-    # TODO
-    # Check:
-    # 1. Requested by "coach"
-    # 2. Coach is managing team `team_id`
+    if not request.session.has_key("user_id"):
+        return Response({
+            "status": "failure",
+            "message": "Not logged in"
+        })
 
-    return Response({
-        "status": "failure",
-        "message": "API TODO removeTeamMembers"
-    })
+    try:
+        request_data = request.body
+        request_dict = json.loads(request_data.decode('utf-8'))
+
+        # Check usertype limit
+        user_id = request.session["user_id"]
+        user_type = request.session["user_type"]
+        if user_type == "player" or user_type == "admin":
+            return Response({
+                "status": "failure",
+                "message": "Function not allowed"
+            })
+        elif user_type == "coach":
+            pass
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Undefined user type"
+            })
+
+        team_id_in = request_dict.get('team_id')
+        remove_members = request_dict.get('remove_members')
+        if team_id_in is None or team_id_in == "":
+            return Response({
+                "status": "failure",
+                "message": "Empty team id"
+            })
+        # Check whether coach is managing team `team_id`
+        if database.coachIsManagingTeam(team_id_in, user_id):
+            pass
+        else:
+            return Response({
+                "status": "failure",
+                "message": "Function not allowed"
+            })
+        removeList=[]
+        for member in remove_members:
+            removeList.append(member.get('user_id'))
+        result = "Fail"
+        try:
+            result = database.removeTeamMember(removeList)
+        except Exception as e:
+            print(e)
+        finally:
+            if result == "Fail":
+                return Response({
+                    "status": "failure",
+                    "message": "Database error, roll back"
+                })
+
+        return Response({
+            "status": "success"
+        })
+
+    except Exception as e:
+        print(e)
+        return Response({
+            "status": "failure",
+            "message": "Invalid request / undefined issue"
+        })
+
 
 
 @api_view(['GET'])
