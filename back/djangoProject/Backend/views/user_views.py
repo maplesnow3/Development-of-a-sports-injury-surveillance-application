@@ -223,7 +223,7 @@ def changeUserSelfPassword(request):
             if result == "Fail":
                 return Response({
                     "status": "failure",
-                    "message": "Failed to change - is the old password correct?"
+                    "message": "Is the old password correct?"
                 })
             elif result == "Success":
                 return Response({
@@ -232,7 +232,7 @@ def changeUserSelfPassword(request):
             else:
                 return Response({
                     "status": "failure",
-                    "message": "Failed to change - unidentified error"
+                    "message": "Unidentified error"
                 })
 
     except Exception as e:
@@ -246,7 +246,7 @@ def changeUserSelfPassword(request):
 @api_view(['POST'])
 def resetUserPassword(request):
     """
-    ADMIN FUNC - unfinished
+    ADMIN FUNC - unfinished TODO
     """
     if request.method != 'POST':
         return Response({
@@ -292,7 +292,7 @@ def resetUserPassword(request):
             if result == "Fail":
                 return Response({
                     "status": "failure",
-                    "message": "Failed to reset"
+                    "message": "Modification failed"
                 })
             elif result == "Success":
                 return Response({
@@ -302,7 +302,7 @@ def resetUserPassword(request):
             else:
                 return Response({
                     "status": "failure",
-                    "message": "Failed to reset - unidentified error"
+                    "message": "Unidentified error"
                 })
 
     except Exception as e:
