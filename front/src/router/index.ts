@@ -14,10 +14,11 @@ import RecordViewer from '../pages/record_browser/components/RecordViewer';
 import TeamManage from '../pages/team_func/components/TeamManage';
 import NewForm from '../pages/newfrom'
 // import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
-
 import ChangePassword from '../pages/changePassword';
 import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import PersonInformation from '../pages/personInformation';
+import AdminLogin from '../pages/login/adminLogin'
+import ResetPassword from '../pages/resetPassword'
 const router:any = [
   {path:'/login',name:'login',element:Login},
   {path:'/logout',name:'login',element:Logout},
@@ -39,7 +40,9 @@ const router:any = [
   // {path:'/team_func/members',name:'team_func',element:TeamMemberManage},
   {path:'/change-password',name:'ChangePassword',element:ChangePassword},
   {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
-  {path:'/person-information',name:'PersonInformation',element:PersonInformation}
+  {path:'/person-information',name:'PersonInformation',element:PersonInformation},
+  {path:'/admin-login',name:'AdminLogin',element:AdminLogin},
+  {path:'reset-password',name:'ResetPassword',element:ResetPassword}
 ]
 
 export default router;

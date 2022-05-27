@@ -4,7 +4,7 @@ import Cookies from 'js-cookie'
 import { useNavigate } from 'react-router-dom';
 import RegistryTitle from '../login/components/RegistryTitle'
 import {PersonInformation as PersonInfo,UserIdInviteCode,MedicalHistory,InjuryHistory,ConcussionHistory} from './component';
-import {getBaseline,updatePersonInfo} from '../../api';
+import {getBaseline,updatePersonInfo,setAccessCodeApi} from '../../api';
 import HomeIcon from '../../image/home.png'
 import './index.scss'
 const PersonInformation = ()=>{
@@ -29,7 +29,8 @@ const PersonInformation = ()=>{
   const [injuryHistory,setInjuryHistory] = useState([]);
   const [injuryHistoryInput,setInjuryHistoryInput] = useState([]);
   const [surgery,setSurgery] = useState('');
-  const [concussionQuestions,setConcussionQuestions] = useState([])
+  const [concussionQuestions,setConcussionQuestions] = useState([]);
+  const [accessCode,setAccessCode] = useState('')
   const getBaselineFun = async()=>{
     const res = await getBaseline(userId);
     if(res.status==='success'){
@@ -61,7 +62,7 @@ const PersonInformation = ()=>{
             <PersonInfo phoneChange={(e)=>{setPhone(e)}} addressChange={(e)=>{setAddress(e)}} />
           </Collapse.Panel>
           <Collapse.Panel key='2' title='User id and Access code'>
-            <UserIdInviteCode />
+            <UserIdInviteCode changeAccessCode={(e)=>{setAccessCode(e)}} />
           </Collapse.Panel>
           <Collapse.Panel key='3' title='Medical History'>
            <MedicalHistory
@@ -81,30 +82,49 @@ const PersonInformation = ()=>{
            <ConcussionHistory concussionQuestions={concussionQuestions} />
           </Collapse.Panel>
         </Collapse>
-        {(phone || address) &&<div style={{backgroundColor:'#fff',padding:'20px 5px 5px 5px'}}>
+        {(phone || address || accessCode) &&<div style={{backgroundColor:'#fff',padding:'20px 5px 5px 5px'}}>
         <Button
           style={{backgroundColor:'rgb(29, 184, 96)'}}
           block
           color='primary'
           size='large'
           onClick={async ()=>{
-            const res = await updatePersonInfo({
-              phone:phone?phone:undefined,
-              address:address?address:undefined,
-              user_id:userId
-            })
-            if(res.status === 'success'){
-              Toast.show({
-                icon: 'success',
-                content:'save successfully',
+            if(phone || address){
+              const res = await updatePersonInfo({
+                phone:phone?phone:undefined,
+                address:address?address:undefined,
+                user_id:userId
               })
-              setPhone('');
-              setAddress('');
-            }else{
-              Toast.show({
-                icon: 'fail',
-                content: res.message,
-              })
+              if(res.status === 'success'){
+                Toast.show({
+                  icon: 'success',
+                  content:'save successfully',
+                })
+                setPhone('');
+                setAddress('');
+              }else{
+                Toast.show({
+                  icon: 'fail',
+                  content: res.message,
+                })
+              }
+            }
+            if(accessCode){
+              const res = await setAccessCodeApi({user_id:userId,code:accessCode});
+              console.log(res);
+              if(res.status === 'success'){
+                Toast.show({
+                  icon: 'success',
+                  content:'save successfully',
+                })
+                setPhone('');
+                setAddress('');
+              }else{
+                Toast.show({
+                  icon: 'fail',
+                  content: res.message,
+                })
+              }
             }
           }}>
             Save
