@@ -569,6 +569,7 @@ def viewInj(injId):
                      % (injId))
         row = curs.fetchone()
         if row is not None:
+            formDate=str(row[1])
             bodyPart=str2list(str(row[3]), ";")
             occurDuring=str2list(str(row[4]), ";")
             injType=str2list(str(row[5]), ";")
@@ -587,7 +588,7 @@ def viewInj(injId):
             iniTreatPer=str2list(str(row[14]), ";")
             referTo=str2list(str(row[15]), ";")
             injReport=[bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
-                       conFact, proDia, injPres, iniTreat, iniTreatPer, referTo]
+                       conFact, proDia, injPres, iniTreat, iniTreatPer, referTo, formDate]
             curs.close()
             return injReport
         else:
