@@ -22,54 +22,61 @@ const Login = ()=>{
     }
   }
   return (
-    <div className='login'>
-      <div className="logo">
-        <img src={require('../../image/logo.png')} alt="" />
+    <div className="login--page-cont">
+
+      <div className='login--page-title'>
+        <div className='title--logo-cont'>
+          <img src={require('../../image/logo.png')} alt="" />
+        </div>
+        <div className="title--text">Injury Survelliance Application</div>
       </div>
-      <div className="login-title">Injury Survelliance Application</div>
-      <Form
-      onFinish={(values)=>{
-        console.log(values);
-        loginFun(values)
-      }}
-      footer={
-        <Button style={{backgroundColor:'#09E316'}} block type='submit' color='primary' size='large'>
-          Sign In
-        </Button>
-      }
-       layout='horizontal'>
+
+      <div className="login--login-form">
+        <Form
+          onFinish={(values) => {
+            console.log(values);
+            loginFun(values)
+          }}
+          footer={
+            <Button block type='submit' color='primary' size='large'>
+              Sign In
+            </Button>
+          }
+          layout='horizontal'>
           <Form.Item
             name='email'
             rules={[
-              { required: true,message:'please enter your email' },
-              { type: 'string', min: 6,message:'contains at least 6 characters' },
-              { type: 'email',message:'incorrect email format' },
+              { required: true, message: 'Please enter your email' },
+              // { type: 'string', min: 6, message: 'contains at least 6 characters' },
+              { type: 'email', message: 'Incorrect email format provided' },
             ]}
-            label={<MailOutline style={{position:'relative',bottom:"10px"}}
-             fontSize={22} color='#fff' />}>
-            <Input  placeholder='Enter email address' clearable />
+            label={<MailOutline style={{ position: 'relative', bottom: "10px" }}
+              fontSize={22} color='#fff' />}>
+            <Input placeholder='Enter email address here' clearable />
           </Form.Item>
           <Form.Item
-              name='password'
-              rules={[
-                { required: true,message:'please enter your password' },
-                { min: 6,message:'contains at least 6 characters' },
-              ]} label={<LockFill style={{position:'relative',bottom:"10px"}}
+            name='password'
+            rules={[
+              { required: true, message: 'Please enter your password' },
+              { min: 6, message: 'Requires at least 6 characters' },
+            ]} label={<LockFill style={{ position: 'relative', bottom: "10px" }}
               fontSize={22} color='#fff' />}
-            >
-            <Input placeholder='Enter Password' clearable type='password' />
+          >
+            <Input placeholder='Enter Password here' clearable type='password' />
           </Form.Item>
         </Form>
-        <div className='no-account'>
-          <p>Don`t have an account?</p>
-          <span onClick={()=>{navigator('/registry')}}>Register</span>
-          <br/>
-          <span onClick={()=>{navigator('/registry',{state:{type:'coach'}})}}>Register as a coach</span>
-        </div>
-        <div className='coach-account'>
-          <p>Are you a Coach? Sign in <span>Here</span></p>
+      </div>
 
-        </div>
+      <div className="login--no-account-prompt">
+        <p>
+          Don`t have an account?
+          <a onClick={()=>{navigator('/registry')}}>Register here</a>
+        </p>
+        <p>
+          Or<a onClick={()=>{navigator('/registry',{state:{type:'coach'}})}}>register as a coach</a>
+        </p>
+      </div>
+
     </div>
   )
 }

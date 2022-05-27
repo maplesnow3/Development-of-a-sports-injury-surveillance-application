@@ -13,9 +13,9 @@ const ChangeSuccess = ()=>{
       <div className='wrapper'>
         <CheckCircleFill style={{color:'#09E316',fontSize:'50px'}} />
         <p>Your password has been changed successfully!</p>
-        <Button onClick={()=>{navigate('/login')}} color='primary' fill='none'>Back to login page</Button>
+        <Button onClick={()=>{navigate('/logout')}} color='primary' fill='none'>Back to login page</Button>
       </div>
-      
+
     </div>
   )
 }

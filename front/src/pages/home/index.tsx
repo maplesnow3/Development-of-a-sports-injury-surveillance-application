@@ -72,9 +72,9 @@ const Home = ()=>{
           <p className="anchor-block--text">View Reports</p>
         </a>
 
-        <a className="anchor-block " href="#/reset-password_URL_TODO">
+        <a className="anchor-block " href="#/reset-password">
           <div className="anchor-block--icon-cont"><UnlockOutlined /></div>
-          <p className="anchor-block--text">Reset User's Password TODO</p>
+          <p className="anchor-block--text">Reset User's Password</p>
         </a>
 
         <a className="anchor-block anchor-block__full-size" href="#/change-password">

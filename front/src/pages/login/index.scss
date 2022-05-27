@@ -1,61 +1,68 @@
-.login{
+.login--page-cont {
   width: 100vw;
   height: 100vh;
-  overflow: hidden;
-  background-color: #1DB860;
-  .logo{
-    width: 100%;
-    height: 40%;
-    position: relative;
-    img{
-      position: absolute;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%,-50%);
+  margin: 0;
+  padding: 0;
+  overflow: auto;
 
+  background-color: var(--green-main);
+}
+
+.login--page-title {
+  width: 200px;
+  max-width: var(--content-max-width);
+  margin: 24px auto;
+
+  .title--logo-cont {
+    width: 100%;
+
+    img {
+      width: 100%;
+      height: auto;
     }
   }
-  .login-title{
-    font-size: 18px;
+
+  .title--text {
     text-align: center;
-    color: #fff;
-    font-weight: 700;
-    margin-bottom: 30px;
+    font-size: 18px;
+    font-weight: bold;
+    color: var(--white-main);
   }
-  .adm-form-item-footer{
-    margin-top: 12px;
-  }
+}
+
+.login--login-form {
+  max-width: var(--content-max-width);
+  margin: 24px auto;
+
   .adm-list-body{
     background-color: transparent;
     border: none;
-    padding: 0 55px;
+    padding: 0 16px;
   }
+
   .adm-list-item-content-prefix{
     width: 40px;
     text-align: center;
     border-right: 1px solid #fff;
-    background-color: #1DB860;
+    background-color: var(--gray-sub);
     padding:10px 0 0 0;
-    label{
-      line-height: 38px;
+
+    label {
+      line-height: 35px;
+      svg { color: var(--black-main); }
     }
+
+    .adm-form-item-required-asterisk { display: none; }
   }
-  .adm-list-item-content-main{
-    .adm-input-wrapper{
-      .adm-input{
-        color: #fff;
-        background-color: transparent;
-        padding-left: 10px;
-      }
-    }
-  }
+
   .adm-list-item-content{
     height: 35px;
     border: 1px solid #fff;
-    margin-top: 20px;
-    background-color: #1DB860;
+    margin-bottom: 20px;
+    background-color: var(--white-main);
     .adm-input-element{
       position: relative;
+      padding-left: 4px;
       bottom: 7px;
     }
     .adm-input-clear{
@@ -67,32 +74,46 @@
     padding: 0;
     // height: 40px;
   }
-  .sign-btn-item{
-    .adm-list-item-content{
-      background-color: #09E316;
-      border-color: #3A62D7;
-    }
-    .sign-btn{
-      text-align: center;
-      line-height: 0;
-      margin-top: 2px;
-      color: #fff;
-      font-weight: 700;
-      
+
+  .adm-form-item-footer{
+    margin-top: 12px;
+  }
+
+  .adm-list-item-description {
+    position: absolute;
+    bottom: -18px;
+    .adm-form-item-feedback-error {
+      color: var(--red-dark);
     }
   }
-  .no-account,.coach-account{
+
+  .adm-form-footer {
+    padding-top: 4px;
+  }
+
+  .adm-button.adm-button-primary {
+    background-color: var(--green-darker);
+    border-color: var(--green-sub);
+    color: var(--white-main);
+  }
+}
+
+.login--no-account-prompt {
+  max-width: var(--content-max-width);
+  margin: 24px auto;
+
+  p {
     text-align: center;
-    color: #fff;
-    span{
+    margin: 0;
+    color: var(--white-main);
+
+    a {
+      margin-left: 0.25em;
+      font-weight: bold;
+      color: var(--white-main);
       text-decoration: underline;
     }
   }
-  .adm-form-item-label-required,.adm-form-item-required-asterisk{
-    display: none;
-  }
-  .adm-form-item-feedback-error{
-    margin-top: -4px
-  }
 }
+
 

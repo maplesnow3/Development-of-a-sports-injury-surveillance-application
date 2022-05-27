@@ -49,7 +49,7 @@ const router:any = [
   {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
   {path:'/person-information',name:'PersonInformation',element:PersonInformation},
   {path:'/admin-login',name:'AdminLogin',element:AdminLogin},
-  {path:'reset-password',name:'ResetPassword',element:ResetPassword}
+  {path:'/reset-password',name:'ResetPassword',element:ResetPassword}
 ]
 
 export default router;

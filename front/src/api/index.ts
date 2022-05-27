@@ -1,6 +1,7 @@
 import axios from "axios";
 // import qs from 'qs';
 
+let bcrypt = require("bcryptjs");
 
 
 
@@ -9,7 +10,6 @@ const http = axios.create({
   timeout:5000,
   withCredentials:true
 })
-// http.defaults.withCredentials = true
 http.interceptors.response.use((response)=>{
   console.log(response.data);
   if(response.data.message === "Not logged in"){
@@ -24,6 +24,9 @@ http.interceptors.response.use((response)=>{
 
 //注册
 export const registry = (data:any)=>{
+  if (data.hasOwnProperty("password") && data.password) {
+    data.password = bcrypt.hashSync(data.password, "$2a$06$AGM/cv8Hw/w4bkj8PJsM0.");
+  }
   return http({
     url:'/api/user/register',
     method:"POST",
@@ -32,6 +35,9 @@ export const registry = (data:any)=>{
 }
 //登录
 export const login = (data:any) =>{
+  if (data.hasOwnProperty("password") && data.password) {
+    data.password = bcrypt.hashSync(data.password, "$2a$06$AGM/cv8Hw/w4bkj8PJsM0.");
+  }
   return http({
     url:'api/login',
     method:'POST',

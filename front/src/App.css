@@ -13,10 +13,12 @@ body {
   --green-main: #1db860;
   --green-sub: #43c47b;
   --green-dark: #0d9146;
+  --green-darker: #1d7543;
   --green-light: #a9e7b4;
   /* --green-lighter: #cef1d5; */
   --red-main: #dd4343;
   --red-reder: red;
+  --red-dark: #a80b0b;
   --white-main: white;
   --white-sub: #edfdf4;
   --black-main: black;
