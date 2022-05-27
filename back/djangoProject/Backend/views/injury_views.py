@@ -36,16 +36,18 @@ def createNewForm(request):
                 "status": "failure",
                 "message": "You can only create new form for yourself"
             })
-        elif user_type == "coach" and database.coachIsManagingPlayer(user_id, submit_target):
+        elif user_type == "coach" and not database.coachIsManagingPlayer(user_id, submit_target):
             return Response({
                 "status": "failure",
-                "message": "Target is not a valid player"
+                "message": "Player is not available"
             })
         elif user_type != "player" and user_type != "coach":
             return Response({
                 "status": "failure",
                 "message": "Undefined user type"
             })
+        else:
+            pass
 
         # Redirect to real self ID if -1 is used
         if submit_target == -1:

@@ -23,6 +23,7 @@ import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import PersonInformation from '../pages/personInformation';
 
 import AdminRecordBrowser from '../pages/admin_record_browser';
+import ReloadPage from '../pages/reload_page';
 
 const router:any = [
   {path:'/login',name:'login',element:Login},
@@ -49,7 +50,9 @@ const router:any = [
   {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
   {path:'/person-information',name:'PersonInformation',element:PersonInformation},
   {path:'/admin-login',name:'AdminLogin',element:AdminLogin},
-  {path:'/reset-password',name:'ResetPassword',element:ResetPassword}
+  {path:'/reset-password',name:'ResetPassword',element:ResetPassword},
+
+  {path:'/reload',name:'reload',element:ReloadPage}
 ]
 
 export default router;

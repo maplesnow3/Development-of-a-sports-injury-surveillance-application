@@ -162,12 +162,8 @@ const TeamManage = () => {
 
 													// let newTeamId = resJson.team_id;
 													message.success("New team created");
-													window.location.reload();
-													// if (newTeamId) {
-													// 	window.location.hash = `#/team_func/members?team_id=${newTeamId}`
-													// } else {
-													// 	window.location.reload();
-													// }
+													window.location.hash = `#/reload?to=${encodeURIComponent(window.location.hash.slice(1))}`
+													// window.location.reload();
 												}
 											} else {
 												message.error("Failed to create new team - Please try later");
@@ -202,7 +198,8 @@ const TeamManage = () => {
 								message.error("Failed to delete the team - " + (resJson.message || "Please try later"));
 							} else {
 								message.success("Team deleted");
-								window.location.reload();
+								// window.location.reload();
+								window.location.hash = `#/reload?to=${encodeURIComponent(window.location.hash.slice(1))}`
 							}
 						} else {
 							message.error("Failed to delete the team - Please try later");

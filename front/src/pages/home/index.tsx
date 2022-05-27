@@ -22,8 +22,9 @@ const Home = ()=>{
       icon: 'fail',
       content: 'please log in',
     })
-    window.location.hash = '#/login'
-    window.location.reload();
+    // window.location.hash = '#/login'
+    // window.location.reload();
+    window.location.hash = `#/reload?to=${encodeURIComponent("/login")}`
   }
 
   let homeMainContent = (() => {

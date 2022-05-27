@@ -15,8 +15,9 @@ const PersonInformation = ()=>{
       content: 'please log in',
     })
     // window.open('#/login','__self')
-    window.location.hash = '#/login'
-    window.location.reload();
+    // window.location.hash = '#/login'
+    // window.location.reload();
+    window.location.hash = `#/reload?to=${encodeURIComponent("/login")}`
   }
 
   const navigate = useNavigate();

@@ -10,11 +10,6 @@ import NavBarBottom from "../../../part-navBarBottom"
 import './index.css';
 
 
-// TODO:
-// - Add new member REQUEST - Added; TODO test with API
-// - Remove member REQUEST - TODO test with API
-
-
 const useTableDataSourceRaw = (setTableDataMethod, setTeamIdMethod) => {
 	const [memberList, setMemberList] = useState([]);
 	const getMemberList = async () => {
@@ -142,7 +137,6 @@ const TeamMemberManage = () => {
 	const [tableRowKeysSelected, setTableRowKeysSelected] = useState([])
 
 	// Method for sending removing member request
-	// TODO: Test with backend
 	const sendRemoveMemberRequest = (requestJsonObj) => {
 		console.log(requestJsonObj)
 
@@ -152,11 +146,11 @@ const TeamMemberManage = () => {
 				let resJson = JSON.parse(this.responseText);
 
 				if (resJson.status !== "success") {
-					// TODO - add not-all-removed condition check
 					message.error("Failed to remove member(s) - " + (resJson.message || "Please try later"));
 				} else {
 					message.success("Member(s) removed from the team");
-					window.location.reload();
+					window.location.hash = `#/reload?to=${encodeURIComponent(window.location.hash.slice(1))}`
+					// window.location.reload();
 				}
 			} else {
 				message.error("Failed to remove member(s) - Please try later");
@@ -310,7 +304,8 @@ const TeamMemberManage = () => {
 										message.error("Failed to add new member - " + (resJson.message || "Please try later"));
 									} else {
 										message.success("Member added");
-										window.location.reload();
+										// window.location.reload();
+										window.location.hash = `#/reload?to=${encodeURIComponent(window.location.hash.slice(1))}`
 									}
 								} else {
 									message.error("Failed to add new member - Please try later");
@@ -376,19 +371,25 @@ const TeamMemberManage = () => {
 			<Modal title="Remove member(s) from team" visible={removeModalVisible} onCancel={hideRemoveModal} onOk={() => {
 				hideRemoveModal();
 
-				let selectedRowUserIds = [];
+				let selectedRowUserIdObjs = [];
 				for (let rowKey of tableRowKeysSelected) {
 					let dataRawI = tableDataSourceRaw.findIndex((element) => element.key === rowKey)
 					if (dataRawI < 0) {
 						console.log("Remove member error: cannot find row with key " + rowKey);
 					} else {
 						// console.log(tableDataSourceRaw[dataRawI]);
-						selectedRowUserIds.push(tableDataSourceRaw[dataRawI].user_id);
+						selectedRowUserIdObjs.push({
+							"user_id": tableDataSourceRaw[dataRawI].user_id
+						});
 					}
-
-					// TODO: Remove selected user with API
-					console.log(selectedRowUserIds);
 				}
+
+				console.log(selectedRowUserIdObjs)
+				let requestJson = {
+					"team_id": targetTeamId,
+					"remove_members": selectedRowUserIdObjs
+				};
+				sendRemoveMemberRequest(requestJson);
 			}} >
 				Do you really want to remove the selected {
 					tableRowKeysSelected.length > 1 ?

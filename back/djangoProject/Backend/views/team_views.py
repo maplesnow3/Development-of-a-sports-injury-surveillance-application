@@ -243,10 +243,15 @@ def getTeamMembers(request, team_id_in):
         except Exception as e:
             print(e)
         finally:
-            if result == "Fail" or result == None:
+            if result == "Fail":
                 return Response({
                     "status": "failure",
                     "message": "Cannot find team member list"
+                })
+            elif result == None:
+                return Response({
+                    "status": "success",
+                    "team_members": []
                 })
             else:
                 return Response({
@@ -434,7 +439,7 @@ def removeTeamMembers(request):
             if result == "Fail":
                 return Response({
                     "status": "failure",
-                    "message": "Database error, roll back"
+                    "message": "Is every member selected exists?"
                 })
 
         return Response({

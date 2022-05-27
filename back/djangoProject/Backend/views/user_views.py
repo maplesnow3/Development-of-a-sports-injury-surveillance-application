@@ -247,7 +247,7 @@ def changeUserSelfPassword(request):
 @api_view(['POST'])
 def resetUserPassword(request):
     """
-    ADMIN FUNC - unfinished TODO
+    ADMIN FUNC
     """
     if request.method != 'POST':
         return Response({
@@ -283,13 +283,13 @@ def resetUserPassword(request):
         try:
             # Generate a new temp password
             new_pw_plaintext = "".join(random.sample("0123456789abcdefghijklmnopqrstuvwxyz",10))
-            # TODO: Hash before save
+            # Hash before save
             new_pw_saved = bcrypt.hashpw(
                 new_pw_plaintext.encode(encoding = 'UTF-8', errors = 'strict'),
                 b'$2a$06$AGM/cv8Hw/w4bkj8PJsM0.'
-            )
-            # TODO: Mock result - INSERT DB METHOD
-            result = "Success" #database.setPwTo(target_account, new_pw_saved)
+            ).decode('UTF-8')
+            print(new_pw_saved)
+            result = database.setPwTo(target_account, new_pw_saved)
         except Exception as e:
             print(e)
         finally:
@@ -297,6 +297,11 @@ def resetUserPassword(request):
                 return Response({
                     "status": "failure",
                     "message": "Modification failed"
+                })
+            elif result == "NotExist":
+                return Response({
+                    "status": "failure",
+                    "message": "Account does not exist"
                 })
             elif result == "Success":
                 return Response({
