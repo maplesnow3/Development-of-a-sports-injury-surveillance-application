@@ -31,6 +31,27 @@ const InjureForm = () => {
    const inputRuleChooseOne = { required: true, message: "You haven't chosen anything here" };
    const inputRuleChooseAtLeastOne = { required: true, message: "You haven't chosen anything here" };
 
+   const formatDate = (date, hasSecond = true) => {
+      let y = date.getFullYear();
+      let m = ("0" + (date.getMonth()+1)).slice(-2);
+      let d = ("0" + date.getDate()).slice(-2);
+      let hour = ("0" + date.getHours()).slice(-2);
+      let min = ("0" + date.getMinutes()).slice(-2);
+      let sec = ("0" + date.getSeconds()).slice(-2);
+
+      if (hasSecond) {
+         return `${y}-${m}-${d} ${hour}:${min}:${sec}`
+      } else {
+         return `${y}-${m}-${d} ${hour}:${min}`
+      }
+   }
+
+   const [injuryDatePickerVisible, setInjuryDatePickerVisible] = useState(false);
+   const nowDate = new Date();
+   const [selectedDateTime, setSelectedDateTime] = useState(formatDate(nowDate))
+
+
+
    return (
       <>
          <p className="newform--instruction-text">
@@ -64,6 +85,7 @@ const InjureForm = () => {
 
                let formData = {
                   targetId: targetId,
+                  date: selectedDateTime,
                   injuredBodyPart: injuredBodyPart || [],
                   injuryOccurrence: injuryOccurrence || [],
                   nature_typeOfInjury: nature_typeOfInjury || [],
@@ -154,6 +176,45 @@ const InjureForm = () => {
                </Button>
             }
          >
+            <Form.Item name="date" label="Time of injury:"
+               className="newform--date-select"
+            >
+               <DatePicker
+                  className="newform--date-select-picker"
+                  visible={injuryDatePickerVisible}
+                  precision="minute"
+                  defaultValue={nowDate}
+                  max={nowDate}
+                  onClose={()=>{ setInjuryDatePickerVisible(false); }}
+                  onConfirm={(dateSelected)=>{
+                     setSelectedDateTime(
+                        formatDate(dateSelected)
+                     )
+                  }}
+                  renderLabel={(type, data) => {
+                     switch (type) {
+                        case 'hour':
+                          return data + " h"
+                        case 'minute':
+                          return data + " min"
+                        default:
+                          return data
+                     }
+                  }}
+               >
+                     {(v) => {
+                        if (v) {
+                           return formatDate(v, false)
+                        } else {
+                           return ""
+                        }
+                     }}
+               </DatePicker>
+               <Button
+                  className="newform--date-select-btn"
+                  onClick={()=>{ setInjuryDatePickerVisible(true); }}
+               >Select...</Button>
+            </Form.Item>
             <Collapse defaultActiveKey='1' accordion>
                <Collapse.Panel key='1' title='Match or Training Injury Form'
                   className="newform--form-panel-level-1"

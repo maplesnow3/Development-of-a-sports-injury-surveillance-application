@@ -408,13 +408,13 @@ def updateAthcode(userid, code):
 Insert a new injury report for a given user
 '''
 def addInj(userid, bodyPart, occurDuring, injType, remoWay, actAfterInj, injMech, trainSpe, wearEquip,
-           conFact, proDia, injPres, iniTreat, iniTreatPer, referTo):
+           conFact, proDia, injPres, iniTreat, iniTreatPer, referTo, injFormTime):
     conn = openConnection()
     try:
         curs = conn.cursor()
         injFormId = key('injFormId', 'InjForm')
-        now = datetime.datetime.now()
-        injFormTime = now.strftime('%Y-%m-%d %H:%M:%S')
+        # now = datetime.datetime.now()
+        # injFormTime = now.strftime('%Y-%m-%d %H:%M:%S')
         athleteId=getAthid(userid)
         bodyPart = list2str(bodyPart, ";")
         occurDuring=list2str(occurDuring, ";")
@@ -854,7 +854,7 @@ def coachIsManagingTeam(teamId, coachUserId):
         return False
 
 '''
-Get all the player users 
+Get all the player users
 '''
 def getAllAth():
     conn = openConnection()

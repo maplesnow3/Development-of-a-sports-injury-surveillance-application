@@ -38,6 +38,12 @@ const useReport = () => {
 
 			// Read lines
 			linesShown.push({ key: keyCount,
+				name: "Report Date",
+				value: reportFetched.date
+			});
+			keyCount++;
+
+			linesShown.push({ key: keyCount,
 				name: "Report ID",
 				value: checkedReportId
 			});

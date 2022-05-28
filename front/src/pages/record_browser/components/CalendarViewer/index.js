@@ -71,6 +71,9 @@ const CalendarViewer = () => {
 	// Storage for selected date range
 	const [dateRangeSelected, setDateRangeSelected] = useState([])
 
+	// Storage for previously selected data on calendar
+	const [dateSelectedPrev, setDateSelectedPrev] = useState(moment())
+
 	return (
 		<>
 			<div className="common--page-title">
@@ -152,6 +155,21 @@ const CalendarViewer = () => {
 						} }
 
 						onSelect={ (dateSelected) => {
+							// Calendar year/month change will also trigger onSelect
+							// Here we only jump when click on a data having the same
+							// month and year with `dateSelectedPrev`
+							if (
+								dateSelected.month() !== dateSelectedPrev.month() ||
+								dateSelected.year() !== dateSelectedPrev.year()
+							) {
+								//console.log("PANEL CHANGE");
+								// Update "prev" date value
+								setDateSelectedPrev(dateSelected);
+								return;
+							}
+
+							// Else: is selecting a date
+
 							// Only react to valid dates
 							let dateString = dateSelected.format("YYYY-MM-DD");
 							if (datesWithRecord.indexOf(dateString) > -1) {

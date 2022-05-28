@@ -70,7 +70,8 @@ def createNewForm(request):
                 request_dict.get('injuryPresentation'),
                 request_dict.get('initialTreatment'),
                 request_dict.get('initialTreatingPerson'),
-                request_dict.get('referralTo')
+                request_dict.get('referralTo'),
+                request_dict.get('date')
             )
         except Exception as e:
             print(e)
@@ -170,6 +171,7 @@ def getFormById(request, form_id):
         # Convert list to dict for responsing
         form_data_res = {
             "targetId": int(form_owner_id),
+            "date": form_data[14],
             "injuredBodyPart": form_data[0],
 
             "injuryOccurrence": form_data[1],

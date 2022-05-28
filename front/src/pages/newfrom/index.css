@@ -24,6 +24,19 @@
 .newform--warning-text {
 	color: var(--red-reder);
 }
+.newform--date-select .adm-form-item-child-inner {
+	line-height: 38px;
+	text-align: center;
+}
+.newform--date-select .adm-form-item-child-inner button {
+	/* float: right; */
+	margin-left: 8px;
+	padding: 4px;
+	width: 80px;
+	background-color: var(--green-sub);
+	color: var(--white-main);
+	font-size: 16px;
+}
 
 
 /* Collapse styling */
