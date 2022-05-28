@@ -110,9 +110,4 @@ URL path for accessing implemented APIs will be list here for checking
 
 # TODO - others
 
-- Injury date writein
-	- API
-	- Frontend submit page
-- Injury date print
-	- API
-	- Frontend submit page
+...
