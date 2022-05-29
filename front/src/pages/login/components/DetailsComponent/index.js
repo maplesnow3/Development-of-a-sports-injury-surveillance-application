@@ -1,16 +1,24 @@
 import React,{useState} from 'react';
 import { useNavigate,useLocation } from 'react-router-dom';
-import {Form,Input,Button,DatePicker,Radio,Space} from 'antd-mobile';
+import {Form,Input,Button,DatePicker,Radio,Space,CheckList,Popup} from 'antd-mobile';
 import RegistryTitle from '../RegistryTitle';
-import dayjs from 'dayjs'
+import dayjs from 'dayjs';
+import country1 from 'country-list-js';
 import './index.scss'
+let countries =[]
+for(let k in country1.all){
+  
+  countries.push(country1.all[k].name)
+}
 const DetailsComponent = ()=>{
   const navigate = useNavigate();
   const location = useLocation();
   const {state} = location;
   const [pickerVisible, setPickerVisible] = useState(false);
   const [othersValue,setOthersValue] = useState('');
-  const [disabled,setDiasbled] = useState(true)
+  const [disabled,setDiasbled] = useState(true);
+  const [visible,setVisible]=useState(false);
+  const [selectCountry,setSelectCountry] = useState('')
   const formArray = [
           {type:'input',name:'surname',label:'Surname',rules:[{required:true,message:'Please Enter your Surname'}],placeholder:'Please Enter your Surname'},
           {type:'input',name:'givenName',label:'Given Name',rules:[{required:true,message:'Please Enter your Given Name'}],placeholder:'Please Enter your Given Name'},
@@ -18,7 +26,7 @@ const DetailsComponent = ()=>{
           {type:'radio',name:'ethicBackground',label:'EthicBackground',rules:[{required:true,message:'Please choose your ethic background'}],placeholder:'Please choose your ethic background'},
           {type:'input',name:'phone',label:'Phone',rules:[{required:true,message:'Please Enter your phone number'}],placeholder:'Please Enter your phone number'},
           {type:'input',name:'address',label:'Address',rules:[{required:true,message:'Please Enter your Address'}],placeholder:'Please Enter your Address'},
-          {type:'input',name:'country',label:'Country',rules:[{required:true,message:'Please Enter your country of Birth'}],placeholder:'Please Enter your country of Birth'},
+          {type:'select',name:'country',label:'Country',placeholder:'Please Select your country of Birth'},
         ]
   return (
     <div className='details-component'>
@@ -26,7 +34,7 @@ const DetailsComponent = ()=>{
         <Form 
           name='form' 
           onFinish={(values)=>{
-            
+            values.country=selectCountry
             if(values.ethicBackground==='other'){
               values.ethicBackground = othersValue;
             }
@@ -74,6 +82,36 @@ const DetailsComponent = ()=>{
                     </Space>
                   </Radio.Group>
               </Form.Item>
+              )
+            }
+            if(item.type==='select'){
+              return (
+                <Form.Item name={item.name} key={item.name} label={<div className={selectCountry?'label-start':''} onClick={()=>{setVisible(true)}}>{item.label} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {selectCountry}</div>} rules={[{required:!selectCountry,message:'Please Select your country of Birth'}]}>
+                   <Popup
+                    visible={visible}
+                    onMaskClick={() => {
+                      setVisible(false)
+                    }}
+                    destroyOnClose
+                  >
+                    <div className='checkListContainer'>
+                      <CheckList
+                        className='myCheckList'
+                        value={selectCountry ? [selectCountry] : []}
+                        onChange={val => {
+                          setVisible(false);
+                          setSelectCountry(val[0])
+                        }}
+                      >
+                        {countries.map(item => (
+                          <CheckList.Item key={item} value={item}>
+                            {item}
+                          </CheckList.Item>
+                        ))}
+                      </CheckList>
+                    </div>
+                  </Popup>
+                </Form.Item>
               )
             }
           })}

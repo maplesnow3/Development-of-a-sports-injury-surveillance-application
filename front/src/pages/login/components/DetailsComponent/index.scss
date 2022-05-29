@@ -18,3 +18,28 @@
         background-color: #fff;
     }
 }
+.searchBarContainer {
+    padding: 12px;
+    border-bottom: solid 1px var(--adm-border-color);
+  }
+  
+  .checkListContainer {
+    height: 300px;
+    overflow-y: scroll;
+  }
+  
+  .myCheckList {
+    --border-top: 0;
+    --border-bottom: 0;
+  }
+
+  .label-start{
+      &::before{
+        content:'*';
+        color: #ff3141;
+        font-family: SimSun, sans-serif;
+        font-size: 15px;
+        position: relative;
+        right: 5px;
+      }
+  }
