@@ -1,24 +1,20 @@
 .injury-history{
-  width: 100%;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: scroll;
-  background-color: #1DB860;
-  padding-bottom: 20px;
-  .wrapper{
-    background-color: #fff;
-    padding: 20px;
-    .injury-history-title{
-      width: 95%;
-      font-size: 16px;
-      text-align: left;
-    }
-    .tip{
-      width: 90%;
-      text-align: right;
-      margin-top: 15px;
-      margin-bottom: 10px;
+  max-width: var(--content-max-width);
+  margin: 0 auto 16px;
+
+  .instruction-text {
+    font-size: 0.85em;
+    color: var(--black-main);
+    font-style: italic;
+    margin-bottom: 12px;
+  }
+
+  .adm-grid .adm-grid-item:nth-child(2) > .adm-list-item > .adm-list-item-content > .adm-list-item-content-main {
+    margin-top: 28px;
+
+    input {
+      width: 80px;
+      font-size: 14px;
     }
   }
-  
 }

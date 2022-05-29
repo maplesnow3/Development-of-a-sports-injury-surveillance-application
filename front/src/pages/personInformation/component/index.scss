@@ -87,9 +87,10 @@
 
   .my-textarea{
     textarea{
-      font-size: 14px;
+      font-size: 13px;
       color: var(--black-main);
       -webkit-text-fill-color: var(--black-main);
+      text-align: center;
     }
   }
 }

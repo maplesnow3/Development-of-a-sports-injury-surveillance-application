@@ -4,7 +4,7 @@ import './index.scss'
 const RadioComponent = ({data,isDisable})=>{
   return(
     <div className='radio-component'>
-    {data.type==='radio' && 
+    {data.type==='radio' &&
       <Form.Item name={data.name} label={data.label} rules={data.rules}>
         <Radio.Group onChange={(e)=>{
           if(data.setDisabled){
@@ -17,13 +17,14 @@ const RadioComponent = ({data,isDisable})=>{
         </Radio.Group>
     </Form.Item>
     }
-    {data.type==='input' && 
+    {data.type==='input' &&
     <div className='input-wrapper'>
       <Form.Item name={data.name} label={data.label} rules={data.rules}>
-      <input
-       type='number' 
-       className='input-style' />
-       </Form.Item>
+        <input
+          type='number'
+          className='input-style'
+        />
+      </Form.Item>
       <span className='unit'>{data.unit}</span>
     </div>
     }

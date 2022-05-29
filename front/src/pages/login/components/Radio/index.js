@@ -16,35 +16,35 @@ const RadioComponent = ({data})=>{
             </Radio.Group>
           </Form.Item>
         </Grid.Item>
-        {data.type==='input' && 
+        {data.type==='input' &&
         <>
           <Grid.Item  span={1}>
             <Form.Item name={data.inputName}
              rules={[
-               { required: isYes,message:'please enter content'}
+               { required: isYes,message:'Required'}
               ]}
              >
               <input
                 disabled={!isYes}
-                className='input-style' /> 
+                className='input-style' />
             </Form.Item>
           </Grid.Item>
-          <Grid.Item style={{margin:'15px 0 0 10px'}} span={1}>{data.unit}</Grid.Item>
+          <Grid.Item span={1}>{data.unit}</Grid.Item>
         </>
       }
-   
-    {data.type==='textarea' && 
+
+    {data.type==='textarea' &&
       <Grid.Item>
-          <Form.Item name={data.inputName} rules={[{ required: isYes,message:'please enter content'}]}>
+          <Form.Item name={data.inputName} rules={[{ required: isYes,message:'Required'}]}>
             <TextArea
               disabled={!isYes}
               className='textarea-type'
-              placeholder='Multiline input'
+              placeholder='Input here...'
             />
           </Form.Item>
       </Grid.Item>}
   </Grid>
-    
+
     </div>
   )
 }

@@ -76,6 +76,7 @@ body {
   font-weight: normal;
 }
 .common--page-title > h1 > .common--page-title-sub:empty { display: none; }
+.common--page-title > h1 > .common--page-title-sub__right { text-align: right; }
 .common--page-title > .page-title--icon-cont svg {
   transform: scale(3);
   color: var(--white-sub);

@@ -35,7 +35,7 @@ const CreateAccount = ()=>{
           }
         }}
         footer={
-          <Button style={{backgroundColor:'#1DB860'}} block type='submit' color='primary' size='large'>
+          <Button block type='submit' color='success' size='large'>
             {type==='coach'?'Submit':'Continue'}
           </Button>
         }>
@@ -44,7 +44,7 @@ const CreateAccount = ()=>{
           label='Email'
           rules={[
             { required: true,message:'please enter your email' },
-            { type: 'string', min: 6,message:'contains at least 6 characters' },
+            // { type: 'string', min: 6,message:'Requires at least 6 characters' },
             { type: 'email',message:'incorrect email format' },
           ]}
         >
@@ -55,17 +55,17 @@ const CreateAccount = ()=>{
           label='Password'
           rules={[
             { required: true,message:'please enter your password' },
-            { min: 6,message:'contains at least 6 characters' },
+            { min: 6,message:'Requires at least 6 characters' },
           ]}
         >
           <Input type='password' placeholder='Please Enter your password' />
         </Form.Item>
         <Form.Item
           name='rePassword'
-          label='RePassword'
+          label='Re-enter Password'
           rules={[
             { required: true,message:'Please Re-enter your password' },
-            { min: 6,message:'contains at least 6 characters' },
+            { min: 6,message:'Requires at least 6 characters' },
           ]}
         >
           <Input type='password' placeholder='Please Re-enter your password' />
