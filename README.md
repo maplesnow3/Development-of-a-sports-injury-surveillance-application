@@ -117,7 +117,7 @@ Currently the backend, Django, is configured for development. Here the steps for
 		CSRF_COOKIE_SAMESITE = 'Lax'
 		```
 
-		since newer versions of major browsers forbid cookies with `SameSite: Lax` when http protocol is used.
+		since newer versions of major browsers forbid cookies with `SameSite: None` when http protocol is used.
 
 3. Change directory into `/back/djangoProject` and run the Django server with command:
 	```bash
