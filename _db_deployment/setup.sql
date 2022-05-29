@@ -72,7 +72,7 @@ CREATE TABLE PerInfo (
 	address VARCHAR(50),
 	email VARCHAR(50),
 	mobile VARCHAR(20),
-	ethicBackground VARCHAR(20),
+	ethicBackground VARCHAR(60),
 	country VARCHAR(4),
 	PRIMARY KEY (perInfoId)
 );
@@ -87,7 +87,7 @@ CREATE TABLE BaseInfo (
 	injuryLocation VARCHAR(300),
 	surgeryName VARCHAR(300),
 	surgeryYear VARCHAR(50),
-	concuHistory VARCHAR(20),
+	concuHistory VARCHAR(50),
 	concuSympDesc VARCHAR(1000),
 	PRIMARY KEY (baseInfoId)
 );
@@ -117,11 +117,11 @@ CREATE TABLE InjForm (
 	actAfterInjury VARCHAR(500),
 	injuryMechanism VARCHAR(400),
 	wearEquipment VARCHAR(200),
-	contributFactor VARCHAR(100),
+	contributFactor VARCHAR(200),
 	provisionalDiag VARCHAR(1000),
 	injuryPresent VARCHAR(200),
 	initTreat VARCHAR(100),
-	initTreatPerson VARCHAR(100),
+	initTreatPerson VARCHAR(200),
 	referralTo VARCHAR(50),
 	PRIMARY KEY (injFormId),
 	FOREIGN KEY (athleteId) REFERENCES Athlete(athleteId)
