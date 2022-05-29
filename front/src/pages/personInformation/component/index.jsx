@@ -18,7 +18,7 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
       const {surname,givenName,birthday,ethicBackground,phone,address,country} = res.personal_info;
       let temp =[
         {key:'Surname',value:surname},
-        {key:'Given name',value:givenName},
+        {key:'Given Name',value:givenName},
         {key:'Ethic Background',value:ethicBackground},
         {key:'Phone Number',value:phone},
         {key:'Address',value:address},
@@ -60,8 +60,8 @@ export const UserIdInviteCode = ({changeAccessCode})=>{
     const res = await getAccessCode(userId);
     if(res.status==='success'){
       const data = [
-        {key:'User id',value:userId},
-        {key:'Access code',value:res.code}
+        {key:'User ID',value:userId},
+        {key:'Access Code',value:res.code}
       ]
       setAccessCode(res.code)
       setData(data)
@@ -80,8 +80,8 @@ export const UserIdInviteCode = ({changeAccessCode})=>{
     <div className='user-id-invite-code'>
        <Form className='info-form' layout='horizontal'>
       {data.map(item=>(<Form.Item style={{fontSize:'14px'}} key={item.key}  label={item.key}>
-        {item.key === 'User id' && <Input value={item.value} disabled />}
-        {item.key === 'Access code' && <Input onChange={(e)=>{changeAccessCode(e);setAccessCode(e);}} value={accessCode} />}
+        {item.key === 'User ID' && <Input value={item.value} disabled />}
+        {item.key === 'Access Code' && <Input onChange={(e)=>{changeAccessCode(e);setAccessCode(e);}} value={accessCode} />}
       </Form.Item>)
       )}
     </Form>
@@ -93,7 +93,7 @@ export const MedicalHistory = ({medicalHistory,medicalHistoryInput,medicineTaken
 const [tableOneData,setTableOneData] = useState([]);
 const [tableTwoData,setTableTwoData] = useState([])
 const dataInit = ()=>{
-  const strArr = ['Asthma','Type 1 Diabetes','Type 2 Diabetes','Epilepsy','HighBlood','HeartConditions','Allergies'];
+  const strArr = ['Asthma','Type 1 Diabetes','Type 2 Diabetes','Epilepsy','High Blood','Heart Conditions','Allergies'];
   const textArr = ['Medications','Vitamins and/or Supplements','Other']
   let data = [];
   let tableTData = []
@@ -127,7 +127,7 @@ const dataInit = ()=>{
       </table>
       <table className='table'>
         <thead>
-          <td className='first'>Are you taking any of the following? If yes, please list</td>
+          <td className='first'>Are you taking any of the following?</td>
           <td className='second'>Yes/No</td>
           <td className='third'>Detail</td>
         </thead>
@@ -168,7 +168,7 @@ export const InjuryHistory = ({injuryHistory,injuryHistoryInput,surgery})=>{
       </table>
       <table className='table'>
         <thead>
-          <td >surgery(s) or reconstruction(s)</td>
+          <td >Surgery(s) and/or reconstruction(s)</td>
         </thead>
           <tr className='table-td' >
             <td ><TextArea className='my-textarea' disabled value={surgery} /></td>
@@ -181,12 +181,12 @@ export const InjuryHistory = ({injuryHistory,injuryHistoryInput,surgery})=>{
 
 export const ConcussionHistory = ({concussionQuestions})=>{
   const questions = [
-    {text:'Where diagnosed with a CONCUSSION in the past 12 months ?',unit:''},
-    {text:'If Yes,these questions will pop up Was the concussion sport related',unit:''},
+    {text:'Where diagnosed with a CONCUSSION in the past 12 months?',unit:''},
+    {text:'If Yes, was the concussion sport related?',unit:''},
     {text:'How many concussions did you suffer in the past 12 months?',unit:'time(s)'},
-    {text:'After the concussions did you see a doctor or go to hospital ?',unit:''},
-    {text:'How long did it take from you to recover from your concussion ?',unit:'week(s)'},
-    {text:'Did you experience any serious symptoms after the concussion ?',unit:''},
+    {text:'After the concussions did you see a doctor or go to hospital?',unit:''},
+    {text:'How long did it take from you to recover from your concussion?',unit:'week(s)'},
+    {text:'Did you experience any serious symptoms after the concussion?',unit:''},
 ]
 let data = []
 questions.map((item,index)=>{

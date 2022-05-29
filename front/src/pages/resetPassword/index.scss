@@ -1,16 +1,19 @@
-.change-password,.change-success{
-  .title-card{
-    padding: 30px;
-    text-align: center;
-    background-color: #1DB860;
-    color: #fff;
-    .adm-card-header-title{
-      width: 100%;
-      font-size: 28px;
+.reset-pw--cont {
+  max-width: var(--content-max-width);
+  margin: 0 auto 16px;
+
+    .reset-pw--new-pw-input.adm-input-disabled {
+      color: var(--black-main);
+      opacity: 1;
+
+      .adm-input-element {
+        font-weight: bold;
+      }
     }
-  }
-  .wrapper{
-    margin-top: 20vh;
-    text-align: center;
-  }
+
+    .reset-pw--new-pw-prompt {
+      margin-top: 12px;
+      color: var(--red-reder);
+      font-style: italic;
+    }
 }

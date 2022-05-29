@@ -1,16 +1,4 @@
-.change-password,.change-success{
-  .title-card{
-    padding: 30px;
-    text-align: center;
-    background-color: #1DB860;
-    color: #fff;
-    .adm-card-header-title{
-      width: 100%;
-      font-size: 28px;
-    }
-  }
-  .wrapper{
-    margin-top: 20vh;
-    text-align: center;
-  }
+.change-pw--cont {
+  max-width: var(--content-max-width);
+  margin: 0 auto 16px;
 }

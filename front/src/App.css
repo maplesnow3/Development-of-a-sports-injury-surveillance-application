@@ -12,7 +12,7 @@ body {
 :root {
   --green-main: #1db860;
   --green-sub: #43c47b;
-  --green-dark: #0d9146;
+  --green-dark: #12a150;
   --green-darker: #1d7543;
   --green-light: #a9e7b4;
   /* --green-lighter: #cef1d5; */
@@ -63,11 +63,17 @@ body {
   font-size: 24px;
   color: var(--white-main);
 }
+.common--page-title.common--page-title__large > h1 {
+  font-weight: bold;
+}
 .common--page-title > h1 > .common--page-title-sub {
   margin: 0;
   padding: 0;
   font-size: 14px;
   color: var(--white-sub);
+}
+.common--page-title.common--page-title__large > h1 > .common--page-title-sub {
+  font-weight: normal;
 }
 .common--page-title > h1 > .common--page-title-sub:empty { display: none; }
 .common--page-title > .page-title--icon-cont svg {
@@ -92,6 +98,8 @@ body {
 }
 .common--page-main.common--page-main__large-title {
   margin-top: var(--common--page-title--height__large);
+  height: calc( 100% - var(--common--page-title--height__large) - var(--common--nav-bar--height));
+
 }
 
 
@@ -120,7 +128,7 @@ input[type=number] {
 /* Button color global */
 .ant-btn.ant-btn-primary,
 .adm-button.adm-button-success {
-  background-color: var(--green-sub);
+  background-color: var(--green-dark);
   color: var(--white-main);
   border: none;
 }

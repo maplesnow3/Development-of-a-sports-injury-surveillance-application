@@ -261,10 +261,15 @@ def getFormDatesByUserId(request, viewed_user_id_in):
         })
 
     dates = database.viewAllDate(viewed_user_id)
-    if dates == None or dates == "Fail":
+    if dates == "Fail":
         return Response({
             "status": "failure",
             "message": "Cannot find date list"
+        })
+    elif dates == None:
+        return Response({
+            "status": "success",
+            "report_date_list": dates
         })
     else:
         return Response({
@@ -317,10 +322,15 @@ def getFormDatesByUserIdInRange(request, viewed_user_id_in, start_date, end_date
         })
 
     dates = database.viewRangeDate(viewed_user_id, start_date, end_date)
-    if dates == None or dates == "Fail":
+    if dates == "Fail":
         return Response({
             "status": "failure",
             "message": "Cannot find date list"
+        })
+    elif dates == None:
+        return Response({
+            "status": "success",
+            "report_date_list": dates
         })
     else:
         return Response({

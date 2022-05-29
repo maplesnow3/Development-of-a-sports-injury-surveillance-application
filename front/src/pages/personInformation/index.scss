@@ -1,34 +1,75 @@
-.person-information{
-  width: 100vw;
-  height: 100vh;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-color: #1DB860;
-  .create-account{
-    width: 100%;
-    // text-align: center;
-    background-color: #fff;
-    padding-top: 10px;
+.person-info--cont {
+  max-width: var(--content-max-width);
+  margin: 0 auto 16px;
+
+  .person-info--instruction-text {
+    font-size: 0.85em;
+    color: var(--black-sub);
+    font-style: italic;
+    margin-bottom: 12px;
   }
-}
-.continue-btn{
-  background-color: #fff;
-  padding: 15px 0;
-  text-align: center;
-  span{
-    display: inline-block;
-    width: 60%;
-    height: 40px;
-    background-color: #1DB860;
-    color: #fff;
-    text-align: center;
-    line-height: 40px;
-    font-size: 16px;
-    border: 1px solid #3A62D7;
+
+  .adm-input {
+    padding-left: 4px;
   }
+  .adm-input.adm-input-disabled {
+    opacity: 0.8;
+  }
+  .adm-input:not(.adm-input-disabled) {
+    background-color: var(--gray-main);
+  }
+  .adm-list-item:not(.adm-list-item-disabled) .adm-list-item-content-arrow {
+    color: var(--black-main);
+  }
+
+  .info-form{
+    .adm-list-item-content-prefix{
+      flex:120
+    }
+    .adm-input-element {
+      font-size: 14px;
+    }
+    .adm-list-body {
+        border: none;
+    }
+  }
+
+  // .create-account{
+  //   width: 100%;
+  //   // text-align: center;
+  //   background-color: #fff;
+  //   padding-top: 10px;
+  // }
+
+  // .continue-btn{
+  //   background-color: #fff;
+  //   padding: 15px 0;
+  //   text-align: center;
+  //   span{
+  //     display: inline-block;
+  //     width: 60%;
+  //     height: 40px;
+  //     background-color: #1DB860;
+  //     color: #fff;
+  //     text-align: center;
+  //     line-height: 40px;
+  //     font-size: 16px;
+  //     border: 1px solid #3A62D7;
+  //   }
+  // }
+  // .person-information{
+  //   width: 100vw;
+  //   height: 100vh;
+  //   overflow-x: hidden;
+  //   overflow-y: auto;
+  //   background-color: #1DB860;
+
+  // }
+
+
+  // .content{
+  //   background-color: #1DB860;
+  //   padding-bottom: 30px;
+  // }
 }
 
-.content{
-  background-color: #1DB860;
-  padding-bottom: 30px;
-}

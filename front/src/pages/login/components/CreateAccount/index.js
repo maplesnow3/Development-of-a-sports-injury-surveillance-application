@@ -7,7 +7,7 @@ const CreateAccount = ()=>{
   const location = useLocation();
   const {type} = location.state||{type:null};
   return (<div className='create-account'>
-      <Form 
+      <Form
         onFinish={async (values)=>{
           const {email,password,rePassword} = values;
           if(type==='coach'){
@@ -17,7 +17,7 @@ const CreateAccount = ()=>{
               password,
               usertype: type,
             })
-            
+
               Toast.show({
                 icon: res.status==='success'?"success":'fail',
                 content: res.status==='success'?'registry successfully!':res.message,
@@ -28,7 +28,7 @@ const CreateAccount = ()=>{
           if(password !== rePassword){
             Toast.show({
               icon: 'fail',
-              content: 'The entered passwords are inconsistent！',
+              content: 'The entered passwords are inconsistent!',
             })
           }else{
             navigate('/registry/detail',{state:{email,password}})
