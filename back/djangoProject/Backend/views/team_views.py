@@ -176,10 +176,15 @@ def getAllTeams(request):
         except Exception as e:
             print(e)
         finally:
-            if result == "Fail" or result == None:
+            if result == "Fail":
                 return Response({
                     "status": "failure",
                     "message": "Cannot find team list"
+                })
+            elif result == None:
+                return Response({
+                    "status": "success",
+                    "team_list": []
                 })
             else:
                 return Response({
