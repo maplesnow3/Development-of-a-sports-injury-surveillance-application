@@ -13,7 +13,8 @@ const reloadPage = () => {
 
 				let backTarget = urlSearch.get("to");
 				if (backTarget) {
-					window.location.hash = "#" + backTarget;
+					// window.location.hash = "#" + backTarget;
+					window.location.replace(window.location.href.replace(/#.*$/, "") + "#" + backTarget);
 					return `Jumping to ${backTarget}`
 				} else {
 					return "Invalid reload param 'to'";
