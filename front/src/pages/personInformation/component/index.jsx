@@ -181,7 +181,7 @@ export const InjuryHistory = ({injuryHistory,injuryHistoryInput,surgery})=>{
 
 export const ConcussionHistory = ({concussionQuestions})=>{
   const questions = [
-    {text:'Where diagnosed with a CONCUSSION in the past 12 months?',unit:''},
+    {text:'Were diagnosed with a CONCUSSION in the past 12 months?',unit:''},
     {text:'If Yes, was the concussion sport related?',unit:''},
     {text:'How many concussions did you suffer in the past 12 months?',unit:'time(s)'},
     {text:'After the concussions did you see a doctor or go to hospital?',unit:''},
