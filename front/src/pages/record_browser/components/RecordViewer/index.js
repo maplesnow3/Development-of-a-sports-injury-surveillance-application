@@ -479,7 +479,7 @@ const RecordViewer = () => {
 			key: 'name',
 			render: (text) => {
 				if (text.startsWith("__") && text.endsWith("__")) {
-					return (<b>{text.replace(/^__/, "").replace(/__$/, "")}</b>);
+					return (<b><i>{text.replace(/^__/, "").replace(/__$/, "")}</i></b>);
 				} else {
 					return text;
 				}
