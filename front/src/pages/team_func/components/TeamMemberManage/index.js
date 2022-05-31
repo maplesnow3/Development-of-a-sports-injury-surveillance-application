@@ -246,7 +246,7 @@ const TeamMemberManage = () => {
 					setshownOverlayMemberRecord(memberOverlayPhRecord);
 				}}
 				visible={memberOverlayVisible}
-				height={320}
+				height={380}
 			>
 				<Button block size="middle" onClick={() => {
 					// Jump to add new report for the user
@@ -260,7 +260,12 @@ const TeamMemberManage = () => {
 					hideMemberOverlay();
 					setshownOverlayMemberRecord(memberOverlayPhRecord);
 				}}>View historical report(s)</Button>
-
+				<Button block size="middle" onClick={() => {
+					// Jump to report calendar
+					window.location.hash = `#/person-information-coach?user_id=${shownOverlayMemberRecord.user_id}&name=${encodeURIComponent(shownOverlayMemberRecord.name)}`;
+					hideMemberOverlay();
+					setshownOverlayMemberRecord(memberOverlayPhRecord);
+				}}>View baseline information</Button>
 				<hr />
 
 				<Button block danger onClick={() => {

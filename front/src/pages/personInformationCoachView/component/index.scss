@@ -1,0 +1,96 @@
+.person-info-coach--cont {
+  .medical_history,
+  .injury_history {
+    width: 100%;
+    .table {
+      width: 100%;
+      color: var(--black-main);
+    }
+    .table tr{
+      &:last-child{
+        border: none;
+      }
+    }
+    thead{
+      display: block;
+      width: 100%;
+      background-color: var(--green-light);
+      color: var(--black-main);
+      padding: 10px;
+      font-weight: 600;
+      td {
+        display: inline-block;
+      }
+      .first{
+        width: 35%;
+      }
+      .second{
+        width: 30%;
+        text-align: center;
+      }
+      .third{
+        width: 30%;
+        text-align: center;
+      }
+    }
+    .table-td{
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border-bottom: 1px solid var(--green-light);
+      td{
+        display: inline-block;
+      }
+      .first{
+        display: inline-block;
+        width: 35%;
+      }
+      .second{
+        display: inline-block;
+        width: 30%;
+        text-align: center;
+        text-transform: capitalize;
+      }
+      .third{
+        display: inline-block;
+        width: 30%;
+        text-align: center;
+      }
+    }
+  }
+
+  .concussion_history {
+    color: var(--black-main);
+
+    .table tr {
+      &:last-child{
+        border: none;
+      }
+    }
+    .table-td{
+      display: block;
+      width: 100%;
+      padding: 10px;
+      border-bottom: 1px solid var(--green-light);
+      .first{
+        display: inline-block;
+        width: 70%
+      }
+      .second{
+        display: inline-block;
+        width: 30%;
+        text-align: center;
+        text-transform: capitalize;
+      }
+    }
+  }
+
+  .my-textarea{
+    textarea{
+      font-size: 13px;
+      color: var(--black-main);
+      -webkit-text-fill-color: var(--black-main);
+      text-align: center;
+    }
+  }
+}

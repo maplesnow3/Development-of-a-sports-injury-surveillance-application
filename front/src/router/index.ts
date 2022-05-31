@@ -21,6 +21,7 @@ import TeamMemberManage from '../pages/team_func/components/TeamMemberManage';
 import ChangePassword from '../pages/changePassword';
 import ChangeSuccess from '../pages/changePassword/changeSuccess'
 import PersonInformation from '../pages/personInformation';
+import PersonInformationCoachView from '../pages/personInformationCoachView';
 
 import AdminRecordBrowser from '../pages/admin_record_browser';
 import ReloadPage from '../pages/reload_page';
@@ -49,6 +50,7 @@ const router:any = [
   {path:'/change-password',name:'ChangePassword',element:ChangePassword},
   {path:'/change-password-success',name:'ChangePasswordSuccess',element:ChangeSuccess},
   {path:'/person-information',name:'PersonInformation',element:PersonInformation},
+  {path:'/person-information-coach',name:'PersonInformationCoachView',element:PersonInformationCoachView},
   {path:'/admin-login',name:'AdminLogin',element:AdminLogin},
   {path:'/reset-password',name:'ResetPassword',element:ResetPassword},
 
