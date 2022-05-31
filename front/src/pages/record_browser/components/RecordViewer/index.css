@@ -14,3 +14,8 @@
 .record-viewer--details-section .ant-table-thead {
   display: none;
 }
+
+.record-viewer--details-section .ant-table-cell {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
