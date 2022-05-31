@@ -57,6 +57,13 @@ const useRecordList = () => {
 				});
 				keyCurrent++;
 			}
+			result.sort((a, b) => {
+				return (
+					a.date < b.date ? -1 :
+					a.date > b.date ? 1 :
+					0
+				)
+			})
 			setRecordList(result);
 		}
 
