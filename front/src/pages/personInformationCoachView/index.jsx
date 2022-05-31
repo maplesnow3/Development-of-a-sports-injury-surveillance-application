@@ -90,7 +90,10 @@ const PersonInformation = ()=>{
             Tip: Tap the title below to see details
           </p>
           <Collapse accordion>
-              <Collapse.Panel key='1' title='Medical History'>
+              <Collapse.Panel key='1' title='Personal Details'>
+                <PersonInfo />
+              </Collapse.Panel>
+              <Collapse.Panel key='2' title='Medical History'>
               <MedicalHistory
                 medicalHistory={medicalHistory}
                 medicalHistoryInput={medicalHistoryInput}
@@ -98,13 +101,13 @@ const PersonInformation = ()=>{
                 medicineTakenInput={medicineTakenInput}
                 />
               </Collapse.Panel>
-              <Collapse.Panel key='2' title='Injury History'>
+              <Collapse.Panel key='3' title='Injury History'>
               <InjuryHistory
                 injuryHistory={injuryHistory}
                 injuryHistoryInput={injuryHistoryInput}
                 surgery={surgery} />
               </Collapse.Panel>
-              <Collapse.Panel key='3' title='Concussion History'>
+              <Collapse.Panel key='4' title='Concussion History'>
               <ConcussionHistory concussionQuestions={concussionQuestions} />
               </Collapse.Panel>
             </Collapse>

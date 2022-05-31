@@ -10,7 +10,19 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
   const [phone,setPhone] = useState();
   const [address,setAddress] = useState();
   const [data,setData] = useState([])
-  const userId = Cookies.get('user_id') || "";
+  const userId = (() => {
+    let checkedUserId =
+      (new URL("http://localhost" + window.location.hash.slice(1)).
+        searchParams.get("user_id")) ||
+      "";
+
+    if (!checkedUserId) {
+      alert("Missing user id");
+      return "-1";
+    } else {
+      return checkedUserId
+    }
+  })();
 
   const getPersonInfoFun = async()=>{
     let res = await getPersonInfo(userId)
@@ -42,8 +54,8 @@ export const PersonInformation = ({phoneChange,addressChange})=>{
   return (
     <Form className='info-form' layout='horizontal'>
       {data.map(item=>(<Form.Item style={{fontSize:'14px'}} key={item.key}  label={item.key}>
-        {item.key==='Phone Number'&&<Input maxLength={11} onChange={(e)=>{phoneChange(e);addressChange(address);setPhone(e);}} value={phone} />}
-        {item.key==='Address'&&<Input onChange={(e)=>{addressChange(e);phoneChange(phone);setAddress(e)}} value={address} />}
+        {item.key==='Phone Number'&&<Input maxLength={11} value={phone} disabled/>}
+        {item.key==='Address'&&<Input value={address} disabled/>}
         {(item.key!=='Phone Number' && item.key!=='Address') && <Input value={item.value} disabled />}
       </Form.Item>)
       )}
