@@ -54,7 +54,8 @@ const ResetPassword = ()=>{
               <Input type='email' placeholder='Enter an email address here...' />
             </Form.Item>
             {newPassword && <Form.Item label='New Random Password:'>
-              <Input className="reset-pw--new-pw-input" value={newPassword} disabled />
+              {/* <Input className="reset-pw--new-pw-input" value={newPassword} disabled /> */}
+              <p className="reset-pw--new-pw-input">{newPassword}</p>
               <p className="reset-pw--new-pw-prompt">Please let the user change it as soon as possible!</p>
             </Form.Item>}
           </Form>

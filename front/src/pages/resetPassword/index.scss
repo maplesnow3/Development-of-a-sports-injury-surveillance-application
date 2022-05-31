@@ -2,13 +2,17 @@
   max-width: var(--content-max-width);
   margin: 0 auto 16px;
 
-    .reset-pw--new-pw-input.adm-input-disabled {
-      color: var(--black-main);
-      opacity: 1;
+    // For adm input element
+    // .reset-pw--new-pw-input.adm-input-disabled {
+    //   color: var(--black-main);
+    //   opacity: 1;
 
-      .adm-input-element {
-        font-weight: bold;
-      }
+    //   .adm-input-element {
+    //     font-weight: bold;
+    //   }
+    // }
+    .reset-pw--new-pw-input {
+      font-weight: bold;
     }
 
     .reset-pw--new-pw-prompt {
