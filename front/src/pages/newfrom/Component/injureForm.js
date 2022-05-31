@@ -141,7 +141,7 @@ const InjureForm = () => {
                   ] || [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
                   formData["physicalActivity"] = Y_N_1 || false;
                   formData["mentalActivity"] = Y_N_2 || false;
-                  formData["percentOfFeel"] = range || 0;
+                  formData["percentOfFeel"] = range || 100;
                   formData["why"] = rangeReason || "";
                }
                console.log(formData)
