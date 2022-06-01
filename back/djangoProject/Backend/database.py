@@ -966,8 +966,11 @@ def key(pkey, table):
             %(pkey, table)
         )
         row = curs.fetchone()
-        max = int(row[0])
-        next = max + 1
+        if row is None:
+            next = 1
+        else:
+            max = int(row[0])
+            next = max + 1
 
         curs.close()
     except mariadb.Error as e:
