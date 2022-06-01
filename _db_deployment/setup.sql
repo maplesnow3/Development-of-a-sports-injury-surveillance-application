@@ -26,7 +26,8 @@ FLUSH PRIVILEGES;
 
 
 -- CREATE TABLES
---   For simplification, some columns use varchar for storing data collections
+--   For simplification and flexibility, some columns use varchar for
+--   storing data collections
 
 
 -- Drop statements used during testing:
@@ -46,13 +47,13 @@ CREATE TABLE User (
 	account VARCHAR(50) NOT NULL UNIQUE,
 	password VARCHAR(80) NOT NULL,
 	type VARCHAR(20),
-	CONSTRAINT Chk_userType CHECK(type IN ('superadmin', 'admin', 'player', 'coach')),
+	CONSTRAINT Chk_userType CHECK(type IN ('admin', 'player', 'coach')),
 	PRIMARY KEY (userId)
 );
 
 CREATE TABLE Team (
 	teamId INT UNSIGNED AUTO_INCREMENT,
-	teamName VARCHAR(20) NOT NULL,
+	teamName VARCHAR(40) NOT NULL,
 	PRIMARY KEY (teamId)
 );
 
@@ -69,7 +70,7 @@ CREATE TABLE PerInfo (
 	surname VARCHAR(20),
 	givenName VARCHAR(20),
 	dateOfBirth DATE,
-	address VARCHAR(50),
+	address VARCHAR(100),
 	email VARCHAR(50),
 	mobile VARCHAR(20),
 	ethicBackground VARCHAR(60),
@@ -80,12 +81,12 @@ CREATE TABLE PerInfo (
 CREATE TABLE BaseInfo (
 	baseInfoId INT UNSIGNED AUTO_INCREMENT,
 	baseInfoTime DATETIME NOT NULL,
-	sufferFrom VARCHAR(300),
-	sufferLength VARCHAR(300),
-	medicineTaken VARCHAR(300),
-	injuryName VARCHAR(300),
-	injuryLocation VARCHAR(300),
-	surgeryName VARCHAR(300),
+	sufferFrom VARCHAR(40),
+	sufferLength VARCHAR(40),
+	medicineTaken VARCHAR(600),
+	injuryName VARCHAR(50),
+	injuryLocation VARCHAR(400),
+	surgeryName VARCHAR(400),
 	surgeryYear VARCHAR(50),
 	concuHistory VARCHAR(50),
 	concuSympDesc VARCHAR(1000),
@@ -110,19 +111,19 @@ CREATE TABLE InjForm (
 	injFormId INT UNSIGNED AUTO_INCREMENT,
 	injFormTime DATETIME NOT NULL,
 	athleteId INT UNSIGNED NOT NULL,
-	bodyPart VARCHAR(300),
-	occurDuring VARCHAR(300),
+	bodyPart VARCHAR(600),
+	occurDuring VARCHAR(100),
 	injuryType VARCHAR(500),
-	removalWay VARCHAR(200),
-	actAfterInjury VARCHAR(500),
-	injuryMechanism VARCHAR(400),
-	wearEquipment VARCHAR(200),
-	contributFactor VARCHAR(200),
+	removalWay VARCHAR(20),
+	actAfterInjury VARCHAR(50),
+	injuryMechanism VARCHAR(600),
+	wearEquipment VARCHAR(150),
+	contributFactor VARCHAR(100),
 	provisionalDiag VARCHAR(1000),
-	injuryPresent VARCHAR(200),
-	initTreat VARCHAR(100),
-	initTreatPerson VARCHAR(200),
-	referralTo VARCHAR(50),
+	injuryPresent VARCHAR(30),
+	initTreat VARCHAR(250),
+	initTreatPerson VARCHAR(400),
+	referralTo VARCHAR(200),
 	PRIMARY KEY (injFormId),
 	FOREIGN KEY (athleteId) REFERENCES Athlete(athleteId)
 );
@@ -130,8 +131,8 @@ CREATE TABLE InjForm (
 CREATE TABLE ConcuForm (
 	concuFormId INT UNSIGNED AUTO_INCREMENT,
 	injFormId INT UNSIGNED UNIQUE,
-	concuFeature VARCHAR(50),
-	sympRating VARCHAR(100),
+	concuFeature VARCHAR(30),
+	sympRating VARCHAR(60),
 	sympWorseQ VARCHAR(20),
 	feelNormal TINYINT UNSIGNED,
 	feelNormalWhy VARCHAR(1000),
